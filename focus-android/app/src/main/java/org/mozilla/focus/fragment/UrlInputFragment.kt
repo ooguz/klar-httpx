@@ -42,6 +42,7 @@ import org.mozilla.focus.ext.defaultSearchEngineName
 import org.mozilla.focus.ext.hasSearchTerms
 import org.mozilla.focus.ext.requireComponents
 import org.mozilla.focus.ext.settings
+import org.mozilla.focus.httpx.HttpxExtension
 import org.mozilla.focus.input.InputToolbarIntegration
 import org.mozilla.focus.menu.home.HomeMenu
 import org.mozilla.focus.menu.home.HomeMenuItem
@@ -299,7 +300,7 @@ class UrlInputFragment :
             binding.browserToolbar.url = if (tab.content.hasSearchTerms) {
                 tab.content.searchTerms
             } else {
-                tab.content.url
+                HttpxExtension.toDisplayUrl(tab.content.url)
             }
 
             binding.searchViewContainer.isVisible = false

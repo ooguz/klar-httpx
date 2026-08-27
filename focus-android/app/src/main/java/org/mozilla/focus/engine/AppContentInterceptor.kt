@@ -15,6 +15,7 @@ import org.mozilla.focus.R
 import org.mozilla.focus.activity.CrashListActivity
 import org.mozilla.focus.browser.LocalizedContent
 import org.mozilla.focus.ext.components
+import org.mozilla.focus.httpx.HttpxExtension
 import org.mozilla.focus.utils.SupportUtils
 
 class AppContentInterceptor(
@@ -30,6 +31,10 @@ class AppContentInterceptor(
         isDirectNavigation: Boolean,
         isSubframeRequest: Boolean,
     ): RequestInterceptor.InterceptionResponse? {
+        if (!isSubframeRequest) {
+            HttpxExtension.intercept(uri)?.let { return it }
+        }
+
         return when (uri) {
             LocalizedContent.URL_ABOUT -> RequestInterceptor.InterceptionResponse.Content(
                 LocalizedContent.loadAbout(context),

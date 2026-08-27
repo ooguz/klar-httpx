@@ -48,6 +48,7 @@ import org.mozilla.focus.ext.isTablet
 import org.mozilla.focus.ext.requireComponents
 import org.mozilla.focus.ext.settings
 import org.mozilla.focus.fragment.BrowserFragment
+import org.mozilla.focus.httpx.HttpxExtension
 import org.mozilla.focus.menu.browser.CustomTabMenu
 import org.mozilla.focus.nimbus.FocusNimbus
 import org.mozilla.focus.state.AppAction
@@ -130,6 +131,8 @@ class BrowserToolbarIntegration(
             addTrackingProtectionIndicator()
 
             displayIndicatorSeparator = false
+
+            urlFormatter = { url -> HttpxExtension.toDisplayUrl(url) }
 
             setOnSiteSecurityClickedListener {
                 TrackingProtection.toolbarShieldClicked.add()

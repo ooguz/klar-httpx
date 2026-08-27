@@ -66,6 +66,7 @@ import org.mozilla.focus.engine.SanityCheckMiddleware
 import org.mozilla.focus.experiments.createNimbus
 import org.mozilla.focus.ext.components
 import org.mozilla.focus.ext.settings
+import org.mozilla.focus.httpx.HttpxExtension
 import org.mozilla.focus.media.MediaSessionService
 import org.mozilla.focus.search.SearchFilterMiddleware
 import org.mozilla.focus.search.SearchMigration
@@ -136,6 +137,7 @@ class Components(
             this@Components.settings.setupSafeBrowsing(this)
             WebCompatFeature.install(this)
             WebCompatReporterFeature.install(this, "focus-geckoview")
+            HttpxExtension.install(this)
         }
     }
 

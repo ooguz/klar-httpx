@@ -38,7 +38,16 @@ ext {
     // minute.
     def time = new SimpleDateFormat("HHmm").format(today)
 
-    generatedVersionCode = (base + year + day + time) as int
+    def code = (base + year + day + time) as long
+
+    // The yDDDHHmm scheme outgrew 32 bits in 2026, when the year field reached
+    // two digits. This fork does not distribute store builds; dropping the
+    // minutes keeps the value a valid Android versionCode.
+    if (code > Integer.MAX_VALUE) {
+        code = (base + year + day + new SimpleDateFormat("HH").format(today)) as long
+    }
+
+    generatedVersionCode = code as int
 
     println("Generated versionCode: $generatedVersionCode")
     println()
