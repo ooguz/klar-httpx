@@ -8,6 +8,10 @@
 # <a download> fallback is used instead). Only the built page and its assets
 # are copied.
 #
+# IMPORTANT: after refreshing, bump "version" in the manifest.json here —
+# GeckoView's ensureBuiltIn is a no-op when the installed id+version match,
+# so without a bump devices keep running the previously installed files.
+#
 # Usage: tools/update-httpx-extension.sh [path-to-xmpp-httpx-repo]
 set -euo pipefail
 

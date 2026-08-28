@@ -19,8 +19,10 @@ Gecko never learns the httpx scheme. Instead:
    `moz-extension://<uuid>/` base URL.
 3. `AppContentInterceptor` rewrites any top-level `httpx://` or `ext+httpx://`
    navigation — typed, linked, or from a VIEW intent — to
-   `moz-extension://<uuid>/browser.html#<httpx-url>`. Subframe requests are
-   deliberately not rewritten (web content must not embed the privileged page).
+   `moz-extension://<uuid>/browser.html?embedded=1#<httpx-url>`. Subframe
+   requests are deliberately not rewritten (web content must not embed the
+   privileged page). The `?embedded=1` flag makes the extension hide its own
+   tab strip and URL bar, so the app's toolbar is the only chrome.
 4. The toolbar shows the httpx URL, not the internal moz-extension URL
    (`DisplayToolbar.urlFormatter` in `BrowserToolbarIntegration`, plus the
    edit-mode seed in `UrlInputFragment`).
@@ -116,9 +118,15 @@ or flip `network.websocket.allowInsecureFromHTTPS` via a GeckoView
   them in `storage.local`, which is profile-backed and survives "erase"
   (Focus's erase only closes private tabs). Wiping means reinstalling or
   clearing app data — or a future settings hook.
-- **The app's own back button vs. the extension's history**: the extension page
-  manages tabs/history internally; Focus sees one page. Its in-page back/forward
-  buttons work; the system back gesture leaves the page.
+- **Back navigation**: in embedded mode the extension's own back/forward
+  buttons, tab strip and history drawer are hidden, and the page mirrors
+  navigation with `history.replaceState` — so Gecko's session history holds a
+  single entry and the system back gesture triggers Focus's erase-and-leave
+  behavior instead of walking httpx pages. Upstream would need to push (not
+  replace) history entries in embedded mode for the app's back to work.
+- **Updating the bundled extension**: GeckoView's `ensureBuiltIn` is a no-op
+  while the id+version match what is installed — every asset refresh must bump
+  `version` in the bundled manifest.json or devices keep the old files.
 - **"Block JavaScript" in Focus settings kills the extension page too** (the
   setting is engine-global).
 - Startup pref for smoke tests: first-run UI is skipped by writing

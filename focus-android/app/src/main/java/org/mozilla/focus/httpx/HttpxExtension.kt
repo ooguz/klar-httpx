@@ -26,7 +26,9 @@ object HttpxExtension {
 
     const val EXTENSION_ID = "httpx-browser@xmpp-httpx.example"
     const val EXTENSION_URL = "resource://android/assets/extensions/httpx/"
-    private const val PAGE = "browser.html"
+    // ?embedded=1 hides the extension page's own tab strip and URL bar — the
+    // app's toolbar is the chrome (see the webext's embedded.ts).
+    private const val PAGE = "browser.html?embedded=1"
 
     /** moz-extension://<uuid>/ once the built-in install has completed. */
     @Volatile
