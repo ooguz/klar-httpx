@@ -118,12 +118,12 @@ or flip `network.websocket.allowInsecureFromHTTPS` via a GeckoView
   them in `storage.local`, which is profile-backed and survives "erase"
   (Focus's erase only closes private tabs). Wiping means reinstalling or
   clearing app data — or a future settings hook.
-- **Back navigation**: in embedded mode the extension's own back/forward
-  buttons, tab strip and history drawer are hidden, and the page mirrors
-  navigation with `history.replaceState` — so Gecko's session history holds a
-  single entry and the system back gesture triggers Focus's erase-and-leave
-  behavior instead of walking httpx pages. Upstream would need to push (not
-  replace) history entries in embedded mode for the app's back to work.
+- **Back navigation works**: in embedded mode the page *pushes* a session
+  history entry per page-to-page navigation (upstream webext ≥ the 2026-08-28
+  build), so the system back gesture and the toolbar's back walk httpx pages.
+  On the first page the session history holds a single entry — the boot entry
+  is upgraded in place — so back there still triggers Focus's erase-and-leave,
+  as a normal page would.
 - **Updating the bundled extension**: GeckoView's `ensureBuiltIn` is a no-op
   while the id+version match what is installed — every asset refresh must bump
   `version` in the bundled manifest.json or devices keep the old files.
