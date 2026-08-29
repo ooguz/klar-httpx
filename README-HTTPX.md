@@ -124,6 +124,11 @@ or flip `network.websocket.allowInsecureFromHTTPS` via a GeckoView
   On the first page the session history holds a single entry — the boot entry
   is upgraded in place — so back there still triggers Focus's erase-and-leave,
   as a normal page would.
+- **Loading feedback**: the extension draws a thin byte-progress bar at the
+  top of the page area while a body transfers over XMPP (extension ≥ 0.2.3) —
+  deliberately outside its own (hidden) chrome, since Klar's toolbar has no
+  window onto the page's transfers. Determinate when the response carries a
+  usable Content-Length, a sliding shimmer otherwise.
 - **Updating the bundled extension**: GeckoView's `ensureBuiltIn` is a no-op
   while the id+version match what is installed — every asset refresh must bump
   `version` in the bundled manifest.json or devices keep the old files.

@@ -10,8 +10,8 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%231a56db'/%3E%3Ctext x='8' y='12.5' font-family='monospace' font-size='12' fill='white' text-anchor='middle'%3Ex%3C/text%3E%3C/svg%3E"
     />
-    <script type="module" crossorigin src="./assets/browser-CX89HN3v.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/browser-CRUDSviV.css">
+    <script type="module" crossorigin src="./assets/browser-QiFSoKQa.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/browser-oV6XCCNF.css">
   </head>
   <body>
     <!-- Tab labels are page titles; the strip is built with textContent in JS. -->
@@ -39,10 +39,16 @@
       <button id="drawerBtn" title="History and bookmarks" aria-label="History" aria-expanded="false">
         ☰
       </button>
+      <span id="progressBytes" class="chip" hidden></span>
       <span id="cacheState" class="chip" hidden></span>
       <span id="status" class="chip" data-state="disconnected" title="XMPP connection">offline</span>
       <button id="settingsBtn" title="Connection settings" aria-label="Settings">⚙</button>
     </header>
+
+    <!-- Byte progress of the active tab's load. Outside #chrome on purpose:
+         embedded mode hides the chrome, and the host app has no window onto
+         this page's transfers — the bar is the one loading signal it gets. -->
+    <progress id="loadProgress" hidden></progress>
 
     <dialog id="settings">
       <form method="dialog" id="settingsForm">
