@@ -1,0 +1,194 @@
+# Berrak CI — build the httpx-speaking Focus fork.
+#
+# Every push/PR builds klarDebug as a smoke check. A v* tag (or a manual
+# dispatch with a versionName) builds klarRelease, signed when the two
+# signing secrets are configured:
+#   BERRAK_KEYSTORE_B64       base64 of the release .jks
+#   BERRAK_KEYSTORE_PASSWORD  store+key password (key alias is "berrak")
+# Without them the release job still runs but uploads unsigned APKs.
+#
+# Two quirks of this archived tree, documented in README-HTTPX.md:
+#  - the nimbus-fml CLI download is pruned upstream; we pre-seed the plugin
+#    cache from app-services 125.0 on archive.mozilla.org (same code)
+#  - GLEAN_PYTHON must point at a real python3 or the Glean plugin
+#    bootstraps its own Miniconda (and races under parallel builds)
+
+name: berrak
+
+on:
+  push:
+    branches: [httpx]
+    tags: ["v*"]
+  pull_request:
+    branches: [httpx]
+  workflow_dispatch:
+    inputs:
+      versionName:
+        description: "versionName for a release build (e.g. 0.1.0)"
+        required: false
+
+concurrency:
+  # event_name is part of the key so a manual release dispatch does not
+  # cancel (or get cancelled by) an in-flight push build on the same ref.
+  group: berrak-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+env:
+  GLEAN_PYTHON: /usr/bin/python3
+  NIMBUS_FML_VERSION: "125.20240317050356"
+
+defaults:
+  run:
+    working-directory: focus-android
+
+jobs:
+  debug:
+    # Not on tags, and not on a manual release dispatch — that one only
+    # wants the release job.
+    if: "!startsWith(github.ref, 'refs/tags/') && github.event_name != 'workflow_dispatch'"
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v3
+
+      - name: Seed the pruned nimbus-fml binary
+        uses: actions/cache@v4
+        id: nimbus-fml
+        with:
+          path: focus-android/build/bin/nimbus/125.20240317050356
+          key: nimbus-fml-125.20240317050356
+
+      - name: Download nimbus-fml from archive.mozilla.org
+        if: steps.nimbus-fml.outputs.cache-hit != 'true'
+        run: |
+          curl -sSfL -o /tmp/nimbus-fml.zip \
+            "https://archive.mozilla.org/pub/app-services/releases/125.0/nimbus-fml.zip"
+          unzip -o /tmp/nimbus-fml.zip -d /tmp/nimbus-fml \
+            "x86_64-unknown-linux-musl/release/nimbus-fml"
+          mkdir -p "build/bin/nimbus/${NIMBUS_FML_VERSION}"
+          install -m 0755 \
+            /tmp/nimbus-fml/x86_64-unknown-linux-musl/release/nimbus-fml \
+            "build/bin/nimbus/${NIMBUS_FML_VERSION}/nimbus-fml"
+
+      - name: Build klarDebug
+        run: ./gradlew :app:assembleKlarDebug
+
+      - name: Upload debug APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: berrak-debug-apks
+          path: focus-android/app/build/outputs/apk/klar/debug/*.apk
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.versionName != '')
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write # attach APKs to the GitHub release on tags
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v3
+
+      - name: Seed the pruned nimbus-fml binary
+        uses: actions/cache@v4
+        id: nimbus-fml
+        with:
+          path: focus-android/build/bin/nimbus/125.20240317050356
+          key: nimbus-fml-125.20240317050356
+
+      - name: Download nimbus-fml from archive.mozilla.org
+        if: steps.nimbus-fml.outputs.cache-hit != 'true'
+        run: |
+          curl -sSfL -o /tmp/nimbus-fml.zip \
+            "https://archive.mozilla.org/pub/app-services/releases/125.0/nimbus-fml.zip"
+          unzip -o /tmp/nimbus-fml.zip -d /tmp/nimbus-fml \
+            "x86_64-unknown-linux-musl/release/nimbus-fml"
+          mkdir -p "build/bin/nimbus/${NIMBUS_FML_VERSION}"
+          install -m 0755 \
+            /tmp/nimbus-fml/x86_64-unknown-linux-musl/release/nimbus-fml \
+            "build/bin/nimbus/${NIMBUS_FML_VERSION}/nimbus-fml"
+
+      - name: Resolve versionName
+        id: version
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            echo "name=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+          elif [[ -n "${{ inputs.versionName }}" ]]; then
+            echo "name=${{ inputs.versionName }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "A release build needs a versionName (tag v<x.y.z> or the dispatch input)" >&2
+            exit 1
+          fi
+
+      - name: Require signing secrets on tag releases
+        if: startsWith(github.ref, 'refs/tags/v') && secrets.BERRAK_KEYSTORE_B64 == ''
+        run: |
+          echo "A v* tag release must be signed: set the BERRAK_KEYSTORE_B64" \
+               "and BERRAK_KEYSTORE_PASSWORD secrets (a missing/misspelled" \
+               "secret reads as empty). Refusing to publish unsigned APKs." >&2
+          exit 1
+
+      - name: Materialize the signing keystore
+        if: ${{ secrets.BERRAK_KEYSTORE_B64 != '' }}
+        env:
+          KEYSTORE_B64: ${{ secrets.BERRAK_KEYSTORE_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.BERRAK_KEYSTORE_PASSWORD }}
+        run: |
+          printf '%s' "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/berrak.jks"
+          {
+            echo "storeFile=$RUNNER_TEMP/berrak.jks"
+            echo "storePassword=$KEYSTORE_PASSWORD"
+            echo "keyAlias=berrak"
+            echo "keyPassword=$KEYSTORE_PASSWORD"
+          } > "$RUNNER_TEMP/berrak-keystore.properties"
+          echo "BERRAK_KEYSTORE_PROPERTIES=$RUNNER_TEMP/berrak-keystore.properties" >> "$GITHUB_ENV"
+
+      - name: Build klarRelease
+        run: ./gradlew -PversionName=${{ steps.version.outputs.name }} :app:assembleKlarRelease
+
+      - name: Verify the APKs are signed
+        if: env.BERRAK_KEYSTORE_PROPERTIES != ''
+        run: |
+          # pipefail, or apksigner's failure exit is swallowed by head's 0
+          # and this gate can never fail.
+          set -o pipefail
+          APKSIGNER="$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)"
+          for apk in app/build/outputs/apk/klar/release/*.apk; do
+            "$APKSIGNER" verify --print-certs "$apk" | head -3
+          done
+
+      - name: Upload release APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: berrak-release-apks
+          path: focus-android/app/build/outputs/apk/klar/release/*.apk
+          if-no-files-found: error
+
+      - name: Attach APKs to the GitHub release
+        # Signed builds only — publishing unsigned (uninstallable) APKs to a
+        # public release would just hide a secrets misconfiguration.
+        if: startsWith(github.ref, 'refs/tags/v') && env.BERRAK_KEYSTORE_PROPERTIES != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          # Create only when absent; upload with --clobber so a re-run of a
+          # partially failed release converges instead of erroring.
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 ||
+            gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --generate-notes
+          gh release upload "$TAG" --repo "$GITHUB_REPOSITORY" --clobber \
+            app/build/outputs/apk/klar/release/*.apk
