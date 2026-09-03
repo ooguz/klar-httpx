@@ -42,9 +42,12 @@ ext {
 
     // The yDDDHHmm scheme outgrew 32 bits in 2026, when the year field reached
     // two digits. This fork does not distribute store builds; dropping the
-    // minutes keeps the value a valid Android versionCode.
+    // minutes keeps the value a valid Android versionCode. The trailing 0
+    // absorbs app/build.gradle's force-even (+1) and per-ABI (+0/+2/+4/+6)
+    // offsets — without it an odd hour rounds up into the next even hour and
+    // two builds one hour apart collide on the same versionCode.
     if (code > Integer.MAX_VALUE) {
-        code = (base + year + day + new SimpleDateFormat("HH").format(today)) as long
+        code = ((base + year + day + new SimpleDateFormat("HH").format(today)) as long) * 10
     }
 
     generatedVersionCode = code as int

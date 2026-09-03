@@ -53,6 +53,27 @@ android {
     // We have a three dimensional build configuration:
     // BUILD TYPE (debug, release) X PRODUCT FLAVOR (focus, klar)
 
+    // Berrak release signing: point BERRAK_KEYSTORE_PROPERTIES at a Java
+    // properties file holding storeFile/storePassword/keyAlias/keyPassword
+    // (CI materializes it from secrets; locally it lives outside the repo).
+    // Absent or unreadable, release builds stay unsigned, as upstream.
+    def berrakSigningProps = new Properties()
+    def berrakSigningPath = System.getenv("BERRAK_KEYSTORE_PROPERTIES")
+    if (berrakSigningPath != null && file(berrakSigningPath).exists()) {
+        file(berrakSigningPath).withInputStream { berrakSigningProps.load(it) }
+    }
+
+    signingConfigs {
+        if (!berrakSigningProps.isEmpty()) {
+            berrak {
+                storeFile file(berrakSigningProps.getProperty("storeFile"))
+                storePassword berrakSigningProps.getProperty("storePassword")
+                keyAlias berrakSigningProps.getProperty("keyAlias")
+                keyPassword berrakSigningProps.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
             // We allow disabling optimization by passing `-PdisableOptimization` to gradle. This is used
@@ -66,6 +87,12 @@ android {
             if (gradle.hasProperty("localProperties.autosignReleaseWithDebugKey")) {
                 println ("All builds will be automatically signed with the debug key")
                 signingConfig signingConfigs.debug
+            }
+
+            def berrakSigning = signingConfigs.findByName("berrak")
+            if (berrakSigning != null) {
+                println ("Release builds will be signed with the Berrak keystore")
+                signingConfig berrakSigning
             }
 
             if (gradle.hasProperty("localProperties.debuggable")) {
@@ -123,7 +150,12 @@ android {
         klar {
             dimension "product"
 
-            applicationIdSuffix ".klar.httpx"
+            // Berrak: our own application id — a flavor-level applicationId
+            // replaces defaultConfig's "org.mozilla" entirely (buildType
+            // suffixes such as ".debug" still append). Mozilla trademarks
+            // ("Firefox", "Klar", the fox-flame art) are removed from this
+            // flavor's user-visible surface; see README-HTTPX.md §Branding.
+            applicationId "dev.ooguz.berrak"
 
             // This is used when the user selects text in other third-party apps. See https://github.com/mozilla-mobile/focus-android/issues/6478
             manifestPlaceholders = [textSelectionSearchAction: "@string/text_selection_search_action_klar"]
