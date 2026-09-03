@@ -152,12 +152,12 @@ or flip `network.websocket.allowInsecureFromHTTPS` via a GeckoView
   `version` in the bundled manifest.json or devices keep the old files.
 - **"Block JavaScript" in Focus settings kills the extension page too** (the
   setting is engine-global).
-- **Inline `<img>` over httpx shows its alt text on GeckoView** (observed with
-  extension 0.2.3 on API 34, identical in debug and release builds, so not an
-  R8/rebrand artifact): the extension fetches the image — the gateway logs the
-  GET — but the blob URL does not render inside the sandboxed iframe. CSS
-  `url()` backgrounds and favicons are unaffected in desktop Chromium's smoke;
-  this is a GeckoView-path issue to chase in the xmpp-httpx repo.
+- ~~Inline `<img>` over httpx shows its alt text on GeckoView~~ — **solved**
+  (2026-09-03): not a GeckoView or extension issue at all. The demo site's
+  1×1 logo PNG shipped with a corrupt IDAT CRC; Chromium's lenient decoder
+  forgave it while Gecko refused it ("Image corrupt or truncated"). Fixed in
+  the xmpp-httpx repo (valid fixture + the smoke test now asserts the image
+  actually decodes). Nothing to change on this side.
 - Startup pref for smoke tests: first-run UI is skipped by writing
   `firstrun_shown=false` (inverted semantics) into the app's default shared
   prefs, or by tapping through once.
