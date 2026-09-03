@@ -25,19 +25,26 @@ import java.net.URLEncoder
 import java.util.Locale
 
 object SupportUtils {
-    const val HELP_URL = "https://support.mozilla.org/kb/what-firefox-focus-android"
+    // Berrak: help/privacy/about links point at this fork's own pages —
+    // Mozilla's SUMO articles and privacy notices describe Firefox Focus/Klar,
+    // not this app, and a fork must not present Mozilla's privacy policy as
+    // its own. (SumoTopic deep links below still reference Mozilla's public
+    // articles about the underlying, unchanged Focus features.)
+    const val BERRAK_REPO_URL = "https://github.com/ooguz/klar-httpx"
+
+    // Explicit blob path: the repo's #readme fragment renders the untouched
+    // upstream "Firefox for Android" README, not this fork's docs.
+    const val BERRAK_DOCS_URL = "$BERRAK_REPO_URL/blob/httpx/README-HTTPX.md"
+    const val HELP_URL = BERRAK_DOCS_URL
     const val FOCUS_PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
     const val RATE_APP_URL = "market://details?id=" + BuildConfig.APPLICATION_ID
-    const val DEFAULT_BROWSER_URL = "https://support.mozilla.org/kb/set-firefox-focus-default-browser-android"
-    const val PRIVACY_NOTICE_URL = "https://www.mozilla.org/privacy/firefox-focus/"
-    const val PRIVACY_NOTICE_KLAR_URL = "https://www.mozilla.org/de/privacy/firefox-klar/"
+    const val DEFAULT_BROWSER_URL = BERRAK_DOCS_URL
+    const val PRIVACY_NOTICE_URL = "$BERRAK_REPO_URL/blob/httpx/PRIVACY.md"
+    const val PRIVACY_NOTICE_KLAR_URL = "$BERRAK_REPO_URL/blob/httpx/PRIVACY.md"
 
     const val OPEN_WITH_DEFAULT_BROWSER_URL = "https://www.mozilla.org/openGeneralSettings" // Fake URL
     val manifestoURL: String
-        get() {
-            val langTag = Locales.getLanguageTag(Locale.getDefault())
-            return "https://www.mozilla.org/$langTag/about/manifesto/"
-        }
+        get() = BERRAK_DOCS_URL
 
     enum class SumoTopic(
         /** The final path segment for a SUMO URL - see {@see #getSumoURLForTopic}  */

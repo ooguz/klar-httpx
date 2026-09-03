@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import mozilla.components.service.glean.private.NoExtras
+import org.mozilla.focus.BuildConfig
 import org.mozilla.focus.GleanMetrics.CrashReporter
 import org.mozilla.focus.R
 import org.mozilla.focus.databinding.FragmentCrashReporterBinding
@@ -21,6 +22,15 @@ class CrashReporterFragment : Fragment(R.layout.fragment_crash_reporter) {
         val binding = FragmentCrashReporterBinding.bind(view)
         binding.background.background =
             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error_session_crashed)
+
+        // Berrak: with no crash submit service compiled in (no Sentry token —
+        // Socorro is removed from this fork), "send crash report" would send
+        // nothing. Offering a dead consent checkbox misdescribes the app's
+        // data behavior, so hide it and never claim a report was sent.
+        if (BuildConfig.SENTRY_TOKEN.isEmpty()) {
+            binding.sendCrashCheckbox.isChecked = false
+            binding.sendCrashCheckbox.visibility = View.GONE
+        }
 
         CrashReporter.displayed.record(NoExtras())
 

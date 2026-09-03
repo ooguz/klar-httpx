@@ -80,6 +80,12 @@ class GleanMetricsService(context: Context) : MetricsService {
          */
         @JvmStatic
         fun isTelemetryEnabled(context: Context): Boolean {
+            // Berrak: telemetry upload is hard-disabled for this fork — the
+            // Glean endpoint is Mozilla's, and a fork must not upload there.
+            // (klar builds defaulted to off, but the old settings toggle
+            // could turn it on; the toggle is removed and this is the belt.)
+            if (AppConstants.isKlarBuild) { return false }
+
             if (isDeviceWithTelemetryDisabled()) { return false }
 
             // The first access to shared preferences will require a disk read.

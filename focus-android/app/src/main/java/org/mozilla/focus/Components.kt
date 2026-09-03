@@ -48,7 +48,6 @@ import mozilla.components.lib.crash.CrashReporter
 import mozilla.components.lib.crash.sentry.SentryService
 import mozilla.components.lib.crash.service.CrashReporterService
 import mozilla.components.lib.crash.service.GleanCrashReporterService
-import mozilla.components.lib.crash.service.MozillaSocorroService
 import mozilla.components.lib.publicsuffixlist.PublicSuffixList
 import mozilla.components.service.location.LocationService
 import mozilla.components.service.location.MozillaLocationService
@@ -265,15 +264,12 @@ private fun createCrashReporter(context: Context, notificationsDelegate: Notific
         services.add(sentryService)
     }
 
-    val socorroService = MozillaSocorroService(
-        context,
-        appName = "Focus",
-        version = org.mozilla.geckoview.BuildConfig.MOZ_APP_VERSION,
-        buildId = org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID,
-        vendor = org.mozilla.geckoview.BuildConfig.MOZ_APP_VENDOR,
-        releaseChannel = org.mozilla.geckoview.BuildConfig.MOZ_UPDATE_CHANNEL,
-    )
-    services.add(socorroService)
+    // Berrak: upstream unconditionally added MozillaSocorroService here, which
+    // offered every crash to Mozilla's Socorro under the "Focus" app name.
+    // A fork must not feed Mozilla's crash pipeline — removed. Sentry above
+    // stays token-gated (no token, no service). The Glean telemetry service
+    // below only records locally: upload is hard-disabled in
+    // GleanMetricsService for this fork.
 
     val intent = Intent(context, MainActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -299,7 +295,13 @@ private fun createCrashReporter(context: Context, notificationsDelegate: Notific
         promptConfiguration = CrashReporter.PromptConfiguration(
             appName = context.resources.getString(R.string.app_name),
         ),
-        shouldPrompt = CrashReporter.Prompt.ALWAYS,
+        // With no submit services the "send report?" prompt would send
+        // nothing — only prompt when a real service (Sentry) is configured.
+        shouldPrompt = if (services.isEmpty()) {
+            CrashReporter.Prompt.NEVER
+        } else {
+            CrashReporter.Prompt.ALWAYS
+        },
         enabled = true,
         nonFatalCrashIntent = pendingIntent,
         notificationsDelegate = notificationsDelegate,
