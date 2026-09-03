@@ -121,10 +121,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">ค้นหาใน Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">ค้นหาใน Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">ค้นหาใน Focus Beta</string>
@@ -133,24 +129,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">ค้นหาใน Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s ให้คุณควบคุมได้ทุกอย่าง</p>
-<p>ใช้เป็นเบราว์เซอร์ส่วนตัว:
-  <ul>
-    <li>ค้นหาและเรียกดูได้จากในแอปโดยตรง</li>
-    <li>ปิดกั้นตัวติดตาม (หรืออัปเดตการตั้งค่าเพื่ออนุญาตตัวติดตาม)</li>
-    <li>ล้างเพื่อลบคุกกี้รวมทั้งประวัติการค้นหาและการเรียกดู</li>
-  </ul>
-</p>
-<p>%1$s ถูกสร้างขึ้นโดย Mozilla ภารกิจของเราคือส่งเสริมอินเทอร์เน็ตที่สมบูรณ์และเปิดกว้าง<br/>
-<a href="%2$s">เรียนรู้เพิ่มเติม</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">ความเป็นส่วนตัวและความปลอดภัย</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">การติดตาม, คุกกี้, ทางเลือกข้อมูล</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -339,14 +321,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">ทำให้ %1$s เป็นเบราว์เซอร์เริ่มต้น</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">ส่งข้อมูลการใช้งาน</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">เรียนรู้เพิ่มเติม</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla มุ่งมั่นที่จะเก็บรวบรวมเฉพาะสิ่งที่เราจำเป็นต้องให้บริการและปรับปรุง %1$s สำหรับทุกคน</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">ประกาศความเป็นส่วนตัว</string>
@@ -610,9 +589,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">ดาวน์โหลด Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s เป็นซอฟต์แวร์เสรีและเปิดต้นฉบับที่สร้างขึ้นโดย Mozilla และผู้มีส่วนร่วมอื่น ๆ]]></string>
 
 
 
@@ -622,10 +598,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s ให้คุณใช้ภายใต้เงื่อนไขของ <a href="%2$s">Mozilla Public License</a> และสัญญาอนุญาตการเปิดต้นฉบับอื่น ๆ]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[คุณไม่ได้รับสิทธิหรือสัญญาอนุญาตใด ๆ ในเครื่องหมายการค้าของมูลนิธิ Mozilla หรือบุคคลใด ๆ รวมทั้งชื่อหรือโลโก้ Mozilla, Firefox หรือ %1$s ข้อมูลเพิ่มเติมอาจพบได้ <a href="%2$s">ที่นี่</a>]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -826,8 +798,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">การศึกษา</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox อาจติดตั้งและเรียกใช้การศึกษาเป็นครั้งคราว</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">เรียนรู้เพิ่ม</string>
@@ -966,8 +936,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">ส่งรายงานข้อขัดข้องไปยัง Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

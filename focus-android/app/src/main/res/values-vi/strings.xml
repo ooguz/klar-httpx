@@ -125,10 +125,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Tìm kiếm trong Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Tìm kiếm trong Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Tìm kiếm trong Focus Beta</string>
@@ -137,24 +133,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Tìm kiếm trong Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s giúp bạn kiểm soát mọi thứ.</p>
-<p>Sử dụng nó như một trình duyệt riêng tư:
-  <ul>
-    <li>Tìm kiếm và duyệt ngay trong ứng dụng</li>
-    <li>Chặn các trình theo dõi (hoặc cập nhật cài đặt để cho phép các trình theo dõi)</li>
-    <li>Xóa cookie cũng như lịch sử tìm kiếm và duyệt web khi xong phiên làm việc</li>
-  </ul>
-</p>
-<p>%1$s được sáng lập bởi Mozilla. Nhiệm vụ của chúng tôi là thúc đẩy một Internet lành mạnh, cởi mở.<br/>
-<a href="%2$s">Tìm hiểu thêm</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Quyền riêng tư &amp; bảo mật</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Theo dõi, cookie, lựa chọn dữ liệu</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -343,14 +325,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Đặt %1$s làm trình duyệt mặc định</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Gửi dữ liệu sử dụng</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Tìm hiểu thêm</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla chỉ thu thập những gì chúng tôi cần cung cấp và cải tiến %1$s cho tất cả mọi người.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Chính sách riêng tư</string>
@@ -613,9 +592,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Tải Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s là phần mềm miễn phí và mã nguồn mở do Mozilla và các cộng tác viên khác cung cấp.]]></string>
 
 
 
@@ -625,10 +601,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s được cung cấp cho bạn theo các điều khoản của <a href="%2$s">Giấy phép Công cộng Mozilla</a> và các giấy phép mã nguồn mở khác.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Bạn không được cấp bất kỳ quyền hoặc giấy phép nào đối với nhãn hiệu của Tổ chức Mozilla hoặc bất kỳ bên nào, bao gồm tên hoặc logo của Mozilla, Firefox hoặc %1$s. Thông tin bổ sung có thể được tìm thấy <a href="%2$s">tại đây</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -829,8 +801,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Nghiên cứu</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox có thể cài đặt và chạy các nghiên cứu theo thời gian.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Tìm hiểu thêm</string>
@@ -969,8 +939,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Gửi báo cáo lỗi đến Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

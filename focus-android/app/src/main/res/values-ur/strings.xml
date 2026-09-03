@@ -119,24 +119,10 @@
     <string name="shortcut_erase_and_open_long_label">مٹائیں اور %1$s کھولیں</string>
 
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s آپ کو کنٹرول دیتی ہے </p>
-<p> اسکو نجی برائوزر کی طرح استعمال کریں:
-  <ul> 
-    <li> اپلی کیشن میں ہی تلاش اور براؤز کریں </li>
-    <li>ٹریکررٰ کو بلاک کریں (یا سٹینگوں کی تازہ کاری کر کے ٹریکررٰ کو اجازت دیں)۔ </li>
-    <li> کوکیز کے ساتھ تلاش اور براؤزنگ سابقات کو بھی حذف کرنے کیلیے مٹائیں </li>
-  </ul>
-</p>
-<p>%1$s کی پیداوار ہے۔ ھماری مہم ایک صحت مند کھلے انٹرنیٹ کو فروعٰ دینا ہے۔ Mozilla<br/>
-<a href="%2$s"> مزید جانیے </a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">رازداری اور سلامتی</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">سراغ راہ، کوکیاں، کوائف پسند</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -300,14 +286,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s و طےشدہ براؤزر بنائیں</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">استعمال شدہ کوائف ارسال کریں</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">مزید سیکھیں</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla صرف اس کو جمع کرنے کی کوشش کرتا ہے جو ہمیں ہر کسی کے لئے %1$s فراہم کرنے اور بہتر بنانے کی ضرورت ہے۔</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">رازداری کا نوٹس</string>
@@ -740,8 +723,6 @@
     <!-- Label for button to close the tab-->
     <string name="tab_crash_report_close_tab_button_label">ٹیب بند کر دیں</string>
 
-    <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">تباہی کی رپورٹ Mozilla کو ارسال کریں</string>
 
     <!-- Tracking protection bottom sheet -->
 

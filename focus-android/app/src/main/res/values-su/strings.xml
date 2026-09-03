@@ -121,10 +121,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Paluruh di Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Paluruh di Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Paluruh di Focus Beta</string>
@@ -133,24 +129,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Paluruh di Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s méré anjeun kadali.</p>
-<p>Paké pikeun panyungsi nyamuni:
-  <ul>
-    <li>Maluruh jeung nyungsi langsung dina aplikasina</li>
-    <li>Meungpeuk palacak (atawa apdét setélan pikeun nyatujuan palacak)</li>
-    <li>Mupus pikeun ngaleungitkeun réréméh pon kitu ogé jujutan pamaluruhan jeung panyungsian</li>
-  </ul>
-</p>
-<p>%1$s dijieun ku Mozilla. Misi kami pikeun ngamumulé Internét nembrak anu séhat.<br/>
-<a href="%2$s">Lenyepan</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Salindungan &amp; Kaamanan</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Palacakan, réréméh, pilihan data</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -338,14 +320,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Jadikeun %1$s panyungsi baku</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Kirim data pamakéan</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Lenyepan</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla bakal kukumpul data nu diperlukeun hungkul jang nyadiakeun jeung ngoméan %1$s pikeun balaréa.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Iber Privasi</string>
@@ -606,9 +585,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Undeur Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s téh aplikasi bébas sarta sumber nembrak nu dijieun ku Mozilla jeung kontributor séjénna.]]></string>
 
 
 
@@ -618,10 +594,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s disanggakeun dina katangtuan <a href="%2$s">Lisénsi Publik Mozilla</a> jeung lisénsi sumber nembrak lianna.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Anjeun teu dibéré idin atawa lisénsi nanaon kana mérek dagang Mozilla Foundation atawa pihak mana ogé, kaasup ngaran atawa logo Mozilla, Firefox, atawa %1$s. Embaran leuwih lengkep bisa dibaca <a href="%2$s">di dieu</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -822,8 +794,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Studi</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox bisa masang jeung ngajalankeun studi iraha baé.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Lenyepan</string>
@@ -962,8 +932,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Kirim laporan nu ruksak ka Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

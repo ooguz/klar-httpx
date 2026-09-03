@@ -108,10 +108,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Focusda izlew</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Klarda izlew</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Focus Betada izlew</string>
@@ -264,7 +260,6 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$stı tiykarǵi brauzer retinde ornatıw</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
 
     <string name="preference_mozilla_telemetry2">Paydalanıw haqqındaǵı maǵlıwmatlardı jiberiw</string>
 
@@ -630,8 +625,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Izertlewler</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox waqtı-waqtı menen izleniwlerdi ornatıwı hám júrgiziwi múmkin.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Tolıǵıraq úyreniw</string>
@@ -713,8 +706,6 @@
     <!-- Label for button to close the tab-->
     <string name="tab_crash_report_close_tab_button_label">Betti jabıw</string>
 
-    <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Nasazlıq esabatın Mozillaǵa jiberiw</string>
 
     <!-- Tracking protection bottom sheet -->
 

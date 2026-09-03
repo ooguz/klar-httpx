@@ -34,7 +34,6 @@
   <string name="text_selection_search_action">ব্যক্তিগতভাবে অনুসন্ধান</string>
 
   <string name="preference_privacy_and_security_header">গোপনীয়তা ও নিরাপত্তা</string>
-  <string name="preference_privacy_and_security_summary">ট্র্যাকিং, কুকিজ, লগইন, ডাটা পছন্দ</string>
   <string name="preference_search_summary">ডিফল্ট সেট করুন, অটোকমপ্লিট</string>
   <string name="preference_mozilla_summary">%1$s সম্বন্ধে, সাহায্য</string>
   <string name="preference_category_tracking_protection">ট্র্যাকিং সুরক্ষা</string>
@@ -101,10 +100,8 @@
   <string name="preference_performance_block_javascript">JavaScript ব্লক কর</string>
   <string name="preference_performance_block_javascript_summary">পাতা সম্ভবত দ্রুত লোড হচ্ছে, কিন্তু অনাকাঙ্খিত ভাল দেখাচ্ছে না</string>
   <string name="preference_default_browser2">%1$s কে ডিফল্ট ব্রাউজার করুন</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">ব্যবহারের তথ্য পাঠাও</string>
   <string name="preference_mozilla_telemetry_summary">আরও জানুন</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla কেবলমাত্র সংগ্রহ করা চেষ্টা করে যা প্রত্যেকের জন্য %1$s প্রদান এবং উন্নতি করতে হবে।</string>
   <string name="preference_privacy_notice">গোপনীয়তা নীতি</string>
   <string name="preference_about">%1$s সম্পর্কে</string>
   <string name="preference_search_installed_search_engines">ইন্সটল করা অনুসন্ধান ইঞ্জিন</string>
@@ -195,7 +192,6 @@
   <string name="notification_browsing_session_channel_description">নোাটফিকেশন ট্যাপ করে আপনার %1$s সেশন মুছে ফেলা যাবে। আপনাকে অ্যাপ্লিকেশন খুলতে বা ব্রাউজারে কি চলছে তা দেখার প্রয়োজন হবে না।</string>
   <string name="tabs_tray_action_erase">ব্রাউজিং ইতিহাস পরিষ্কার করুন</string>
   <string name="download_firefox">Firefox ডাউনলোড করুন</string>
-  <string name="your_rights_content1">%1$s হল Mozilla এবং অন্যান্য অবদানকারীর দ্বারা তৈরি ফ্রি এবং ওপেনসোর্স সফটওয়্যার।</string>
 
 
 
@@ -262,5 +258,4 @@
 
 
 
-  <string name="crash_report_send_crash_label">Mozilla কে ক্র্যাশ রিপোর্ট পাঠান</string>
 </resources>

@@ -34,7 +34,6 @@
   <string name="text_selection_search_action">Məxfi Axtar</string>
 
   <string name="preference_privacy_and_security_header">Məxfilik və Təhlükəsizlik</string>
-  <string name="preference_privacy_and_security_summary">İzlənmə, çərəzlər, məlumat seçimləri</string>
   <string name="preference_search_summary">Əsas olaraq qur, avto tamamlama</string>
   <string name="preference_mozilla_summary">%1$s haqqında, kömək</string>
   <string name="preference_category_tracking_protection">İzlənmə Qoruması</string>
@@ -101,10 +100,8 @@
   <string name="preference_performance_block_javascript">JavaScript-i əngəllə</string>
   <string name="preference_performance_block_javascript_summary">Səhifələr daha sürətli yüklənə bilər, ancaq səhv işləyə bilərlər</string>
   <string name="preference_default_browser2">%1$s səyyahını əsas et</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">İstifadə məlumatlarını göndər</string>
   <string name="preference_mozilla_telemetry_summary">Ətraflı öyrən</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla ancaq %1$s səyyahını hamı üçün yaxşılaşdırmağa lazım olan məlumatları yığır.</string>
   <string name="preference_privacy_notice">Məxfilik Bildirişi</string>
   <string name="preference_about">%1$s Haqqında</string>
   <string name="preference_search_installed_search_engines">Quraşdırılmış axtarış mühərrikləri</string>
@@ -195,7 +192,6 @@
   <string name="notification_browsing_session_channel_description">Bildirişlər tək toxunuşla %1$s sessiyanınızı pozmağa imkan verəcək. Tətbiqi açmağa və ya səyyahınızda nəyin işlədiyinə baxmağa ehtiyyacınız yoxdur.</string>
   <string name="tabs_tray_action_erase">Səyahət keçmişini poz</string>
   <string name="download_firefox">Firefox Endir</string>
-  <string name="your_rights_content1">%1$s Mozilla və digər töhfəverənlər tərəfindən yaradılmış azad və açıq qaynaqlı proqramdır.</string>
 
 
 
@@ -262,5 +258,4 @@
 
 
 
-  <string name="crash_report_send_crash_label">Çökmə hesabatını Mozillaya göndər</string>
 </resources>

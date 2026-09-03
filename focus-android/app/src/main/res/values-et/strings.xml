@@ -124,24 +124,10 @@
          Clicking this action will launch Focus and perform a search in the default search engine. -->
     <string name="text_selection_search_action">Otsi privaatselt</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s annab kontrolli sulle.</p>
-<p>Kasuta seda kui privaatset brauserit:
-  <ul>
-    <li>Otsi ja lehitse otse äpis</li>
-    <li>Bloki jälitajaid (või muuda sätteid, et mõni jälitaja lubada)</li>
-    <li>Kustuta küpsised ja ka lehitsemise ajalugu</li>
-  </ul>
-</p>
-<p>%1$s on Mozilla poolt toodetud. Meie missiooniks on edendada tervet ja avatud internetti.<br/>
-<a href="%2$s">Rohkem teavet</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Privaatsus ja turvalisus</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Jälitamine, küpsised, andmete valikud</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -334,14 +320,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s määratakse vaikebrauseriks</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Saadetakse kasutusandmeid</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Rohkem teavet</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla püüab koguda ainult seda, mida vajame, et teha %1$s kõigi jaoks paremaks.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Privaatsusreeglid</string>
@@ -568,19 +551,12 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Laadi alla Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s on Mozilla ja teiste kaasautorite poolt loodud vaba ja avatud tarkvara.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s on kättesaadavaks tehtud <a href="%2$s">Mozilla avaliku litsentsi</a> ja muude avatud lähtekoodi litsentside tingimuste alusel.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Sulle ei anta mingeid õigusi ega litsentse Mozilla Foundationi ega ühegi osapoole kaubamärkidele, sealhulgas Mozilla, Firefoxi või %1$se nimedele või logodele. <a href="%2$s">Lisateave</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -711,8 +687,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Uuringud</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox võib aegajalt paigaldada ja käivitada uuringuid.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Rohkem teavet</string>
@@ -887,8 +861,6 @@ The new line here must be kept as the second half of the string is clickable for
     <!-- Label for button to close the tab-->
     <string name="tab_crash_report_close_tab_button_label">Sulge kaart</string>
 
-    <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Mozillale saadetakse vearaport</string>
 
     <!-- Tracking protection bottom sheet -->
 

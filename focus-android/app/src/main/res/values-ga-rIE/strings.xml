@@ -28,7 +28,6 @@
   <string name="text_selection_search_action">Cuardach Príobháideach</string>
 
   <string name="preference_privacy_and_security_header">Príobháideachas agus Slándáil</string>
-  <string name="preference_privacy_and_security_summary">Lorgaireacht, fianáin, roghanna sonraí</string>
   <string name="preference_search_summary">Réamhshocrú, uathchríochnú</string>
   <string name="preference_mozilla_summary">Maidir le %1$s, cabhair</string>
   <string name="preference_category_tracking_protection">Cosaint ar Lorgaireacht</string>
@@ -71,7 +70,6 @@
   <string name="preference_performance_block_webfonts">Cuir cosc ar chlónna Gréasáin</string>
   <string name="preference_performance_block_webfonts_summary">D\'fhéadfadh go mbeadh deilbhíní nó íomhánna ar iarraidh</string>
   <string name="preference_performance_block_javascript">Cuir cosc ar JavaScript</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">Seol sonraí úsáide chugainn</string>
   <string name="preference_mozilla_telemetry_summary">Tuilleadh eolais</string>
   <string name="preference_privacy_notice">Fógra Príobháideachais</string>

@@ -96,8 +96,6 @@
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Imantatäña ukatx jark\'atäña</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Thaqhata, kukinaka, ukatx utjir ajllinaka</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -224,7 +222,6 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s justupach thaqhiri</string>
 
-    <string name="preference_category_mozilla">Musilla</string>
     <string name="preference_mozilla_telemetry2">Apnaqat imatanak apayaña</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
@@ -423,9 +420,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Firefox apaqaña</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA["%1$s Ukax inakiwa  ukhamarak uka Mozillan luratanak apaqt\'asim."]]></string>
 
 
 

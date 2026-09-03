@@ -34,7 +34,6 @@
   <string name="text_selection_search_action">Cari secara Rahsia</string>
 
   <string name="preference_privacy_and_security_header">Privasi &amp; Keselamatan</string>
-  <string name="preference_privacy_and_security_summary">Penjejakan, kuki, pilihan data</string>
   <string name="preference_search_summary">Tetapkan piawai, autolengkap</string>
   <string name="preference_mozilla_summary">Perihal %1$s, bantuan</string>
   <string name="preference_category_tracking_protection">Perlindungan Penjejakan</string>
@@ -101,10 +100,8 @@
   <string name="preference_performance_block_javascript">Sekat JavaScript</string>
   <string name="preference_performance_block_javascript_summary">Halaman dimuatkan lebih cepat, tetapi mungkin ada yang tidak dijangka</string>
   <string name="preference_default_browser2">Jadikan %1$s pelayar piawai</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">Hantar data penggunaan</string>
   <string name="preference_mozilla_telemetry_summary">Ketahui selanjutnya</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla mengumpulkan hanya yang diperlukan untuk menyedia dan meningkatkan %1$s.</string>
   <string name="preference_privacy_notice">Notis Privasi</string>
   <string name="preference_about">Perihal %1$s</string>
   <string name="preference_search_installed_search_engines">Enjin carian dipasang</string>
@@ -195,7 +192,6 @@
   <string name="notification_browsing_session_channel_description">Anda boleh buang sesi %1$s dengan menekan notifikasi. Tidak perlu buka aplikasi atau lihat kandungan dalam pelayar.</string>
   <string name="tabs_tray_action_erase">Buang sejarah pelayaran</string>
   <string name="download_firefox">Muat turun Firefox</string>
-  <string name="your_rights_content1">%1$s adalah perisian percuma dan sumber terbuka yang dihasilkan oleh Mozilla dan para penyumbang lain.</string>
 
 
 
@@ -262,5 +258,4 @@
 
 
 
-  <string name="crash_report_send_crash_label">Hantar laporan ranap ke Mozilla</string>
 </resources>

@@ -128,10 +128,6 @@
     <string name="text_selection_search_action_focus">Søk med Focus</string>
 
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Søk med Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Søk med Focus Beta</string>
@@ -140,24 +136,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Søk med Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s gir deg kontroll.</p>
-<p>Bruk han som ein privat nettlesar:
-  <ul>
-    <li>Søk og surf rett i appen</li>
-    <li>Blokker sporarar (eller oppdater innstillingane for å tillate sporarar)</li>
-    <li>Slett for å fjerne infokapslar samt søk- og nettlesarhistorikk</li>
-  </ul>
-</p>
-<p>%1$s er produsert av Mozilla. Vårt oppdrag er å fremme eit sunt, ope Internett.<br/>
-<a href="%2$s">Les meir</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Personvern og sikkerheit</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Sporing, infokapslar, dataval</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -346,14 +328,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Bruk %1$s som standard nettlesar</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Send brukardata</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Les meir</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla strevar etter å berre samla inn det vi treng for å tilby og forbetra %1$s for alle.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Personvernerklæring</string>
@@ -617,9 +596,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Last ned Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s er fri og open kjeldekode-programvare laga av Mozilla og andre bidragsytarar.]]></string>
 
 
 
@@ -629,10 +605,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s er gjort tilgjengeleg for deg under vilkåra i <a href="%2$s">Mozilla Public License</a> og andre lisensar for open kjeldekode.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Du får ingen rettar eller lisenser til varemerka til Mozilla Foundation eller nokon part, inkludert Mozilla, Firefox eller %1$s namn eller logoar. Ytterlegare informasjon finst <a href="%2$s">her</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -834,8 +806,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Undersøkingar</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox kan installere og køyre undersøkingar frå tid til anna.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Les meir</string>
@@ -974,8 +944,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Send krasjrapport til Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

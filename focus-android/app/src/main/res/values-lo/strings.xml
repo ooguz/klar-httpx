@@ -121,10 +121,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">ຊອກຫາຢູ່ໃນຈຸດສຸມ</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">ຊອກຫາຢູ່ໃນ Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">ຊອກຫາໃນ Focus Beta</string>
@@ -133,24 +129,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">ຊອກຫາໃນ Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s ເຮັດໃຫ້ທ່ານສາມາດຄວບຄູມໄດ້.</p>
-<p>ໃຊ້ເປັນແບບບຣາວເຊີສ່ວນຕົວ:
-  <ul>
-    <li>ຄົ້ນຫາ ແລະ ທ່ອງເວັບພາຍໃນແອັບ</li>
-    <li>ບັອກຕົວຕິດຕາມ (ຫລື ອັບເດດການຕັ້ງຄ່າເພື່ອອະນຸຍາດຕົວຕິດຕາມ)</li>
-    <li>ລຶບຄຸກກີ້ລວມທັງປະຫວັດການຄົ້ນຫາ ແລະ ການທ່ອງເວັບອອກ</li>
-  </ul>
-</p>
-<p>%1$s ໄດ້ຮັບການສ້າງຂື້ນມາຈາກ Mozilla. ພາລະກິດຂອງພວກເຮົາແມ່ນສົ່ງເສີມການນຳໃຊ້ອິນເຕີເນັດທີ່ສົມບູນ ແລະ ເປີດກ້ວາງ<br/>
-<a href="%2$s">ຮຽນຮູ້ເພີ່ມເຕີ່ມ</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">ຄວາມເປັນສ່ວນຕົວ ແລະ ຄວາມປອດໄພ</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">ການຕິດຕາມ, ຄຸກກີ້, ທາງເລືອກຂໍ້ມູນ</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -339,14 +321,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">ຕັ້ງ %1$s ໃຫ້ເປັນບຣາວເຊີຫລັກ</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">ສົ່ງຂໍ້ມູນການນຳໃຊ້</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">ຮຽນຮູ້ເພີ່ມເຕີມ</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla ພະຍາຍາມທີ່ຈະເກັບຮວບຮ່ວມສະເພາະສິ່ງທີ່ຈຳເປັນຕໍ່ການປັບປູງ %1$s ສຳລັບທຸກໆຄົນ.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ</string>
@@ -609,9 +588,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">ດາວໂຫລດ Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s ເປັນຊອບແວເສລີ ແລະ ເປີດຕົ້ນສະບັບທີ່ສ້າງຂຶ້ນໂດຍ Mozilla ແລະ ຜູ່ມີສ່ວນຮ່ວມອື່ນໆ.]]></string>
 
 
 
@@ -621,10 +597,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s ໃຫ້ທ່ານໃຊ້ພາຍໃຕ້ເງື່ອນໄຂຂອງ <a href="%2$s"> Mozilla Public License</a> ແລະ ສັນຍາອະນຸຍາດໂອເພ່ນຊອດອື່ນໆ.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[ທ່ານບໍ່ໄດ້ຮັບສິດ ຫຼື ສັນຍາອະນຸຍາດໃດໆ ໃນເຄື່ອງໝາຍການຄ້າຂອງມູລະນີທິ Mozilla ຫຼື ບຸກຄົນໃດໆ ລວມທັງຊື່ ຫຼື ໂລໂກ້ Mozilla, Firefox ຫຼື %1$s. ຂໍ້ມູນເພີ່ມຕື່ມສາມາດພົບໄດ້ທີ່<a href="%2$s">ນີ້</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -826,8 +798,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">ການສຶກສາ</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox ອາດຈະຕິດຕັ້ງແລະດໍາເນີນການສຶກສາເປັນບາງເວລາ.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">ຮຽນຮູ້ເພີ່ມເຕີມ</string>
@@ -966,8 +936,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">ສົ່ງລາຍງານການຂັດຂ້ອງໄປຫາ Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

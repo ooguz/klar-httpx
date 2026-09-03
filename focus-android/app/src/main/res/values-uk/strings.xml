@@ -125,10 +125,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Пошук у Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Пошук у Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Пошук у Focus Beta</string>
@@ -137,24 +133,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Пошук у Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s надає вам контроль.</p>
-<p>Використовуйте його як приватний браузер:
-  <ul>
-    <li>Шукайте і переглядайте безпосередньо в програмі</li>
-    <li>Блокуйте стеження (або змініть налаштування, щоб дозволити його)</li>
-    <li>Видаляйте файли cookie, а також історію пошуку та перегляду</li>
-  </ul>
-</p>
-<p>%1$s створено в Mozilla. Наша місія – розвивати здоровий та відкритий Інтернет.<br/>
-<a href="%2$s">Докладніше</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Приватність і безпека</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Стеження, файли cookie, вибір даних</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -343,14 +325,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Зробити %1$s типовим браузером</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Надсилати дані про використання</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Докладніше</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla намагається збирати лише дані, що необхідні для роботи і вдосконалення %1$s для кожного.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Положення про приватність</string>
@@ -613,9 +592,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Завантажити Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s є вільним програмним забезпеченням з відкритим кодом від Mozilla та інших помічників.]]></string>
 
 
 
@@ -625,10 +601,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s доступний для вас на умовах <a href="%2$s">Mozilla Public License</a> та інших ліцензій відкритого коду.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Вам не надаються жодні права чи ліцензії на торговельні марки Mozilla Foundation або на будь-які її частини, включно з Mozilla, Firefox, а також назвами чи логотипами %1$s. Додаткову інформацію можна знайти <a href="%2$s">тут</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -830,8 +802,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Дослідження</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox може час від часу встановлювати та виконувати дослідження.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Докладніше</string>
@@ -970,8 +940,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Надіслати звіт про збій в Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

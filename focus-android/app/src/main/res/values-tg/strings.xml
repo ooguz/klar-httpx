@@ -125,10 +125,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Ҷустуҷӯ дар «Focus»</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Ҷустуҷӯ дар «Klar»</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Ҷустуҷӯ дар «Focus Beta»</string>
@@ -137,24 +133,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Ҷустуҷӯ дар «Focus Nightly»</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>«%1$s» ба шумо идора медиҳад.</p>
-<p>Онро ҳамчун браузери хусусӣ истифода баред:
-  <ul>
-    <li>Ҷустуҷӯ кунед ва рост дар дохили барнома тамошо намоед</li>
-    <li>Васоити пайгириро манъ кунед (ё танзимотро иваз карда, ба васоити пайгирӣ иҷозат диҳед)</li>
-    <li>Кукиҳоро нест кунед, аз он ҷумла таърихи ҷустуҷӯ ва тамошоро пок намоед</li>
-  </ul>
-</p>
-<p>«%1$s» аз ҷониши «Mozilla» истеҳсол карда шудааст. Мақсади мо дар мусоидат ба Интернети солим ва кушод мебошад.<br/>
-<a href="%2$s">Маълумоти бештар</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Махфият ва амният</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Пайгирӣ, кукиҳо, интихоби маълумот</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -349,14 +331,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Гузоштани «%1$s» ҳамчун браузери пешфарз</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Фиристодани маълумоти истифодабарӣ</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Маълумоти бештар</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">«Mozilla» cаъю кӯшиш мекунад, ки танҳо он маълумотеро ҷамъоварӣ намояд, ки мо бояд барои фаъолият ва беҳтарсозии «%1$s» барои ҳар як кас таъмин намоем.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Огоҳномаи махфият</string>
@@ -596,20 +575,12 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Боргирӣ кардани «Firefox»</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[Браузери «%1$s» нармафзори ройгон ва бо манбаи кушод буда, аз ҷониби «Mozilla» ва саҳмгузорони дигар таҳия карда шудааст.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[Браузери «%1$s» тибқи шартҳои <a href="%2$s">Иҷозатномаи ҷамъиятии «Mozilla»</a> ва иҷозатномаҳои манбаи кушоди дигар ба шумо барои истифода дастрас шудааст.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Ба шумо нисбат ба тамғаҳои тиҷории «Mozilla Foundation» ё ягон тарафи дигар, аз он ҷумла,
-бе маҳдудият нисбат ба тамға ё номи «Mozilla», «Firefox» or «%1$s» ягон ҳуқуқи тамғаи тиҷорӣ ё иҷозатномавӣ таъмин нашудааст. Маълумоти иловагӣ метавонад <a href="%2$s">дар ин ҷо</a> пайдо карда шавад.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -808,8 +779,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Омӯзишҳо</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Баъзе вақт «Firefox» метавонад омӯзишҳоро насб ва иҷро намояд.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Маълумоти бештар</string>
@@ -950,8 +919,6 @@
     <!-- Label for button to close the tab-->
     <string name="tab_crash_report_close_tab_button_label">Пӯшидани варақа</string>
 
-    <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Фиристодани гузориш дар бораи вайронӣ ба Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

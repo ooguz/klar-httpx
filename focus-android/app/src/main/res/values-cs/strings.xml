@@ -125,10 +125,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Vyhledat ve Focusu</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Vyhledat v Klaru</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Vyhledat v betaverzi Focusu</string>
@@ -137,24 +133,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Vyhledat ve Focusu Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s vám dává kontrolu.</p>
-<p>Používejte ho jako soukromý prohlížeč:
-  <ul>
-    <li>Vyhledávejte a prohlížejte přímo v aplikaci</li>
-    <li>Blokujte sledovací prvky (nebo aktualizujte nastavení pro povolení sledovacích prvků)</li>
-    <li>Tlačítkem smažte cookies a historii vyhledávání a prohlížení</li>
-  </ul>
-</p>
-<p>%1$s je vyvíjen Mozillou. Naší misí je podporovat zdravý a otevřený internet.<br/>
-<a href="%2$s">Zjistěte více</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Soukromí a zabezpečení</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Sledování, soubory cookie, možnosti hlášení</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -342,14 +324,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Nastavit %1$s jako výchozí prohlížeč</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Odesílat údaje o používání</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Zjistit více</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla sbírá jenom ty informace, které potřebuje pro další vylepšování aplikace %1$s.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Zásady ochrany osobních údajů</string>
@@ -610,9 +589,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Stáhnout Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s je otevřený software zdarma od Mozilly a jiných přispěvatelů.]]></string>
 
 
 
@@ -622,10 +598,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s vám je zpřístupněn za podmínek <a href="%2$s">Mozilla Public License</a> a jiných open source licencí.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Nejsou vám však podstoupena žádná práva ani licence k ochranným známkám Mozilla Foundation či dalších stran, a to zejména k logům a názvům Mozilla, Firefox nebo %1$s. Podrobnější informace o ochranných známkách jsou dostupné <a href="%2$s">zde</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -826,8 +798,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Studie</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox může čas od času instalovat a spouštět studie.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Zjistit více</string>

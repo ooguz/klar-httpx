@@ -123,10 +123,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Tikanöx pa Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Tikanöx pa Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Tikanöx pa Focus Beta</string>
@@ -135,24 +131,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Tikanöx pa Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s nuya\' ronojel pan aq\'a\'.</p>
-<p>Tawokisaj achi\'el jun ichinan okik\'amaya\'l:
- <ul>
- <li>Tikanöx chuqa\' tokisäx ri chokoy</li>
-    <li>Keq\'at ojqanela\' (o kek\'ex taq cha\'oj richin niya\' q\'ij chi ke ri ojqanela\')</li>
-    <li>Tiyuj richin yeyuj el taq kaxlawey chuqa\' runatab\'al kanoxïk chuqa\' okem pa k\'amaya\'l</li>
-  </ul>
-</p>
-<p>%1$s Xsamajin ruma ri Mozilla. Ri taqel qataqanem ja ri niqayäk qak\'u\'x richin jun jaqäl chuqa\' raxinäq k\'amaya\'l.<br/>
-<a href="%2$s">Tetamäx ch\'aqa\' chik</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Ichinanem &amp; Jikomal</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Ojqanem, taq kaxlanwäy, kicha\'oj taq tzij</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -340,14 +322,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Ticha\' %1$s richin okik\'amaya\'l k\'o wi</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Ketaq taq tzij richin ye\'okisäx</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Tetamäx ch\'aqa\' chik</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Ri Mozilla nutïj ruq\'ij chi numöl ri niqajo\' niqataluj chuqa\' niqutzilaj %1$s k\'atzinel chi qe qonojel.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Rutzijol Ichinanem</string>
@@ -607,9 +586,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Taqasaj Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s jun jamäl kema\' chuqa\' jaqäl b\'itz\'ib\' nuk\'un ruma Mozilla chuqa\' ch\'aqa\' chik to\'onela\'.]]></string>
 
 
 
@@ -619,10 +595,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s niya\' pan aq\'a\' rik\'in rojqanem ri <a href="%2$s">Aj winäq Ya\'oj Ruq\'ij Mozilla</a> chuqa\' ch\'aqa\' chik taq ya\'oj q\'ij kichin ch\'aqa\' chik taq jaqäl b\'itz\'ib\'.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Man nisuj taq kich\'ojib\'al chuqa\' ya\'oj q\'ij chi ke ri etz\'ib\'an taq b\'i\'aj richin Mozilla Moloj ni xa ta chi ke ri taq ruch\'akulal achi\'el Mozilla, Firefox o %1$s taq b\'i\'aj o taq wachaj. Nawïl rutz\'aqat na\'oj <a href="%2$s">wawe\'</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -814,8 +786,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Taq tijonïk</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox k\'o b\'ey nitikïr yeruyäk chuqa\' yerub\'än taq tijob\'alil.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Tetamäx ch\'aqa\' chik</string>
@@ -942,8 +912,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Titaq rutzijol sachoj chi re Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

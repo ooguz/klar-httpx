@@ -1,0 +1,4 @@
+<!-- Berrak brand: dark-mode splash background (matches the icon's ground). -->
+<resources>
+    <color name="splash_screen_background">#0E3A52</color>
+</resources>

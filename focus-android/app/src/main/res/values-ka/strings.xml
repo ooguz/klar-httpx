@@ -122,10 +122,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">მოიძიეთ Focus-ით</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">მოიძიეთ Klar-ით</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">მოიძიეთ Focus Beta-თი</string>
@@ -134,24 +130,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">მოიძიეთ Focus Nightly-თ</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s სრულად გიბრუნებთ მართვის სადავეებს.</p>
-<p>გამოიყენეთ პირად ბრაუზერად:
-  <ul>
-    <li>მოძებნეთ და დაათვალიერეთ გვერდები პროგრამაშივე</li>
-    <li>შეზღუდეთ მეთვალყურეები (პარამეტრებიდან დაშვებაც შეიძლება)</li>
-    <li>გაასუფთავეთ და წაშალეთ ფუნთუშები, ძიებისა და თვალიერების ისტორია</li>
-  </ul>
-</p>
-<p>%1$s შექმნილია Mozilla-ს მიერ. ჩვენი მიზანი, ჯანსაღ და ღია ინტერნეტზე ზრუნვაა.<br/>
-<a href="%2$s">ვრცლად</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">პირადულობა და უსაფრთხოება</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">თვალთვალი, ფუნთუშები, მონაცემთა შერჩევა</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -340,14 +322,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s-ის ნაგულისხმევ ბრაუზერად მითითება</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">მონაცემების გაგზავნა</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">იხილეთ ვრცლად</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla აღრიცხავს მხოლოდ იმ მონაცემებს, რაც საჭიროა %1$s-ის გასაუმჯობესებლად.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">პირადი მონაცემების დაცვა</string>
@@ -610,9 +589,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">ჩამოტვირთეთ Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s არის უფასო და ღია წყაროს მქონე პროგრამა, შექმნილი Mozilla-სა და სხვა მოხალისეების მიერ.]]></string>
 
 
 
@@ -622,10 +598,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s ვრცელდება <a href="%2$s">Mozilla Public License</a> და სხვა ღია წყაროს ლიცენზიებით.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[თქვენ არ გეძლევათ რამე სახის უფლება ან ლიცენზია, Mozilla ფონდის სავაჭრო ნიშნებსა და სხვა საკუთრებაზე, მათ შორის დასახელებებზე Mozilla, Firefox, ან %1$s-ის სხვა სახელებსა და ლოგოებზე. დამატებითი ინფორმაცია შეგიძლიათ იხილოთ <a href="%2$s">აქ</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -826,8 +798,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">კვლევები</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox შეძლებს, დროდადრო კვლევების ჩატარებას.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">ვრცლად</string>
@@ -966,8 +936,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">გათიშვის მოხსენების გადაგზავნა Mozilla-სთვის</string>
 
     <!-- Tracking protection bottom sheet -->
 

@@ -123,10 +123,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Nānà’huì’ riña Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Nānà’huì’ riña Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Nānà’huì’ riña Focus Beta</string>
@@ -135,24 +131,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Nānà’huì’ riña Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s sò\' \'nïnj rā\'a daran\' sa \'iát.</p>
-<p>Nāgi\'iaj \'ngō nabegado huìi man:
-  <ul>
-    <li>Nānà\'uì\' nī gāchē nu āsìj riña aplikasiun dan</li>
-    <li>Nārán riña nej sa naga\'nāj a (asi nāgi\'iaj nākàt man sisī dādan achín man)</li>
-    <li>Nādure\' nej koki nī nej sa atāj na\'ānj danè\' gaché nunt</li>
-  </ul>
-</p>
-<p>%1$s si rāsūn Mozilla huin man. Nù huin ñunj da\' gā ni\'nïnj internter riñant.<br/>
-<a href="%2$s">Gāhuin chrūn doj</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Sa huìi nī sa dugumin</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Nana\'ui\', cookies, ganahuij datos</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -340,14 +322,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Nagi\'iaj %1$s da\' garasun yitïnjt</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Ga\'nïnj nej datô arâj sunt</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Gini\'in doj rayi\'î na</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Ûta ‘iaj nukuaj Mozilla man’an da’ gā hue’ê nej sa narikïj %1$s da’ garasun daran’ nê’.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Noticia huìi</string>
@@ -609,9 +588,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Naduninj Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s ‘ngō software chre nī sa huā nî’nïnj ï huin man giri Mozilla nī a’ngô nej duguî’ rugûñu’ūnj.]]></string>
 
 
 
@@ -621,10 +597,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s huā guendâ gārāsunt sanī da’huît gārayinat nuguan’ <a href="%2$s">si’hiaj Mozilla</a> Nī a’ngô nej nuguan’ tna’huēj rayi’î nej sun nan.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Nitāj si â’nïnj fundación Mozilla ganè’ nej rasuun nīka nī ngà ‘ngō yiko’ li, dàj rû’ si yugui nej %1$s asi da’nga’ nīka, Firefox. Ga’ue narì’t doj nuguan’ a’min rayi’î <a href="%2$s">hiūj nan</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -684,8 +656,6 @@
     <!-- Displayed after a user long presses on the URL in a custom tab to copy the URL -->
     <string name="custom_tab_copy_url_action">Ngà guxun\' URL</string>
 
-    <!-- Description of what a user may find in the Advanced Setting category, used for debugging -->
-    <string name="preference_advanced_summary">Rasun arajsun Firefox</string>
 
     <!-- Preference for open links in third party apps -->
     <string name="preferences_open_links_in_apps">Nā\'nīn nej lînk riña nej aplikasiûn</string>
@@ -965,8 +935,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Gana\'nínj nuguan\'an nuhuin saj \'iaj sun a\'nan\' Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

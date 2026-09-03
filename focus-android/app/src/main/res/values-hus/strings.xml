@@ -30,7 +30,6 @@
   <string name="text_selection_search_action">Kit alim tsinat</string>
 
   <string name="preference_privacy_and_security_header">Tsinataláb ani belkadhtaláb</string>
-  <string name="preference_privacy_and_security_summary">Alim, cookies, a k\'al</string>
   <string name="preference_search_summary">An eyendhanél axi a takuyamal, kwetem kidhbax</string>
   <string name="preference_mozilla_summary">Tin kwentaj %1$s, tolmixtaláb</string>
   <string name="preference_category_tracking_protection">K\'anix abal yab ka exláj jant\'oj a aliyamal</string>
@@ -91,10 +90,8 @@
   <string name="preference_performance_block_javascript">Ka kuba\' an JavaScript</string>
   <string name="preference_performance_block_javascript_summary">An xeklek u awil ka dhubath tejwa\'mej, poj u awil yab ka tejwa\'mej alwa\'</string>
   <string name="preference_default_browser2">Ka t\'aja\' %1$s ta eyendhanelil</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">Ka ebna\' jay i eyendhanél a eyendhamal</string>
   <string name="preference_mozilla_telemetry_summary">Ka exla\' más</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla in t\'ajál abal kin pena\' expidh xi in yejenchal ani kin alwa\'medha\' %1$s abal patal.</string>
   <string name="preference_privacy_notice">Tin kwentaj an tsinaxtaláb</string>
   <string name="preference_about">Tin kwentaj an %1$s</string>
   <string name="preference_search_installed_search_engines">An alimchik punudhits ta k\'al</string>
@@ -183,7 +180,6 @@
   <string name="notification_browsing_session_channel_description">An tejwa\'medhomtaláb in jilál ka pakuw an t\'ojláb xi %1$s k\'al jún i takixtaláb. Yab in yejendhal ka japiy an eyendhanél o ka met\'a\' max k\'waja ti t\'ojnal al an tsa\'bixtaláb.</string>
   <string name="tabs_tray_action_erase">Ka pakuw an dhuchlab xi in olnál jant\'oj a aliyamal</string>
   <string name="download_firefox">Ka pa\'ba\' Firefox</string>
-  <string name="your_rights_content1">%1$s pel jún i eyendhanél japidh, ts\'ejkadh k\'al Mozilla ani k\'al pilchik i junkudh t\'ojnal.</string>
 
 
 

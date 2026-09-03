@@ -4,8 +4,8 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
 <resources>
-    <string name="app_name" translatable="false">Klar httpx</string>
+    <string name="app_name" translatable="false">Berrak</string>
 
     <!-- This String is the short version of app name -->
-    <string name="onboarding_short_app_name" translatable="false">Klar httpx</string>
+    <string name="onboarding_short_app_name" translatable="false">Berrak</string>
 </resources>

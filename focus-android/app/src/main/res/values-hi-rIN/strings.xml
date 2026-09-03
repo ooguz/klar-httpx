@@ -125,8 +125,6 @@
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">गोपनीयता और सुरक्षा</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">ट्रैकिंग, कुकीज़, डेटा विकल्प</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -304,14 +302,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s को डिफ़ॉल्ट ब्राउज़र बनाएँ</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">उपयोगित डेटा भेजें</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">और अधिक जानें</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla मात्र वही एकत्र करने का प्रयास करता है जिसकी हमें %1$s को बेहतर बनाने और सबको उपलब्ध कराने के लिए आवश्यकता है।</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">गोपनीयता सूचना</string>
@@ -528,9 +523,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Firefox डाउनलोड करें</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s Mozilla और अन्य योगदानकर्ताओं द्वारा बनाया गया स्वतंत्र और मुक्त स्रोत सॉफ्टवेयर है।]]></string>
 
 
 
@@ -594,8 +586,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">अध्ययन</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox संस्थापन और समय-समय पर अध्ययन कर सकता है.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">और अधिक जानें</string>
@@ -725,8 +715,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Mozilla को क्रैश रिपोर्ट भेजें</string>
 
     <!-- Tracking protection bottom sheet -->
 

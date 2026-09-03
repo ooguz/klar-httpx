@@ -126,10 +126,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Focus ਵਿੱਚ ਲੱਭੋ</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Klar ਵਿੱਚ ਲੱਭੋ</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Focus Beta ਵਿੱਚ ਲੱਭੋ</string>
@@ -138,24 +134,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Focus Nightly ਵਿੱਚ ਲੱਭੋ</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s ਕੰਟਰੋਲ ਤੁਹਾਡੇ ਹੱਥ ਦਿੰਦਾ ਹੈ।</p>
-<p>ਇਸ ਨੂੰ ਨਿੱਜੀ ਬਰਾਊਜ਼ਰ ਵਜੋਂ ਵਰਤੋਂ:
-  <ul>
-    <li>ਐਪ ਦੇ ਵਿੱਚ ਖੋਲ੍ਹੋ ਅਤੇ ਬਰਾਊਜ਼ ਕਰੋp</li>
-    <li>ਟਰੈਕਰਾਂ ਤੇ ਲਾਓ ਪਾਬੰਦੀ (ਜਾਂ ਟਰੈਕਰਾਂ ਨੂੰ ਇਜਾਜ਼ਤ ਦੇਣ ਲਈ ਸੈਟਿੰਗਾਂ ਅੱਪਡੇਟ ਕਰੋ)</li>
-    <li>ਖੋਜ ਅਤੇ ਬਰਾਊਜ਼ ਕਰਨ ਦੇ ਅਤੀਤ ਦੇ ਨਾਲ ਨਾਲ ਕੂਕੀਜ਼ ਨੂੰ ਹਟਾਉਣ ਲਈ ਮਿਟਾਓ</li>
-  </ul>
-</p>
-<p>%1$s ਨੂੰ Mozilla ਨੇ ਬਣਾਇਆ ਹੈ। ਸਾਡਾ ਮਕਸਦ ਚੰਗਾ, ਆਜ਼ਾਦ ਸਰੋਤ ਇੰਟਰਨੈੱਟ ਖੜ੍ਹਾ ਕਰਨਾ ਹੈ।<br/>
-<a href="%2$s">ਹੋਰ ਜਾਣੋ</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">ਪਰਦੇਦਾਰੀ ਤੇ ਸੁਰੱਖਿਆ</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">ਟਰੈਕਿੰਗ, ਕੂਕੀਜ਼, ਡਾਟਾ ਚੋਣਾਂ</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -344,7 +326,6 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s ਨੂੰ ਮੂਲ ਬਰਾਊਜ਼ਰ ਬਣਾਓ</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">ਵਰਤੋਂ ਸਬੰਧੀ ਡੇਟਾ ਭੇਜੋ</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
@@ -610,19 +591,12 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Firefox ਡਾਊਨਲੋਡ ਕਰੋ</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[ਮੋਜ਼ੀਲਾ ਅਤੇ ਹੋਰ ਯੋਗਦਾਨੀਆਂ ਦੁਆਰਾ ਬਣਾਏ ਗਏ %1$s ਮੁਫ਼ਤ ਅਤੇ ਓਪਨ ਸੋਰਸ ਸਾਫਟਵੇਅਰ ਹੈ।]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s ਤੁਹਾਨੂੰ <a href="%2$s">Mozilla ਜਨਤਕ ਲਸੰਸ</a> ਅਤੇ ਹੋਰ ਖੁੱਲ੍ਹੇ ਵਸੀਲਿਆਂ ਦੇ ਲਸੰਸਾਂ ਦੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠ ਮੁਹੱਈਆ ਕਰਵਾਇਆ ਗਿਆ ਹੈ।]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[ਤੁਹਾਨੂੰ Mozilla Foundation ਜਾਂ Mozilla, Firefox ਜਾਂ %1$s ਨਾਂ ਜਾਂ ਲੋਗੋ ਸਮੇਤ ਕਿਸੇ ਵੀ ਪਾਰਟੀ ਦੇ ਮਾਰਕੇ ਲਈ ਕੋਈ ਅਧਿਕਾਰ ਜਾਂ ਲਸੰਸ ਨਹੀਂ ਮਿਲੇ ਹਨ। ਵਾਧੂ ਜਾਣਕਾਰੀ ਵੀ <a href="%2$s"> ਇੱਥੇ</a>ਮਿਲ ਸਕਦੀ ਹੈ।]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -824,8 +798,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">ਅਧਿਐਨ</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox ਸਮੇਂ ਸਮੇਂ ਉੱਤੇ ਅਧਿਐਨ ਇੰਸਟਾਲ ਕਰ ਤੇ ਚਲਾ ਸਕਦਾ ਹੈ।</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">ਹੋਰ ਜਾਣੋ</string>

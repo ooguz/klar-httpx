@@ -31,7 +31,6 @@
   <string name="shortcut_erase_and_open_long_label">སུབ་ནས་%1$sཁ་འབྱེད་པ།</string>
   <string name="text_selection_search_action">ཕྱིར་མི་བསྒྲགས་པའི་ཐོག་འཚོལ་བཤེར།</string>
   <string name="preference_privacy_and_security_header">གསང་དོན་དང་བདེ་འཇགས།</string>
-  <string name="preference_privacy_and_security_summary">"རྗེས་འདེད།  cookies གཞི་གྲངས་འདེམས་པ།"</string>
   <string name="preference_search_summary">རྩ་བ་བསྐོ་སྒྲིག གནད་ཚིག་རང་གྲུབ།</string>
   <string name="preference_mozilla_summary">%1$s ངོ་སྤྲོད། རོགས་རམ།</string>
   <string name="preference_category_tracking_protection">རྗེས་འདེད་སྲུང་སྐྱོབ།</string>
@@ -84,7 +83,6 @@
   <string name="preference_performance_block_javascript">JavaScript བཀག་པ།</string>
   <string name="preference_performance_block_javascript_summary">དྲ་ངོས་རྒྱབ་སྣོན་མགྱོགས་ཀྱང་རྒྱུན་ལྡན་མ་ཡིན་པའི་གནས་ཚུལ་ཐོན་སྲིད།</string>
   <string name="preference_default_browser2">" %1$s སྔོན་སྒྲིག་བཤར་ཆས་སུ་བཀོད་པ།"</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry_summary">དེ་བས་མང་།</string>
   <string name="preference_privacy_notice">གསང་དོན་གསལ་བརྡ།</string>
   <string name="preference_about">%1$s ངོ་སྤྲོད།</string>

@@ -119,8 +119,6 @@
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">ကိုယ်ရေးကာကွယ်မှုနှင့် လုံခြုံရေး</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">ကွတ်ကီးများ ခြေရာခံခြင်း နှင့် ဒေတာအသုံးပြုခြင်းဆိုင်ရာ ရွေးချယ်မှုများ</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -281,14 +279,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s ကို ပုံသေအသုံးပြုမည့် ဘရောင်ဇာအဖြစ် သတ်မှတ်ပါ</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">အသုံးပြုမှုဆိုင်ရာ အချက်အလက်များကို ပေးပို့ရန်</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">ပိုမိုလေ့လာရန်</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla သည် လူတိုင်းအတွက် %1$s ကို ပေးစွမ်းရန်နှင့် တိုးတက်ကောင်းမွန်စေရန်အတွက်သာ ကောက်ခံမှုပြုခြင်း ဖြစ်ပါသည်။</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">ကိုယ်ရေးကာကွယ်မှု သတိပေးချက်</string>
@@ -494,9 +489,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Firefox ကို ဆွဲယူရန်</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s သည် Mozilla နှင့် အခြားကူညီပံ့ပိုးသူများက ပြုလုပ်ထားသော အခမဲ့နှင့် ပွင့်လင်းရင်းမြစ်ဆော့ဖ်ဝဲလ် ဖြစ်ပါသည်။]]></string>
 
 
 
@@ -651,8 +643,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Mozillaသို့ ပျက်စီးမှုအစီရင်ခံစာပို့ပါ</string>
 
     <!-- Tracking protection bottom sheet -->
 

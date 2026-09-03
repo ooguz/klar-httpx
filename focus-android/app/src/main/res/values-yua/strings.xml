@@ -107,8 +107,6 @@
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Ta wóok’sal yéetel Jeets’el óol</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Bixil ka kaxantik ba’alob, cookies, yéetel péeksilil</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -232,14 +230,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Yéeytej %1$s ka p’àatak bey a suuk a maan ich web yéeteli’</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Túuxtej buka’aj ts’óok a xupik</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">K’ajóoltal u yaanali’</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla ku kaxantik u molik chen le jach k’áabetaj uti’al u ts’a’ik yéetel u ma’alobtal %1$s ti’ tuláakalilo’ob.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Ts’áab ojelbil bix u kana’antal ati’alo’</string>
@@ -444,9 +439,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Éemsa’ak Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s lela’ jun meyajil mina’an u wóojil jeba’antak, béeta’ab men Mozilla yéetel u láak’ muulmeyajilo’ob.]]></string>
 
 
 

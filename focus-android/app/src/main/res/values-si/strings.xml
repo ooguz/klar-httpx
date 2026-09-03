@@ -124,10 +124,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">ෆෝකස්හි සොයන්න</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">ක්ලාර්හි සොයන්න</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">ෆෝකස් බීටා හි සොයන්න</string>
@@ -136,24 +132,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">ෆෝකස් නයිට්ලි හි සොයන්න</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s ඔබව පාලනයේ තබයි.</p>
-<p>පෞද්. අතිරික්සුවක් ලෙස යොදාගන්න:
-  <ul>
-  <li>යෙදුමෙහි සොයන්න සහ පිරික්සන්න</li>
-  <li>ලුහුබැඳීම් අවහිර කරන්න (හෝ සැකසුම් තුළින් ඉඩ දෙන්න)</li>
-  <li>දත්තකඩ මෙන්ම සෙවුම් හා පිරික්සුම් ඉතිහාසය ඉවත් කිරීමට මකන්න</li>
-  </ul>
-</p>
-<p>මොසිල්ලා හරහා %1$s නිෂ්පාදනය කෙරේ. හිතකර, විවෘත අන්තර්ජාලයකට පිහිටාධාර සැපයීම අපගේ මෙහෙවරයි.<br/>
-<a href="%2$s">තව දැනගන්න</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">පෞද්ගලිකත්‍වය හා ආරක්‍ෂාව</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">ලුහුබැඳීම්, දත්තකඩ, දත්ත තේරීම්</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -346,7 +328,6 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s පෙරනිමි අතිරික්සුව කරන්න</string>
 
-    <string name="preference_category_mozilla">මොසිල්ලා</string>
     <string name="preference_mozilla_telemetry2">භාවිත දත්ත යවන්න</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
@@ -590,19 +571,12 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">ෆයර්ෆොක්ස් බාගන්න</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s යනු මොසිල්ලා සහ අනෙකුත් දායකයින් විසින් සාදන ලද නොමිලේ හා විවෘත කේත මෘදුකාංගයකි.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[<a href="%2$s">මොසිල්ලා පොදු බලපත්‍රය</a> සහ අනෙකුත් විවෘත මූලාශ්‍ර බලපත්‍රවල නියම යටතේ ඔබට %1$s ලබා ගැනීමට හැකිය.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Mozilla පදනමේ හෝ Mozilla, Firefox හෝ %1$s ආදී නම් හෝ ලාංඡන ඇතුළුව ඕනෑම පාර්ශ්වයක වෙළඳ ලකුණු සඳහා ඔබට කිසිදු අයිතියක් හෝ බලපත්‍රයක් ලබා දී නැත. අතිරේක තොරතුරු <a href="%2$s">මෙතැන</a> තිබේ.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)

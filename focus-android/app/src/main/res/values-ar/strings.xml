@@ -122,24 +122,10 @@
          Clicking this action will launch Focus and perform a search in the default search engine. -->
     <string name="text_selection_search_action">ابحث مع الحفاظ على الخصوصية</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>يعطيك %1$s الدفّة.</p>
-<p>استعمله كمتصفّح خاص:
-  <ul>
-    <li>ابحث وتصفّح مباشرة في التطبيق</li>
-    <li>احجب المتعقّبات (أو حدّث الإعدادات للسماح بها)</li>
-    <li>امسح الكعكات بالإضافة إلى حذف تأريخ البحث والتصفّح</li>
-  </ul>
-</p>
-<p>%1$s منتج من Mozilla. مهمتنا تكمن في التشجيع نحو إنترنت مفتوح وصحّي.<br/>
-<a href="%2$s">اطّلع على المزيد</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">الخصوصية والسريّة</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">التّعقّب، و الكعكات، و اختيار البيانات</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -325,7 +311,6 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">اجعل %1$s متصفّحك المبدئي</string>
 
-    <string name="preference_category_mozilla">موزيلا</string>
     <string name="preference_mozilla_telemetry2">أرسل بيانات الاستخدام</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
@@ -553,9 +538,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">نزّل فَيرفُكُس</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s برمجية حرة مفتوحة المصدر صنعتها موزيلا ومساهمين آخرين.]]></string>
 
 
 
@@ -565,10 +547,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[إن %1$s مُتاح لك وفق بنود <a href="%2$s">رخصة موزيلا العامة</a> وترخيصات المصادر المفتوحة الأخرى.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[لا يعطيك هذا أي حقوق أو تراخيص للعلامات التجارية لمؤسسة موزيلا أو أي طرف آخر، متضمنًا على سبيل المثال لا الحصر الأسماء والشعارات الآتية: Mozilla، وFirefox و%1$s. يمكنك الاطلاع على مزيد من المعلومات <a href="%2$s">من هنا</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -658,8 +636,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">الدراسات</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">قد يثبّت Firefox بعض الدراسات ويشغّلها من وقت لآخر.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">اعرف المزيد</string>

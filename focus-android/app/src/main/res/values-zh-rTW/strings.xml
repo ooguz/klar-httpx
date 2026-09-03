@@ -125,10 +125,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">使用 Focus 搜尋</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">使用 Klar 搜尋</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">使用 Focus Beta 搜尋</string>
@@ -137,24 +133,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">使用 Focus Nightly 搜尋</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s 讓您可自行控制線上生活。</p>
-<p>可當作私密瀏覽器使用:
-  <ul>
-    <li>直接在程式中搜尋、瀏覽</li>
-    <li>封鎖追蹤器（也可調整設定，允許追蹤器）</li>
-    <li>清除 Cookie、搜尋紀錄、上網紀錄</li>
-  </ul>
-</p>
-<p>%1$s 是由 Mozilla 所打造，我們的使命是培養一個健康、開放的網際網路環境。<br/>
-<a href="%2$s">了解更多</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">隱私與安全</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">追蹤、Cookie、回報資料</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -343,14 +325,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">將 %1$s 設為預設瀏覽器</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">傳送使用資料</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">了解更多</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla 致力於只收集用來為眾人改善 %1$s 所需的必要資料。</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">隱私權公告</string>
@@ -613,9 +592,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">下載 Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s 是由 Mozilla 及貢獻者所打造，自由且開放原始碼的軟體。]]></string>
 
 
 
@@ -625,10 +601,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s 是依照 <a href="%2$s">Mozilla Public License</a> 以及其他開放原始碼授權條款提供給您。]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[您並未被授權使用 Mozilla 基金會或任何相關部門的商標，包含但不限於 Mozilla、Firefox、%1$s 的文字或圖樣。可以在<a href="%2$s">這裡</a>找到更多資訊。]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -830,8 +802,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">使用者研究</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox 會不定時安裝並執行使用者研究。</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">了解更多</string>
@@ -977,8 +947,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">傳送錯誤報告給 Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

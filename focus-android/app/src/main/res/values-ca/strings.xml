@@ -121,10 +121,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Cerca en el Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Cerca en el Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Cerca en el Focus Beta</string>
@@ -133,24 +129,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Cerca en el Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>El %1$s us dóna el control.</p>
-<p>Com a navegador privat, us permet:
-  <ul>
-    <li>Cercar i navegar directament des de l’aplicació</li>
-    <li>Blocar els elements de seguiment (o canviar els paràmetres per permetre’ls)</li>
-    <li>Esborrar les galetes i l’historial de cerques i de navegació</li>
-  </ul>
-</p>
-<p>El %1$s està creat per Mozilla. La nostra missió és fomentar un Internet obert i saludable.<br/>
-<a href="%2$s">Més informació</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Privadesa i seguretat</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Seguiment, galetes, elecció de dades</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -338,14 +320,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Fes que el %1$s sigui el navegador per defecte</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Envia dades d\'ús</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Més informació</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla s\'esforça per recollir només les dades necessàries per oferir i millorar el %1$s per a tothom.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Avís de privadesa</string>
@@ -604,9 +583,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Baixa el Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[El %1$s és programari lliure i de codi obert creat per Mozilla i altres col·laboradors.]]></string>
 
 
 
@@ -616,10 +592,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[El %1$s és a la vostra disposició sota els termes de la <a href="%2$s">Mozilla Public License (Llicència Pública de Mozilla)</a> i altres llicències lliures.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[No se us atorga cap dret ni llicència sobre les marques registrades de la Fundació Mozilla, o de cap altra part, inclosos els noms o els logotips de Mozilla, Firefox o %1$s. Podeu trobar més informació <a href="%2$s">aquí</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -820,8 +792,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Estudis</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">El Firefox pot instal·lar i executar estudis de tant en tant.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Més informació</string>
@@ -960,8 +930,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Envia un informe de fallada a Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

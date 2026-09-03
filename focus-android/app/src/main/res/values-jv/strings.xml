@@ -50,7 +50,6 @@
   <string name="preference_privacy_should_block_cookies_no_option">Ora</string>
   <string name="preference_privacy_should_block_cookies_yes_option">Ya</string>
   <string name="preference_performance_block_javascript">Blokir JavaScript</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_about">Ngenani %1$s</string>
   <string name="preference_search_installed_search_engines">Mesin panggolèk sing wis dipasang</string>
   <string name="preference_search_restore">Mulihaké mesin panggolèk standar</string>

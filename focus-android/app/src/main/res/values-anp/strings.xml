@@ -110,8 +110,6 @@
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">गोपनियता आरु सुरक्षा</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">ट्रैकिंग, कुकीज़, डेटा चुनियै</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -278,14 +276,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s कऽ डिफ़ॉल्ट ब्रॉजर बनैइयै</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">उपयोग डेटा भेजियै</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">बेसी जानकारी</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla केवल ओ चीज के जमा करै छै जकरा %1$s मे सभक लेली सुधार करै केरो आवश्यक्ता छै.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">गोपनीयता सूचना</string>
@@ -511,9 +506,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Firefox डाउनलोड करियै</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s Mozilla आरू आन योगदानकर्ता द्वारा बनाएल गेलो स्वतंत्र आरू मुक्त स्रोत सॉफ्टवेयर छै.]]></string>
 
 
 

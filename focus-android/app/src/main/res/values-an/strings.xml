@@ -28,7 +28,6 @@
   <string name="text_selection_search_action">Buscar en privau</string>
 
   <string name="preference_privacy_and_security_header">Privacidat y seguranza</string>
-  <string name="preference_privacy_and_security_summary">Seguimiento, cookies, trías de datos</string>
   <string name="preference_search_summary">Valors per defecto, autocompletar</string>
   <string name="preference_mozilla_summary">Quanto a %1$s, aduya</string>
   <string name="preference_category_tracking_protection">Protección contra lo seguimiento</string>
@@ -80,10 +79,8 @@
   <string name="preference_performance_block_javascript">Blocar JavaScript</string>
   <string name="preference_performance_block_javascript_summary">Las pachinas se cargarán mas aprisa, pero talment no se comporten en a traza esperada</string>
   <string name="preference_default_browser2">Fer que %1$s siga lo navegador per defecto</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">Ninviar datos d\'uso</string>
   <string name="preference_mozilla_telemetry_summary">Saber-ne mas</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla s\'esfuerza per replegar nomás lo necesario pa fornir y amillorar %1$s pa totz.</string>
   <string name="preference_privacy_notice">Politica de privacidat</string>
   <string name="preference_about">Quanto a %1$s</string>
   <string name="preference_search_installed_search_engines">Motors de busqueda instalaus</string>
@@ -170,7 +167,6 @@
   <string name="notification_browsing_session_channel_description">Las notificacions te deixar borrar la tuya sesión de %1$s d\'un toque. No te cal ubrir l\'aplicación ni amostrar lo conteniu d\'o navegador.</string>
   <string name="tabs_tray_action_erase">Borra l\'historial de navegación</string>
   <string name="download_firefox">Baixa-te lo Firefox</string>
-  <string name="your_rights_content1">%1$s ye software libre y de codigo ubierto, feito per Mozilla y atros colaboradors.</string>
 
 
 

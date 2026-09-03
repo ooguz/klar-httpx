@@ -67,10 +67,8 @@
   <string name="preference_performance_block_javascript">Արգելափակել JavaScript-ը</string>
   <string name="preference_performance_block_javascript_summary">Էջերը կարող են ավելի արագ բեռնվել, բայց նաև կարող են իրենց անսպասելի պահել:</string>
   <string name="preference_default_browser2">Դարձնել %1$s-ը հիմնական դիտարկիչ</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">Ուղարկել օգտագործման տվյալները</string>
   <string name="preference_mozilla_telemetry_summary">Իմանալ ավելին</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla-ն ձգտում է հավաքել միայն այն, ինչ պետք է՝ %1$s-ը լավարկելու համար:</string>
   <string name="preference_privacy_notice">Գաղտնիության ծանուցում</string>
   <string name="preference_about">%1$s-ի մասին</string>
   <string name="preference_search_installed_search_engines">Տեղադրված որոնիչներ</string>
@@ -157,7 +155,6 @@
   <string name="notification_browsing_session_channel_description">Ծանուցումները հնարավորություն են տալիս ջնջել ձեր %1$s աշխատարջանը մեկ հպումով: Կարիք չկա բացել հավելվածը կամ տեսնել, թե ինչ է աշխատեցվում դիտարկիչում:</string>
   <string name="tabs_tray_action_erase">Ջնջել դիտարկման պատմությունը</string>
   <string name="download_firefox">Ներբեռնել Firefox-ը</string>
-  <string name="your_rights_content1">%1$s-ը անվճար և բաց կոդով ծրագիր է Mozilla-ի և այլ մասնակիցների կողմից:</string>
 
 
 

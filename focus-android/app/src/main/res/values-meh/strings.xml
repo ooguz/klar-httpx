@@ -123,10 +123,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Nánuku ji Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Nánuku ji Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Nánuku ji Focus Beta</string>
@@ -135,24 +131,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Nánuku ji Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s taji kajinu.</p>
-<p>Ni´ima kua iin nuu nánuku yu´u:
-  <ul>
-    <li>Nánuku jee kaka nuu ka̱a̱ ya´a</li>
-    <li>Chiyu´u daa a nita no´o (a xíín kaji kuvi kuntadaja noo´o)</li>
-    <li>Xina saa kuvi naá cokies jii daa tu´un nnánukunu</li>
-  </ul>
-</p>
-<p>%1$s kuviji iin nsa´a Mozilla. Nukudani iin internet vii jee va´a.<br/>
-<a href="%2$s">Ka´vi ku´eka</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Privacidad jii seguridad</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Kaji kuntada noo´o, cookies jii datos</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -341,14 +323,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Sá´á %1$s navegador xinañu´u ya´a</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Chu´uichí datos a ni´í</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Ka´vi kue´eka</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla nake´e sani daa a íyo tiñu jee jia´a va´a %1$s nuu kuaiyo daa yo.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Tutu xítu</string>
@@ -608,9 +587,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Xinuun Firefox</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s kuviji iin ka̱a̱ ntu íyo ya´vi jee kuviji iin código nune a sa´a Mozilla jii inka ñivɨ.]]></string>
 
 
 
@@ -804,8 +780,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Estudios</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox kuvi chu´un je sá´á estudios ntaka ichi.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Kuni kue´eka</string>
@@ -941,8 +915,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Chu´un ichi saa tivu ya´a nuu Mozilla</string>
 
     <!-- Tracking protection bottom sheet -->
 

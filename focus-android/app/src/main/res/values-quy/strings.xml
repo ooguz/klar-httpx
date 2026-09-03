@@ -28,7 +28,6 @@
   <string name="text_selection_search_action">Asuy mask\'ay</string>
 
   <string name="preference_privacy_and_security_header">Asuy chanta Takya</string>
-  <string name="preference_privacy_and_security_summary">Tarichiqkunamanta, cookies kaqkunamanta, willaykunamanta ima akllaykuna</string>
   <string name="preference_search_summary">Akllasqañajinata churay, sapanmanta junt\'achiy</string>
   <string name="preference_mozilla_summary">Kaymanta %1$s, yanapay</string>
   <string name="preference_category_tracking_protection">Tarichiqkunamanta jark\'ana</string>
@@ -80,10 +79,8 @@
   <string name="preference_performance_block_javascript">JavaScript ch\'ataykuy</string>
   <string name="preference_performance_block_javascript_summary">Raphikuna aswan utqhayta chaqnanay atinkuman, ichaqa mana suyaq kaqjinata llamk\'ay atillankutaq</string>
   <string name="preference_default_browser2">Tikray %1$s ajinaña churasqa t\'aqwiriqniykipi</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">Llamk\'akusqamanta willaykunata kachay</string>
   <string name="preference_mozilla_telemetry_summary">Astawan yachay</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla aswan munasqallata tantananpaq kaypachakun qusunankupaq chanta allinchanankupaq %1$s tukuypaq.</string>
   <string name="preference_privacy_notice">Asuymanta willay</string>
   <string name="preference_about">Kaymanta %1$s</string>
   <string name="preference_search_installed_search_engines">Mask\'aq motores chantisqa</string>
@@ -170,7 +167,6 @@
   <string name="notification_browsing_session_channel_description">Willaykuqkuna sesion kaqta pichay atichisunki kaymanta %1$s juk ñit\'iywan. Mana aplicacionta kicharinallaykiñachu tiyan nitaq qhawayta imachus t\'aqwiriqpi llamk\'akuchkanta.</string>
   <string name="tabs_tray_action_erase">Ñawpa yaykusqa t\'aqwiriyta pichay</string>
   <string name="download_firefox">Firefox kaqta uraykuchiy</string>
-  <string name="your_rights_content1">%1$s kaqqa juk software kichasqa codigoyuqtaq chanta qhasitaq, Mozillawan chanta wak yanapaqkunawan ima paqarichisqa.</string>
 
 
 

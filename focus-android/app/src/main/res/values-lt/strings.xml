@@ -122,24 +122,10 @@
          Clicking this action will launch Focus and perform a search in the default search engine. -->
     <string name="text_selection_search_action">Ieškoti privačiai</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>„%1$s“ suteikia jums kontrolę.</p>
-<p>Naudokite ją kaip privačią naršyklę:
-  <ul>
-    <li>Ieškokite ir naršykite pačioje programoje</li>
-    <li>Blokuokite stebėjimo elementus (arba pakeiskite nustatymus, jeigu norite juos leisti)</li>
-    <li>Išvalykite, norėdami pašalinti slapukus, paieškos ir naršymo žurnalus</li>
-  </ul>
-</p>
-<p>„%1$s“ yra „Mozillos“ kūrinys. Mūsų misija yra skatinti sveiką, atvirą internetą.<br/>
-<a href="%2$s">Sužinoti daugiau</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Privatumas ir saugumas</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Stebėjimas, slapukai, duomenų siuntimas</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -325,14 +311,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Paskirti „%1$s“ numatytąja naršykle</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Siųsti naudojimo duomenis</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Sužinoti daugiau</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">„Mozilla“ siekia rinkti tik tai, ko reikia norint pagerinti „%1$s“ visiems.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Privatumo pranešimas</string>
@@ -556,9 +539,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Parsisiųsti „Firefox“</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[„%1$s“ yra laisvoji atviroji programa, kuriama „Mozillos“ ir kitų bendradarbių.]]></string>
 
 
 
@@ -568,10 +548,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[Jums leidžiama naudotis „%1$s“ programa, vadovaujantis <a href="%2$s">„Mozillos“ viešąja licencija</a> ir kitomis atviromis licencijomis.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Jums nesuteikiamos jokios prekės ženklo teisės ar licencijos į „Mozilla Foundation“ ar kitų šalių prekės ženklus, tame tarpe – į „Mozilla“, „Firefox“ ar „%1$s“ vardus ar logotipus. Papildomą informaciją apie prekės ženklus galite rasti <a href="%2$s">čia</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -661,8 +637,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Tyrimai</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">„Firefox“ retkarčiais gali įdiegti ir vykdyti tyrimus.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Sužinoti daugiau</string>
@@ -828,8 +802,6 @@ The new line here must be kept as the second half of the string is clickable for
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Pranešti apie strigtį „Mozillai“</string>
 
     <!-- Tracking protection bottom sheet -->
 

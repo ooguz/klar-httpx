@@ -108,8 +108,6 @@
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">అంతరంగికత &amp; భద్రత</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">ట్రాకింగ్, కుక్కీలు, డేటా ఎంపికలు</string>
 
     <!-- Preference category description for settings screen for settings related to Mozilla -->
     <!-- About the app and help are links that are inside this menu -->
@@ -268,7 +266,6 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s‌ను అప్రమేయ విహారిణి చేయి</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">వాడుక దత్తాంశాన్ని పంపించు</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
@@ -477,9 +474,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Firefoxను దింపుకోండి</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s అనేది మొజిల్లా, ఇతర తోడ్పాటుదార్లు తయారుచేసిన స్వేచ్ఛా, ఓపెన్ సోర్సు సాఫ్ట్‌వేరు.]]></string>
 
     <!-- Text shown in prompts for GeckoView -->
     <string name="gv_prompt_username_hint">వాడుకరి పేరు</string>

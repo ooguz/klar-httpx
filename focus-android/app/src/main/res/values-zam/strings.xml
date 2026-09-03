@@ -114,10 +114,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">KwàɁn léɁn Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">KwàɁn léɁn Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">KwàɁn léɁn Focus Beta</string>
@@ -130,8 +126,6 @@
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Yent-chó wìʔ</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Nêd, cookies ner yêts</string>
 
     <!-- Preference category description for settings screen for settings related to Mozilla -->
     <!-- About the app and help are links that are inside this menu -->
@@ -240,7 +234,6 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">&quot;M-tòb %1$s mdó-lás=lû &quot;</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">M-tàl kò lì-chèl</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->

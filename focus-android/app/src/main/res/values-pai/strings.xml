@@ -34,7 +34,6 @@
   <string name="text_selection_search_action">Jabchu tpaay chŕmee</string>
 
   <string name="preference_privacy_and_security_header">Jabchu tpaay ŕbokjanchu</string>
-  <string name="preference_privacy_and_security_summary">Kabwik chŕmeechu, cookies ee tñurya</string>
   <string name="preference_search_summary">Bu januliwu chiich, yemik maat chulwiyu</string>
   <string name="preference_mozilla_summary">%1$s chŕmechum, nyamch</string>
   <string name="preference_category_tracking_protection">Kabwik ŕmechu ŕboochu</string>
@@ -101,10 +100,8 @@
   <string name="preference_performance_block_javascript">JavaScript tket</string>
   <string name="preference_performance_block_javascript_summary">Jabchuhay wayiibrab jukewu yuso, kabyuu imyus kabyuwuha kos ŕpoochtema</string>
   <string name="preference_default_browser2">%1$s ha sal amchu jaan myoobka</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">Kamwiik daatha mwiruha m´emch</string>
   <string name="preference_mozilla_telemetry_summary">Terabum ŕpo</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla hay chmwiwuha paytum chyunk ka %1$s paytum wichkyaaw chajaanrab hikyawa.</string>
   <string name="preference_privacy_notice">Kabwik yemi wii jan yuwuha</string>
   <string name="preference_about">%1$s kabyuwuh</string>
   <string name="preference_search_installed_search_engines">Motor chŕmechu ñuk chkwachumyok</string>
@@ -195,7 +192,6 @@
   <string name="notification_browsing_session_channel_description">Chknaabchuhay chynchu ha %1$s ah ŕmara tawinch ŕisum. Kos aplicación ha msol yaŕaaltem o sal amchuhay boo kwawu uch yutem.</string>
   <string name="tabs_tray_action_erase">Sal amchu mujiñ</string>
   <string name="download_firefox">Firefox munaal</string>
-  <string name="your_rights_content1">%1$s software kos codig wiiytem solkyoha Mozilla ha ee jkay kubtar cyobchya.</string>
 
   <string name="gv_prompt_username_hint">M´mulha myoka</string>
   <string name="gv_prompt_password_hint">Ŕ\' amu</string>
@@ -226,5 +222,4 @@
 
 
 
-  <string name="crash_report_send_crash_label">Wuñparum Mozilla kwiim</string>
 </resources>

@@ -89,8 +89,6 @@
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Privaatheid en sekuriteit</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Naspoor-koekies, data keuses</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -151,7 +149,6 @@
     <string name="preference_privacy_block_ads_summary">Sommige advertensies hou rekord van jou webwerfbesoeke, selfs al kliek jy nie op hulle nie</string>
     <string name="preference_privacy_block_social">Blokkeer sosiale speurders</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Meer inligting</string>

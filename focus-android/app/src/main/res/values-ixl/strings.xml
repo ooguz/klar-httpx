@@ -125,10 +125,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">La chuk tu Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">La chuk tu Klar</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">La chuk tu Focus Beta</string>
@@ -137,24 +133,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">La chuk tu Focus Nightly</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s ni taq’ teq’ol isuuchil.</p>
-<p>B’anb’e u chukb’al uva’ eetz kuxhtu’:
-  <ul>
-    <li>Chuka as ti kuxh u aplicación la atin kat axh</li>
-    <li>La majpu ivatz unq’a chukunaal (moj la b’anax tuche’ aq’al uva’ la uch tok u chukunaal)</li>
-    <li>Sojsa aq’al uva’ la eesa-el u cookies as unq’a vee’ chukeltu ve’te’</li>
-  </ul>
-</p>
-<p>%1$s a’ u Mozilla kat aq’on. U qitz’ab’al nisa’ taq’at Internet b’a’n as jajlukan unpajte.<br/>
-<a href="%2$s">Ootzi unka’te</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Ye\'xhib\'il unka\'te la ootzin as tii tatine\'</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Ka\'taj Kam ti\' atiisata\', cookies as tachul</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -343,14 +325,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Palsa pal va navegador tu %1$s</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Aq\'ven unq\'a vee\' uve\' b\'anb\'emal ve\'t s-a\'n</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">La ootzil nimal</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">U Mozilla a\' chit u b\'a\'ne\' ni chuke\' aq\'al uva\' acha\'v chit u %1$se\' la ib\'ane\'.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Aviso de privacidad</string>
@@ -612,9 +591,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Eq\'o ku\'tzan u Firefoxe</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s jajle\'l kuxh u eq\'on tetze\' ta\'n u Mozilla.]]></string>
 
 
 
@@ -624,21 +600,12 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s ile’ ni tx’eb’on ve’t see’ aq’al la b’anb’e ta’ne’ tan la ootzi <a href="%2$s">kam yol xo’l tenam ti u Mozilla at sti’</a> as atkan unka’ta yol ti’ unq’a lochb’al tetz uva’ jajlu kan.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Ye’l umaj yol aq’axoj see’ ti’ b’anb’el unq’a texhlale’ uve’ ni xaansale’ ta’n u Mozilla moj tu jalte, echkole’ u texhlale’, vi b’ii u Mozilla, Firefox moj unq’a %1$s. La uch alejat ka’ta yol sti’ <a href="%2$s">tzitza’</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
     %2$s will be replaced with a URL linking to the list of licenses used by the dependencies.-->
     <string name="your_rights_content4"><![CDATA[Kat u texhlale’ uve’ tetz %1$s ile’ at ve’te’ ta’n ka’t <a href="%2$s">unq’a tu’aale’</a> uve’ jajlu kan kuxhtu’.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the GPL
-    %3$s will be replaced with a URL linking to the tracking protection wiki page (e.g. https://wiki.mozilla.org/Security/Tracking_protection#Lists) -->
-    <string name="your_rights_content5"><![CDATA[%1$s ni b’anb’e tachul majb’al uva’ ileltu ta’n u Mozilla. Echkole’ unq’a aq’one’ uve’ jatxel ivatz as a’ kuxh ni taq’onvu sijunal ta’n u <a href="%2$s">GNU General Public License v3</a>, as ile’ at ve’t <a href="%3$s">tzitza’</a>.]]></string>
 
     <!-- Text shown in prompts for GeckoView -->
     <string name="gv_prompt_username_hint">Ab\'ii la ooksa kan</string>
@@ -828,8 +795,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Chusb’al</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">U Firefox la uch taq’at kan as ib’anax chusb’al tul uva’ la uchi.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Ootzi ka´te</string>
@@ -966,8 +931,6 @@
     <!-- Label for button to close the tab-->
     <string name="tab_crash_report_close_tab_button_label">Jup u ilb’al tetze’</string>
 
-    <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">La aalb’en tu Mozilla ti’ unq’a vee’ ni Yáñez’</string>
 
     <!-- Tracking protection bottom sheet -->
 

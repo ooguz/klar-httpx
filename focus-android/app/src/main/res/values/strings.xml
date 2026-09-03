@@ -126,9 +126,9 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Search in Focus</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Search in Klar</string>
+             Berrak is hard coded since we can't use variables in this context.
+             Do not translate or transliterate Berrak.-->
+    <string name="text_selection_search_action_klar">Search in Berrak</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
@@ -148,14 +148,15 @@
     <li>Erase to delete cookies as well as search and browsing history</li>
   </ul>
 </p>
-<p>%1$s is produced by Mozilla. Our mission is to foster a healthy, open Internet.<br/>
+<p>%1$s is an independent fork of Mozilla’s open-source Firefox Focus, extended to browse httpx:// pages — HTTP over XMPP (XEP-0332). It is not produced or endorsed by Mozilla.<br/>
 <a href="%2$s">Learn more</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Privacy &amp; Security</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">Tracking, cookies, data choices</string>
+    <!-- Preference summary for settings related to privacy and security.
+         Berrak: "data choices" dropped — that section is removed (no telemetry). -->
+    <string name="preference_privacy_and_security_summary">Tracking, cookies</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -342,7 +343,7 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">Make %1$s default browser</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
+    <string name="preference_category_mozilla">Berrak</string>
     <string name="preference_mozilla_telemetry2">Send usage data</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
@@ -584,7 +585,7 @@
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[%1$s is free and open source software made by Mozilla and other contributors.]]></string>
+    <string name="your_rights_content1"><![CDATA[%1$s is free and open source software, built on Firefox Focus by Mozilla and the work of other contributors.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -594,7 +595,7 @@
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
     %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[You are not granted any rights or licenses to the trademarks of the Mozilla Foundation or any party, including the Mozilla, Firefox or %1$s names or logos. Additional information may be found <a href="%2$s">here</a>.]]></string>
+    <string name="your_rights_content3"><![CDATA[You are not granted any rights or licenses to the trademarks of the Mozilla Foundation or any party, including the Mozilla, Firefox or Firefox Klar names or logos. Additional information may be found <a href="%2$s">here</a>.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -936,7 +937,10 @@
     <string name="tab_crash_report_close_tab_button_label">Close Tab</string>
 
     <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Send crash report to Mozilla</string>
+    <!-- Berrak: the checkbox is hidden entirely unless a Sentry token is
+         compiled in (see CrashReporterFragment); with one, reports go to the
+         build's own Sentry, not Mozilla — hence no "to Mozilla". -->
+    <string name="crash_report_send_crash_label">Send crash report</string>
 
     <!-- Tracking protection bottom sheet -->
 

@@ -1,0 +1,5 @@
+<!-- Berrak brand: the splash screen behind the (circle-masked) droplet icon.
+     Upstream used photonViolet05/photonInk60. -->
+<resources>
+    <color name="splash_screen_background">#E8F4FA</color>
+</resources>

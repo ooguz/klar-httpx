@@ -34,7 +34,6 @@
   <string name="text_selection_search_action">Tsvaga pachivande</string>
 
   <string name="preference_privacy_and_security_header">Kuchengeteka ne Puraivhesi</string>
-  <string name="preference_privacy_and_security_summary">Kuchengeta, makuki, kusarudzwa kwe data</string>
   <string name="preference_search_summary">Ita zvisizvo, zvakakwana</string>
   <string name="preference_mozilla_summary">Nezvedu %1$s, rubatsiro</string>
   <string name="preference_category_tracking_protection">Kuchengetedzwa pakuteverwa</string>
@@ -101,10 +100,8 @@
   <string name="preference_performance_block_javascript">Vhara JavaScript</string>
   <string name="preference_performance_block_javascript_summary">Mapeji anogona kuvhura nokukurumidza, asi anogonawo kutanga kuita zvisingatarisirwe</string>
   <string name="preference_default_browser2">Ita %1$s bhurauza rechigarire</string>
-  <string name="preference_category_mozilla">Mozilla</string>
   <string name="preference_mozilla_telemetry2">Tumira data maererano nemashandisirwo</string>
   <string name="preference_mozilla_telemetry_summary">Dzidza zvimwe</string>
-  <string name="preference_mozilla_telemetry_summary2">Mozilla inoedza kuunganidza chete zvatinoda kupa nekuvandudza %1$s kune munhu wose.</string>
   <string name="preference_privacy_notice">Chiziviso pamusoro pekuvanza</string>
   <string name="preference_about">Nezvedu %1$s</string>
   <string name="preference_search_installed_search_engines">Mainjini ekutsvaga akaiswa</string>
@@ -195,7 +192,6 @@
   <string name="notification_browsing_session_channel_description">Izaziso dzinokubvumira kuti usasase %1$s svondo yako nepombi. Iwe haufaniri kuzarura purogiramu yacho kana kuona kuti chii chiri kushanda mu browser yako.</string>
   <string name="tabs_tray_action_erase">Bvisa zvawamboona</string>
   <string name="download_firefox">Dounirodha Firefox</string>
-  <string name="your_rights_content1">%1$s yakasununguka uye yakasununguka purogiramu software yakagadzirwa naMozilla nevamwe vanobatsira.</string>
 
 
 
@@ -262,5 +258,4 @@
 
 
 
-  <string name="crash_report_send_crash_label">Tumira ripoti yekuparara kuMozilla</string>
 </resources>

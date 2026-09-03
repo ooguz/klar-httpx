@@ -125,10 +125,6 @@
          Do not translate or transliterate Focus.-->
     <string name="text_selection_search_action_focus">Focus’ta ara</string>
     <!-- This is the label of an action we offer when the user selects text in other third-party apps.
-             Klar is hard coded since we can't use variables in this context.
-             Do not translate or transliterate Klar.-->
-    <string name="text_selection_search_action_klar">Klar’da ara</string>
-    <!-- This is the label of an action we offer when the user selects text in other third-party apps.
             Focus Beta is hard coded since we can't use variables in this context.
             Do not translate or transliterate Focus Beta.-->
     <string name="text_selection_search_action_focus_beta">Focus Beta’da ara</string>
@@ -137,24 +133,10 @@
           Do not translate or transliterate Focus Nightly.-->
     <string name="text_selection_search_action_focus_nightly">Focus Nightly’de ara</string>
 
-    <!-- Content of about focus. Argument 1 is the app name (Firefox Focus/Firefox Klar/etc).
-         Argument 2 is the url for the learn-more link. -->
-    <string name="about_content"><![CDATA[<p>%1$s kontrolü size verir.</p>
-<p>Onu gizlilik odaklı bir tarayıcı olarak kullanabilirsiniz:
-  <ul>
-    <li>Doğrudan uygulamada arama yapabilir ve web’de gezinebilirsiniz</li>
-    <li>Takip kodlarını engelleyebilirsiniz (veya belli takip kodlarına izin verebilirsiniz)</li>
-    <li>Tek düğmeyle çerezleri, arama ve gezinti geçmişinizi silebilirsiniz</li>
-  </ul>
-</p>
-<p>%1$s Mozilla tarafından geliştirilmiştir. Misyonumuz daha sağlıklı ve açık bir internet yaratmaktır.<br/>
-<a href="%2$s">Daha fazla bilgi alın</a></p>]]></string>
 
     <!-- Header for the Privacy and Security settings menu -->
     <string name="preference_privacy_and_security_header">Gizlilik ve Güvenlik</string>
 
-    <!-- Preference summary for settings related to privacy and security -->
-    <string name="preference_privacy_and_security_summary">İzlenme, çerezler, veri tercihleri</string>
 
     <!-- Preference category description for settings related to search, set default
     and autocomplete are settings a user can find and change inside the "search" settings screen -->
@@ -343,14 +325,11 @@
       %1$s will be replaced by the app name (e.g. Firefox Focus) -->
     <string name="preference_default_browser2">%1$s’u varsayılan tarayıcım yap</string>
 
-    <string name="preference_category_mozilla">Mozilla</string>
     <string name="preference_mozilla_telemetry2">Kullanım verilerini gönder</string>
 
     <!-- A link to SUMO at the end of the summary (preference_mozilla_telemetry_summary2) of the "Send anonymous usage data" setting. -->
     <string name="preference_mozilla_telemetry_summary">Daha fazla bilgi al</string>
 
-    <!-- %1$s will be replaced with the name of the app (e.g. Firefox Focus) -->
-    <string name="preference_mozilla_telemetry_summary2">Mozilla, yalnızca %1$s’u daha da geliştirmek için ihtiyaç duyduğumuz verileri toplar.</string>
 
     <!-- In-app link (in settings) to Focus privacy notice. -->
     <string name="preference_privacy_notice">Gizlilik bildirimi</string>
@@ -613,9 +592,6 @@
       item in the list of browsers. Clicking it will open the app store installed on the device (usually that's Google Play). -->
     <string name="download_firefox">Firefox’u indir</string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)-->
-    <string name="your_rights_content1"><![CDATA[Mozilla ve gönüllüler tarafından geliştirilen %1$s, özgür ve açık kaynaklı bir yazılımdır.]]></string>
 
 
 
@@ -625,10 +601,6 @@
     %2$s will be replaced with a URL linking to the MPL (e.g. https://www.mozilla.org/en-US/MPL/) -->
     <string name="your_rights_content2"><![CDATA[%1$s, <a href="%2$s">Mozilla Kamu Lisansı</a> ve diğer açık kaynak lisanslarının koşullarıyla sunulmaktadır.]]></string>
 
-    <!-- Text shown in the "Your rights" screen.
-    %1$s will be replaced with the name of the app (e.g. Firefox Focus)
-    %2$s will be replaced with a URL linking to the trademark policy (e.g. https://www.mozilla.org/foundation/trademarks/policy/) -->
-    <string name="your_rights_content3"><![CDATA[Mozilla Vakfı’nın tescilli markaları olan Mozilla, Firefox, %1$s adları ve logoları da dahil olmak üzere, tescilli markalarımızın hakları ve lisansları sizinle paylaşılmamaktadır. Daha fazla bilgi almak isterseniz <a href="%2$s">buraya</a> bakabilirsiniz.]]></string>
 
     <!-- Text shown in the "Your rights" screen.
     %1$s will be replaced with the name of the app (e.g. Firefox Focus)
@@ -830,8 +802,6 @@
     <!-- Preference for studies -->
     <string name="preference_studies">Araştırmalar</string>
 
-    <!-- Preference for studies summary-->
-    <string name="preference_studies_summary">Firefox zaman zaman araştırmalar yükleyip çalıştırabilir.</string>
 
     <!-- Learn more link for studies, links to an article for more information about studies. -->
     <string name="studies_learn_more">Daha fazla bilgi al</string>
@@ -977,8 +947,6 @@
 
 
 
-  <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <string name="crash_report_send_crash_label">Çökme raporunu Mozilla’ya gönder</string>
 
     <!-- Tracking protection bottom sheet -->
 

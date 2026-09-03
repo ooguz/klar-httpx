@@ -1,9 +1,11 @@
-# Klar httpx — a Firefox Klar fork that speaks httpx:// (XEP-0332)
+# Berrak — a Firefox Focus fork that speaks httpx:// (XEP-0332)
 
 A fork of [mozilla-mobile/firefox-android](https://github.com/mozilla-mobile/firefox-android)
 (125.0a1, the archived monorepo) whose Focus/Klar Android browser can navigate
 `httpx://` URLs — HTTP tunneled over XMPP, as implemented by the
-[xmpp-httpx](../n146) library.
+[xmpp-httpx](../n146) library. Distributed under the name **Berrak**
+(applicationId `dev.ooguz.berrak`), with Mozilla branding removed — see
+§Branding below.
 
 ## How it works
 
@@ -40,8 +42,8 @@ Typed input already worked: `URLStringUtils.isURLLike` accepts
 | `app/src/main/java/org/mozilla/focus/engine/AppContentInterceptor.kt` | httpx → extension-page rewrite |
 | `app/src/main/java/org/mozilla/focus/browser/integration/BrowserToolbarIntegration.kt` | display-URL reverse mapping |
 | `app/src/main/java/org/mozilla/focus/fragment/UrlInputFragment.kt` | edit-mode seed reverse mapping |
-| `app/src/klar/res/values/app.xml` | app name → "Klar httpx" |
-| `app/build.gradle` | klar applicationIdSuffix → `.klar.httpx`; warnings-as-errors off |
+| `app/src/klar/res/values/app.xml` | app name → "Berrak" |
+| `app/build.gradle` | klar applicationId → `dev.ooguz.berrak`; conditional Berrak release signing; warnings-as-errors off |
 | `tools/gradle/versionCode.gradle` | the yDDDHHmm versionCode scheme overflowed 32 bits in 2026; minutes dropped when out of range |
 | `tools/update-httpx-extension.sh` (repo root) | rebuild + refresh the bundled extension from the xmpp-httpx repo |
 
@@ -69,8 +71,24 @@ JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 GLEAN_PYTHON=/usr/bin/python3 \
 ```
 
 APKs land in `focus-android/app/build/outputs/apk/klar/debug/` (one per ABI).
-The applicationId is `org.mozilla.klar.httpx.debug`, so it installs alongside
-stock Klar.
+The applicationId is `dev.ooguz.berrak.debug`, so it installs alongside both
+stock Klar and a release Berrak.
+
+### Release (signed) build
+
+```sh
+cd focus-android
+BERRAK_KEYSTORE_PROPERTIES=~/Belgeler/bireysel/klar-httpx-signing/keystore.properties \
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 GLEAN_PYTHON=/usr/bin/python3 \
+  ./gradlew -PversionName=0.1.0 :app:assembleKlarRelease
+```
+
+`BERRAK_KEYSTORE_PROPERTIES` points at a Java properties file with
+`storeFile`/`storePassword`/`keyAlias`/`keyPassword`; without it the release
+APKs are built unsigned, as upstream. Always pass `-PversionName` — without it
+the APK silently keeps a debug-style versionName. ABI splits are on, so four
+APKs are produced (arm64-v8a is the one most phones want); versionCodes are
+generated from the build hour, so don't cut two releases within the same hour.
 
 Two build-time network quirks of this archived tree:
 
@@ -134,11 +152,50 @@ or flip `network.websocket.allowInsecureFromHTTPS` via a GeckoView
   `version` in the bundled manifest.json or devices keep the old files.
 - **"Block JavaScript" in Focus settings kills the extension page too** (the
   setting is engine-global).
+- **Inline `<img>` over httpx shows its alt text on GeckoView** (observed with
+  extension 0.2.3 on API 34, identical in debug and release builds, so not an
+  R8/rebrand artifact): the extension fetches the image — the gateway logs the
+  GET — but the blob URL does not render inside the sandboxed iframe. CSS
+  `url()` backgrounds and favicons are unaffected in desktop Chromium's smoke;
+  this is a GeckoView-path issue to chase in the xmpp-httpx repo.
 - Startup pref for smoke tests: first-run UI is skipped by writing
   `firstrun_shown=false` (inverted semantics) into the app's default shared
   prefs, or by tapping through once.
 
-## Trademark note
+## Branding
 
-"Firefox" and "Klar" are Mozilla trademarks. This fork is for local/personal
-builds; renamed branding and icons are required before any distribution.
+"Firefox", "Focus" and "Klar" are Mozilla trademarks; MPL-2.0 permits
+redistributing the code but grants no trademark rights, so the distributable
+build is rebranded **Berrak** (Turkish for *clear* — a nod to Klar's German).
+What the rebrand changed, all in the `klar` flavor + `src/main`:
+
+- **Name and id**: `app_name` → Berrak; flavor-level
+  `applicationId "dev.ooguz.berrak"` replaces `org.mozilla.*`; the static
+  launcher shortcuts' stale `targetPackage` (broken since the `.httpx`
+  suffix) fixed along the way.
+- **Art**: original droplet identity (launcher adaptive + legacy mipmaps,
+  wordmark, splash, erase-notification icon, onboarding art, search-widget
+  pills) generated into `app/src/klar/res/`, shadowing the fox-flame art in
+  `src/main`. The Mozilla-tinted `src/debug` launcher icons were deleted so
+  debug builds pick the same overlays (build-type res beats flavor res).
+- **Strings**: about/rights texts now state this is an independent fork not
+  produced by Mozilla; the "Mozilla" settings category is "Berrak"; the
+  tab-crash screen's "Send crash report to Mozilla" checkbox is hidden
+  (and relabeled) when no crash service is compiled in — it would have
+  sent nothing; stale Firefox/Mozilla translations purged from the locale
+  files in two passes (by edited-string name, then by brand words in
+  translation bodies — 780 entries total; they fall back to English).
+- **Services**: telemetry upload hard-disabled (`GleanMetricsService`), the
+  unconditional Socorro crash reporter removed (`Components.kt`), the
+  Data Choices settings section dropped, the advertising-ID permission
+  stripped from the manifest, Mozilla's issue/PR/security templates and
+  bot workflows deleted, and help/privacy links point at this fork's docs
+  ([PRIVACY.md](PRIVACY.md)) instead of Mozilla's SUMO pages — a fork must
+  not feed Mozilla's data pipelines nor present Mozilla's privacy notice
+  as its own. The splash background uses the Berrak palette.
+
+Kept deliberately: the `org.mozilla.focus` Java package namespace (internal,
+not user-visible; renaming it would make every upstream diff useless), the
+GeckoView user agent (functional), factual "based on Firefox Focus" texts,
+and the "Download Firefox" open-in banner (nominative use — it installs the
+real Firefox).
