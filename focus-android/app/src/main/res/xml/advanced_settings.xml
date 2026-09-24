@@ -19,6 +19,13 @@
             android:title="@string/preferences_open_links_in_apps" />
 
         <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="@string/pref_key_httpx_route_web"
+            android:layout="@layout/focus_preference_no_icon"
+            android:summary="@string/preference_httpx_route_web_summary"
+            android:title="@string/preference_httpx_route_web" />
+
+        <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="@string/pref_key_leakcanary"
             android:title="@string/preference_leakcanary"

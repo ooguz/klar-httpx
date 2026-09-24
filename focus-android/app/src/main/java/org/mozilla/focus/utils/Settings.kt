@@ -245,6 +245,17 @@ class Settings(
             false,
         )
 
+    /**
+     * Berrak: whether ordinary http(s):// addresses open in the bundled httpx
+     * page, which fetches them through the exit account configured in its own
+     * connection settings (see HttpxExtension.intercept).
+     */
+    fun shouldRouteWebThroughHttpxExit(): Boolean =
+        preferences.getBoolean(
+            getPreferenceKey(R.string.pref_key_httpx_route_web),
+            false,
+        )
+
     fun shouldShowSearchSuggestions(): Boolean =
         preferences.getBoolean(
             getPreferenceKey(R.string.pref_key_show_search_suggestions),

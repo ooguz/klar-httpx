@@ -15,6 +15,7 @@ import org.mozilla.focus.R
 import org.mozilla.focus.activity.CrashListActivity
 import org.mozilla.focus.browser.LocalizedContent
 import org.mozilla.focus.ext.components
+import org.mozilla.focus.ext.settings
 import org.mozilla.focus.httpx.HttpxExtension
 import org.mozilla.focus.utils.SupportUtils
 
@@ -32,7 +33,10 @@ class AppContentInterceptor(
         isSubframeRequest: Boolean,
     ): RequestInterceptor.InterceptionResponse? {
         if (!isSubframeRequest) {
-            HttpxExtension.intercept(uri)?.let { return it }
+            HttpxExtension.intercept(
+                uri,
+                routeWebThroughExit = context.settings.shouldRouteWebThroughHttpxExit(),
+            )?.let { return it }
         }
 
         return when (uri) {

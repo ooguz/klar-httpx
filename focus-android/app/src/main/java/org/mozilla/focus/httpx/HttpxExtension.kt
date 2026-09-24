@@ -52,21 +52,39 @@ object HttpxExtension {
     private fun isHttpxUrl(uri: String): Boolean =
         uri.startsWith("httpx://") || uri.startsWith("ext+httpx://")
 
+    private fun isWebUrl(uri: String): Boolean =
+        uri.startsWith("http://", ignoreCase = true) || uri.startsWith("https://", ignoreCase = true)
+
     /**
-     * An [InterceptionResponse.Url] sending this httpx:// navigation to the
-     * extension page, or null when [uri] is not an httpx URL — or when the
-     * extension has not finished installing, in which case the navigation falls
-     * through to the unknown-protocol error page.
+     * The extension page URL that renders [uri], or null when the page does not
+     * handle it. An httpx:// URL always is handled. An ordinary http(s):// URL is
+     * handled only while [routeWebThroughExit] — the "browse the web through the
+     * httpx exit" setting — is on: the page then fetches it through the exit
+     * account in its own connection settings (xmpp-httpx's proxy mode), and
+     * reports there when no exit is configured. The URL is kept verbatim in the
+     * fragment, which is what the page reads back and what [toDisplayUrl] shows.
      */
-    fun intercept(uri: String): InterceptionResponse? {
-        if (!isHttpxUrl(uri)) return null
+    internal fun pageUrlFor(uri: String, routeWebThroughExit: Boolean, base: String): String? {
+        if (!isHttpxUrl(uri) && !(routeWebThroughExit && isWebUrl(uri))) return null
+        return "$base$PAGE#$uri"
+    }
+
+    /**
+     * An [InterceptionResponse.Url] sending this navigation to the extension
+     * page, or null when the page does not handle [uri] (see [pageUrlFor]) — or
+     * when the extension has not finished installing, in which case the
+     * navigation falls through: an httpx:// URL to the unknown-protocol error
+     * page, a web URL to a direct load.
+     */
+    fun intercept(uri: String, routeWebThroughExit: Boolean = false): InterceptionResponse? {
         val base = baseUrl ?: return null
+        val target = pageUrlFor(uri, routeWebThroughExit, base) ?: return null
         // The default flags include EXTERNAL, which makes Gecko load the URL
         // with a null triggering principal — and a null principal may not link
         // to a moz-extension page. Bypassing the load-URI delegate is still
         // required so the rewritten load does not re-enter this interceptor.
         return InterceptionResponse.Url(
-            "$base$PAGE#$uri",
+            target,
             flags = LoadUrlFlags.select(LoadUrlFlags.LOAD_FLAGS_BYPASS_LOAD_URI_DELEGATE),
         )
     }

@@ -32,6 +32,21 @@ Gecko never learns the httpx scheme. Instead:
 Typed input already worked: `URLStringUtils.isURLLike` accepts
 `httpx://user@host/…` including the userinfo form.
 
+### Browsing the ordinary web through an httpx exit
+
+Settings → Advanced → **Browse the web through the httpx exit** (off by
+default). While it is on, every top-level `http://` / `https://` navigation
+(typed, a search result, a VIEW intent) is rewritten to the same extension page
+with the web URL in the fragment. The page fetches it with xmpp-httpx's proxy
+mode — `httpxFetch(url, { exit })`, an absolute-form XEP-0332 request to the
+exit JID — and renders it in its sanitized viewport, so links and forms on the
+page keep resolving through the exit. The exit account is the **exit** field of
+the extension's own connection settings (open any `httpx://` address to reach
+the dialog); with the switch on and no exit set, the page shows the library's
+"an ordinary URL needs an exit" error instead of loading anything directly.
+The toolbar shows the web URL as usual. Subframes are never rewritten. The
+switch is read on every load request, so flipping it takes effect immediately.
+
 ## Fork changes (all under `focus-android/`)
 
 | File | Change |
@@ -39,7 +54,9 @@ Typed input already worked: `URLStringUtils.isURLLike` accepts
 | `app/src/main/assets/extensions/httpx/` | the bundled extension (built page + Android MV2 manifest) |
 | `app/src/main/java/org/mozilla/focus/httpx/HttpxExtension.kt` | new: install, URL rewrite, display mapping |
 | `app/src/main/java/org/mozilla/focus/Components.kt` | install the built-in at engine creation |
-| `app/src/main/java/org/mozilla/focus/engine/AppContentInterceptor.kt` | httpx → extension-page rewrite |
+| `app/src/main/java/org/mozilla/focus/engine/AppContentInterceptor.kt` | httpx → extension-page rewrite; web → extension-page rewrite when the exit setting is on |
+| `app/src/main/java/org/mozilla/focus/utils/Settings.kt`, `res/xml/advanced_settings.xml`, `res/values/{preference_keys,strings}.xml` | the "Browse the web through the httpx exit" switch |
+| `app/src/test/java/org/mozilla/focus/httpx/HttpxExtensionTest.kt` | rewrite rules unit test |
 | `app/src/main/java/org/mozilla/focus/browser/integration/BrowserToolbarIntegration.kt` | display-URL reverse mapping |
 | `app/src/main/java/org/mozilla/focus/fragment/UrlInputFragment.kt` | edit-mode seed reverse mapping |
 | `app/src/klar/res/values/app.xml` | app name → "Berrak" |

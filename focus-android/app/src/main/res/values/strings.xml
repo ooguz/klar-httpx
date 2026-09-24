@@ -815,6 +815,11 @@
     <!-- Preference to enable remote debugging of the app via USB or Wi-Fi -->
     <string name="preference_remote_debugging">Remote debugging via USB/Wi-Fi</string>
 
+    <!-- Berrak: preference to open ordinary web addresses in the bundled httpx page, which fetches them through the exit account configured in that page's connection settings -->
+    <string name="preference_httpx_route_web">Browse the web through the httpx exit</string>
+    <!-- Berrak: summary shown under the preference above -->
+    <string name="preference_httpx_route_web_summary">Web addresses entered in the toolbar are fetched through the exit account set in the httpx:// connection settings</string>
+
     <!-- Text Button for show biometric prompt -->
     <string name="show_biometric_button_text">Unlock</string>
 
