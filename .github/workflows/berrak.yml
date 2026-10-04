@@ -49,17 +49,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v5
 
       - name: Seed the pruned nimbus-fml binary
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: nimbus-fml
         with:
           path: focus-android/build/bin/nimbus/125.20240317050356
@@ -81,7 +81,7 @@ jobs:
         run: ./gradlew :app:assembleKlarDebug
 
       - name: Upload debug APKs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: berrak-debug-apks
           path: focus-android/app/build/outputs/apk/klar/debug/*.apk
@@ -99,17 +99,17 @@ jobs:
       KEYSTORE_B64: ${{ secrets.BERRAK_KEYSTORE_B64 }}
       KEYSTORE_PASSWORD: ${{ secrets.BERRAK_KEYSTORE_PASSWORD }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v5
 
       - name: Seed the pruned nimbus-fml binary
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: nimbus-fml
         with:
           path: focus-android/build/bin/nimbus/125.20240317050356
@@ -174,7 +174,7 @@ jobs:
           done
 
       - name: Upload release APKs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: berrak-release-apks
           path: focus-android/app/build/outputs/apk/klar/release/*.apk
