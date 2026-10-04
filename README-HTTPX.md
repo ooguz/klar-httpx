@@ -47,6 +47,13 @@ the dialog); with the switch on and no exit set, the page shows the library's
 The toolbar shows the web URL as usual. Subframes are never rewritten. The
 switch is read on every load request, so flipping it takes effect immediately.
 
+**The exit sees everything in this mode.** The exit makes the HTTPS request
+itself, so TLS ends at the exit, not in Berrak: every page, cookie and form
+field is readable there. This is the trade n146 calls terminating mode, which
+its daemon refuses without `--trusted-exit`. The setting's summary says so.
+For end-to-end TLS, where the exit sees only host and port, run the n146
+daemon and use it as an ordinary HTTP proxy instead.
+
 ## Fork changes (all under `focus-android/`)
 
 | File | Change |

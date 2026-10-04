@@ -818,7 +818,7 @@
     <!-- Berrak: preference to open ordinary web addresses in the bundled httpx page, which fetches them through the exit account configured in that page's connection settings -->
     <string name="preference_httpx_route_web">Browse the web through the httpx exit</string>
     <!-- Berrak: summary shown under the preference above -->
-    <string name="preference_httpx_route_web_summary">Web addresses entered in the toolbar are fetched through the exit account set in the httpx:// connection settings</string>
+    <string name="preference_httpx_route_web_summary">Web addresses are fetched by the exit set in the httpx:// connection settings. The exit sees every page you open this way, including HTTPS pages and what you type into them. Use only an exit you trust.</string>
 
     <!-- Text Button for show biometric prompt -->
     <string name="show_biometric_button_text">Unlock</string>
