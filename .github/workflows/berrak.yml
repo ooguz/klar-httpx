@@ -56,7 +56,7 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Seed the pruned nimbus-fml binary
         uses: actions/cache@v6
@@ -106,7 +106,7 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Seed the pruned nimbus-fml binary
         uses: actions/cache@v6
