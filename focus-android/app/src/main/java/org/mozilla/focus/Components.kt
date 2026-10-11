@@ -45,7 +45,6 @@ import mozilla.components.feature.top.sites.TopSitesUseCases
 import mozilla.components.feature.webcompat.WebCompatFeature
 import mozilla.components.feature.webcompat.reporter.WebCompatReporterFeature
 import mozilla.components.lib.crash.CrashReporter
-import mozilla.components.lib.crash.sentry.SentryService
 import mozilla.components.lib.crash.service.CrashReporterService
 import mozilla.components.lib.crash.service.GleanCrashReporterService
 import mozilla.components.lib.publicsuffixlist.PublicSuffixList
@@ -53,7 +52,6 @@ import mozilla.components.service.location.LocationService
 import mozilla.components.service.location.MozillaLocationService
 import mozilla.components.service.nimbus.NimbusApi
 import mozilla.components.support.base.android.NotificationsDelegate
-import mozilla.components.support.locale.LocaleManager
 import org.mozilla.focus.activity.MainActivity
 import org.mozilla.focus.browser.BlockedTrackersMiddleware
 import org.mozilla.focus.cfr.CfrMiddleware
@@ -79,7 +77,6 @@ import org.mozilla.focus.telemetry.startuptelemetry.StartupActivityLog
 import org.mozilla.focus.telemetry.startuptelemetry.StartupStateProvider
 import org.mozilla.focus.topsites.DefaultTopSitesStorage
 import org.mozilla.focus.utils.Settings
-import java.util.Locale
 
 /**
  * Helper object for lazily initializing components.
@@ -248,28 +245,12 @@ class Components(
 private fun createCrashReporter(context: Context, notificationsDelegate: NotificationsDelegate): CrashReporter {
     val services = mutableListOf<CrashReporterService>()
 
-    if (BuildConfig.SENTRY_TOKEN.isNotEmpty()) {
-        val sentryService = SentryService(
-            context,
-            BuildConfig.SENTRY_TOKEN,
-            tags = mapOf(
-                "build_flavor" to BuildConfig.FLAVOR,
-                "build_type" to BuildConfig.BUILD_TYPE,
-                "locale_lang_tag" to getLocaleTag(context),
-            ),
-            environment = BuildConfig.BUILD_TYPE,
-            sendEventForNativeCrashes = false, // Do not send native crashes to Sentry
-        )
-
-        services.add(sentryService)
-    }
-
-    // Berrak: upstream unconditionally added MozillaSocorroService here, which
-    // offered every crash to Mozilla's Socorro under the "Focus" app name.
-    // A fork must not feed Mozilla's crash pipeline — removed. Sentry above
-    // stays token-gated (no token, no service). The Glean telemetry service
-    // below only records locally: upload is hard-disabled in
-    // GleanMetricsService for this fork.
+    // Berrak: no crash submit service. Upstream added MozillaSocorroService,
+    // which offered every crash to Mozilla's Socorro under the "Focus" name,
+    // and a token-gated Sentry service; a fork must not feed Mozilla's
+    // pipeline, and the Sentry library is not even compiled in (store
+    // scanners count it as a tracker). The Glean telemetry service below
+    // only records locally: upload is hard-disabled in GleanMetricsService.
 
     val intent = Intent(context, MainActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -296,7 +277,7 @@ private fun createCrashReporter(context: Context, notificationsDelegate: Notific
             appName = context.resources.getString(R.string.app_name),
         ),
         // With no submit services the "send report?" prompt would send
-        // nothing — only prompt when a real service (Sentry) is configured.
+        // nothing, so it is never shown.
         shouldPrompt = if (services.isEmpty()) {
             CrashReporter.Prompt.NEVER
         } else {
@@ -306,15 +287,6 @@ private fun createCrashReporter(context: Context, notificationsDelegate: Notific
         nonFatalCrashIntent = pendingIntent,
         notificationsDelegate = notificationsDelegate,
     )
-}
-
-private fun getLocaleTag(context: Context): String {
-    val currentLocale = LocaleManager.getCurrentLocale(context)
-    return if (currentLocale != null) {
-        currentLocale.toLanguageTag()
-    } else {
-        Locale.getDefault().toLanguageTag()
-    }
 }
 
 /**

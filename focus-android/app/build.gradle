@@ -272,11 +272,7 @@ dependencies {
     implementation ComponentsDependencies.androidx_work_runtime
     implementation ComponentsDependencies.androidx_data_store_preferences
 
-    implementation FocusDependencies.google_play
-
     implementation ComponentsDependencies.google_material
-
-    implementation ComponentsDependencies.thirdparty_sentry
 
     implementation project(':browser-engine-gecko')
     implementation project(':browser-domains')
@@ -308,7 +304,6 @@ dependencies {
     implementation project(':feature-top-sites')
     implementation project(':feature-sitepermissions')
     implementation project(':lib-crash')
-    implementation project(':lib-crash-sentry')
     implementation project(':lib-state')
     implementation project(':feature-media')
     implementation project(':lib-auth')
@@ -507,22 +502,6 @@ android.applicationVariants.configureEach { variant ->
     } else {
         buildConfigField 'String', 'ADJUST_TOKEN', 'null'
         println("--")
-    }
-}
-
-// -------------------------------------------------------------------------------------------------
-// Sentry: Read token from local file if it exists (Only release builds)
-// -------------------------------------------------------------------------------------------------
-
-android.applicationVariants.configureEach {
-    print("Sentry token: ")
-    try {
-        def token = new File("${rootDir}/.sentry_token").text.trim()
-        buildConfigField 'String', 'SENTRY_TOKEN', '"' + token + '"'
-        println "(Added from .sentry_token file)"
-    } catch (FileNotFoundException ignored) {
-        buildConfigField 'String', 'SENTRY_TOKEN', '""'
-        println("X_X")
     }
 }
 

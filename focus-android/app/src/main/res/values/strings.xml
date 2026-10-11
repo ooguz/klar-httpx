@@ -942,9 +942,8 @@
     <string name="tab_crash_report_close_tab_button_label">Close Tab</string>
 
     <!-- Label for the checkbox to send the tab crash report to Mozilla -->
-    <!-- Berrak: the checkbox is hidden entirely unless a Sentry token is
-         compiled in (see CrashReporterFragment); with one, reports go to the
-         build's own Sentry, not Mozilla — hence no "to Mozilla". -->
+    <!-- Berrak: the checkbox is always hidden (see CrashReporterFragment):
+         there is no crash submit service in this fork. -->
     <string name="crash_report_send_crash_label">Send crash report</string>
 
     <!-- Tracking protection bottom sheet -->
