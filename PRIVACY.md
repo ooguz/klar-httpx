@@ -9,10 +9,10 @@ what Berrak does with your data.
 
 - **Nothing is sent to us.** Berrak has no telemetry: Glean upload is
   hard-disabled in code, the crash reporter submits to no one (Mozilla's
-  Socorro service was removed from this fork; the Sentry client ships in the
-  binary but is only *activated* if a build provides its own token — official
-  builds provide none, and without one the crash screen offers no "send"
-  checkbox at all), and there is no experiments/Nimbus endpoint. One
+  Socorro service and the Sentry client were both removed from this fork,
+  and the crash screen offers no "send" checkbox), and there is no
+  experiments/Nimbus endpoint. Google's Play Core library, used upstream
+  only for a store review prompt, is removed too. One
   cosmetic note: after a crash, Android may briefly show a "gathering crash
   telemetry" notification — that is Glean *recording a crash counter
   locally*; with upload disabled it never leaves the device.
@@ -24,6 +24,11 @@ what Berrak does with your data.
   httpx page's connection settings, over WebSocket. Your requests are visible
   to that XMPP server and to the httpx gateway that serves the content, like
   any origin server would see them.
+- **Proxy mode** (Settings → Advanced → "Browse the web through the httpx
+  exit", off by default) sends ordinary web addresses to the n146 exit set
+  in the httpx connection settings. The exit fetches each page itself,
+  HTTPS included, so it sees every page you open this way and what you type
+  into it. Turn it on only for an exit you trust with that.
 
 ## What stays on your device
 
