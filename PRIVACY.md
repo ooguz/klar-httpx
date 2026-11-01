@@ -12,7 +12,9 @@ what Berrak does with your data.
   Socorro service and the Sentry client were both removed from this fork,
   and the crash screen offers no "send" checkbox), and there is no
   experiments/Nimbus endpoint. Google's Play Core library, used upstream
-  only for a store review prompt, is removed too. One
+  only for a store review prompt, is removed too, and so is every other
+  Google Play Services library: Berrak ships only free software, which is
+  also why WebAuthn (passkeys, security keys) is switched off. One
   cosmetic note: after a crash, Android may briefly show a "gathering crash
   telemetry" notification — that is Glean *recording a crash counter
   locally*; with upload disabled it never leaves the device.

@@ -67,7 +67,8 @@ daemon and use it as an ordinary HTTP proxy instead.
 | `app/src/main/java/org/mozilla/focus/browser/integration/BrowserToolbarIntegration.kt` | display-URL reverse mapping |
 | `app/src/main/java/org/mozilla/focus/fragment/UrlInputFragment.kt` | edit-mode seed reverse mapping |
 | `app/src/klar/res/values/app.xml` | app name → "Berrak" |
-| `app/build.gradle` | klar applicationId → `dev.ooguz.berrak`; conditional Berrak release signing; warnings-as-errors off |
+| `app/build.gradle` | klar applicationId → `dev.ooguz.berrak`; conditional Berrak release signing; warnings-as-errors off; `com.google.android.gms` excluded |
+| `app/src/main/java/org/mozilla/focus/components/EngineProvider.kt` | startup Gecko config: WebAuthn off (its backend is the excluded play-services-fido) |
 | `tools/gradle/versionCode.gradle` | the yDDDHHmm versionCode scheme overflowed 32 bits in 2026; minutes dropped when out of range |
 | `tools/update-httpx-extension.sh` (repo root) | rebuild + refresh the bundled extension from the xmpp-httpx repo |
 
@@ -152,6 +153,20 @@ or flip `network.websocket.allowInsecureFromHTTPS` via a GeckoView
 `configFilePath` YAML if you must.
 
 ## Known limitations / notes
+
+- **No Google Play Services, so no WebAuthn**: Berrak is meant to be free
+  software end to end, and GeckoView's only WebAuthn backend on Android is
+  Google's proprietary `play-services-fido`. The whole
+  `com.google.android.gms` group is excluded in `app/build.gradle`, and the
+  Gecko pref `security.webauth.webauthn` is set to `false` at startup
+  (`EngineProvider.writeGeckoConfig`), so `PublicKeyCredential` is absent and
+  no page can call into the missing classes. Passkeys and hardware security
+  keys do not work; sites fall back to their other sign-in methods.
+  Nothing was lost by this: with the library present, Google Play Services
+  refused every request anyway, because it serves the browser FIDO API only
+  to browsers whose signing certificate Google has allowlisted (logcat on
+  v0.2.0: "Rejecting browser request from dev.ooguz.berrak because the hash
+  of the certificate … is not recognised").
 
 - **Extension install races a cold-start VIEW intent**: if an httpx URL arrives
   before the built-in finishes installing, the navigation falls through to the

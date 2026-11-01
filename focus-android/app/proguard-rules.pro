@@ -16,6 +16,16 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 ####################################################################################################
+# Google Play Services are excluded (see app/build.gradle); GeckoView's
+# WebAuthnTokenManager still references them and is never reached.
+####################################################################################################
+
+-dontwarn com.google.android.gms.**
+# Compile-time-only nullness annotations on GeckoView's bundled ExoPlayer;
+# they used to arrive transitively through play-services.
+-dontwarn org.checkerframework.checker.nullness.qual.**
+
+####################################################################################################
 # Adjust
 ####################################################################################################
 

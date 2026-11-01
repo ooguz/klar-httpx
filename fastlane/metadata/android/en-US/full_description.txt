@@ -12,6 +12,9 @@ What Berrak does
 Privacy
 Berrak sends nothing to its developer. There is no telemetry upload and no crash reporting service. Your XMPP account details stay in the app's own storage on your device. httpx traffic goes only to the XMPP server you configure.
 
+Free software only
+Berrak contains no Google Play Services or other proprietary libraries. The one Firefox feature that needs them, WebAuthn, is switched off: passkeys and hardware security keys do not work in Berrak, so sign in to those sites another way.
+
 Berrak is an independent fork of Mozilla's Firefox Focus. It is not produced or endorsed by Mozilla.
 
 Source code: https://github.com/ooguz/klar-httpx

@@ -17,6 +17,7 @@ import mozilla.components.lib.crash.handler.CrashHandlerService
 import org.mozilla.focus.utils.AppConstants
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
+import java.io.File
 
 object EngineProvider {
     private var runtime: GeckoRuntime? = null
@@ -30,6 +31,7 @@ object EngineProvider {
             val builder = GeckoRuntimeSettings.Builder()
 
             builder.crashHandler(CrashHandlerService::class.java)
+            builder.configFilePath(writeGeckoConfig(context))
             builder.aboutConfigEnabled(
                 AppConstants.isDevOrNightlyBuild || AppConstants.isBetaBuild,
             )
@@ -39,6 +41,26 @@ object EngineProvider {
 
         return runtime!!
     }
+
+    /**
+     * Gecko prefs Berrak needs before the runtime starts. WebAuthn is off
+     * because its Android backend is Google's play-services-fido, which
+     * Berrak leaves out (see app/build.gradle); with the pref on, a page
+     * calling navigator.credentials would reach classes that are not there.
+     *
+     * An explicit config path also replaces GeckoView's debug-only
+     * /data/local/tmp/<package>-geckoview-config.yaml, so for local
+     * experiments edit this file rather than pushing one with adb.
+     */
+    private fun writeGeckoConfig(context: Context): String {
+        val file = File(context.filesDir, "berrak-geckoview-config.yaml")
+        if (!file.exists() || file.readText() != GECKO_CONFIG) file.writeText(GECKO_CONFIG)
+        return file.absolutePath
+    }
+
+    private const val GECKO_CONFIG = """prefs:
+  security.webauth.webauthn: false
+"""
 
     fun createEngine(context: Context, defaultSettings: DefaultSettings): Engine {
         val runtime = getOrCreateRuntime(context)
