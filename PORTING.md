@@ -46,10 +46,36 @@ from Mozilla's CI, Java/Kotlin built locally):
 ```
 git clone --depth 1 -b release https://github.com/mozilla-firefox/firefox berrak-ff
 cd berrak-ff
-./mach --no-interactive bootstrap --application-choice "GeckoView/Firefox for Android Artifact Mode"
-./mach build
-cd mobile/android/focus-android && ./gradlew :app:assembleFocusDebug
+# Not --no-system-changes: that also skips the Android SDK. Without it the
+# SDK lands in ~/.mozbuild/android-sdk-linux; no sudo was needed on Ubuntu.
+./mach --no-interactive bootstrap --application-choice mobile_android_artifact_mode
+cat > mozconfig <<'MOZ'
+ac_add_options --enable-project=mobile/android
+ac_add_options --enable-artifact-builds
+ac_add_options --target=x86_64-linux-android   # one build per ABI
+mk_add_options MOZ_OBJDIR=./objdir-x86_64
+MOZ
+./mach build                                     # about 10 minutes
+systemd-run --user --scope -p MemoryMax=10G -p MemorySwapMax=2G \
+  nice -n 10 ./mach gradle -p mobile/android/focus-android \
+  --max-workers=3 -Dorg.gradle.parallel=false \
+  "-Dorg.gradle.jvmargs=-Xmx5g -XX:MaxMetaspaceSize=1536m" \
+  -Pkotlin.compiler.execution.strategy=in-process :app:assembleKlarDebug
 ```
+
+The limits on the Gradle step matter: upstream's own settings (7 GB heap,
+parallel, a worker per core, a separate Kotlin daemon) exhausted a 30 GB
+laptop that had other work open. The cgroup cap makes a too-large build fail
+on its own instead of taking the desktop with it.
+
+Verified 2026-11-02 with stock Focus 159.0.1 (`klar` flavour, x86_64):
+`targetSdkVersion 37`, `libxul.so`/`libmozglue.so` LOAD segments aligned to
+`0x4000`, `zipalign -c -P 16` passes, and it renders a page on the
+`Pixel_10` emulator (Android 17, `getconf PAGE_SIZE` = 16384), where Gecko
+125 crashed. Give that emulator 5 GB (`-memory 5120`); at 3 GB Android's
+low-memory killer takes the browser down within seconds. The stock APK
+still carries `com.google.android.gms` (fido, common, internal), so the
+exclusion described above is needed again.
 
 F-Droid's main repository will later need a full Gecko build from source
 (no prebuilt artifacts). The artifact build is enough for Play and
@@ -57,8 +83,8 @@ IzzyOnDroid.
 
 ## Plan
 
-1. Clone the `release` branch, bootstrap, and build stock Focus in artifact
-   mode. This proves the toolchain.
+1. ~~Clone the `release` branch, bootstrap, and build stock Focus in artifact
+   mode.~~ Done 2026-11-02 (see above); the toolchain works.
 2. Start a `berrak` branch in that tree. Port the build identity first
    (applicationId, signing, versionCode), then the privacy removals and the
    gms exclusion, then branding, then the httpx integration.
