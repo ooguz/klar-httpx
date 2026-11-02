@@ -1,0 +1,171 @@
+From fa27034b98e296f1485a8b5fc7d1ee8fb575e445 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
+Date: Mon, 2 Nov 2026 03:57:14 +0300
+Subject: [PATCH 1/5] Berrak: own application id and release signing
+
+The klar flavour becomes dev.ooguz.berrak (build-type suffixes still
+append) and the erase shortcuts target it, including klarNightly, whose
+upstream shortcut pointed at the release package. Release builds are
+signed with the Berrak keystore when BERRAK_KEYSTORE_PROPERTIES names a
+readable properties file; otherwise upstream's local debug signing stays.
+
+The versionCode needs no change: upstream's 2026 rollover (40DDDHHmm)
+already yields codes above Berrak 0.x's (3yyDDDHH0), so 1.0 upgrades in
+place.
+
+Claude-Session: https://claude.ai/code/session_01Ec3g34YeceWefbDxePbgre
+---
+ mobile/android/focus-android/app/build.gradle | 34 ++++++++++++++++++-
+ .../src/klarBeta/res/xml-v25/shortcuts.xml    |  4 +--
+ .../src/klarDebug/res/xml-v25/shortcuts.xml   |  4 +--
+ .../src/klarNightly/res/xml-v25/shortcuts.xml |  4 +--
+ .../src/klarRelease/res/xml-v25/shortcuts.xml |  4 +--
+ 5 files changed, 41 insertions(+), 9 deletions(-)
+
+diff --git a/mobile/android/focus-android/app/build.gradle b/mobile/android/focus-android/app/build.gradle
+index 902c60c544..b7baed7801 100644
+--- a/mobile/android/focus-android/app/build.gradle
++++ b/mobile/android/focus-android/app/build.gradle
+@@ -69,6 +69,27 @@ android {
+     // We have a three dimensional build configuration:
+     // BUILD TYPE (debug, release) X PRODUCT FLAVOR (focus, klar)
+ 
++    // Berrak release signing: point BERRAK_KEYSTORE_PROPERTIES at a Java
++    // properties file holding storeFile/storePassword/keyAlias/keyPassword
++    // (CI materializes it from secrets; locally it lives outside the repo).
++    // Absent or unreadable, release builds keep upstream's debug signing.
++    def berrakSigningProps = new Properties()
++    def berrakSigningPath = System.getenv("BERRAK_KEYSTORE_PROPERTIES")
++    if (berrakSigningPath != null && file(berrakSigningPath).exists()) {
++        file(berrakSigningPath).withInputStream { berrakSigningProps.load(it) }
++    }
++
++    signingConfigs {
++        if (!berrakSigningProps.isEmpty()) {
++            berrak {
++                storeFile file(berrakSigningProps.getProperty("storeFile"))
++                storePassword berrakSigningProps.getProperty("storePassword")
++                keyAlias berrakSigningProps.getProperty("keyAlias")
++                keyPassword berrakSigningProps.getProperty("keyPassword")
++            }
++        }
++    }
++
+     buildTypes {
+         release {
+             // We allow disabling optimization by passing `-PdisableOptimization` to gradle. This is used
+@@ -85,6 +106,12 @@ android {
+                 signingConfig = signingConfigs.debug
+             }
+ 
++            def berrakSigning = signingConfigs.findByName("berrak")
++            if (berrakSigning != null) {
++                println ("Release builds will be signed with the Berrak keystore")
++                signingConfig = berrakSigning
++            }
++
+             if (gradle.hasProperty("localProperties.debuggable") ||
+                 gradle.mozconfig.substs.MOZ_ANDROID_DEBUGGABLE) {
+                 println ("All builds will be debuggable")
+@@ -140,7 +167,12 @@ android {
+         klar {
+             dimension "product"
+ 
+-            applicationIdSuffix ".klar"
++            // Berrak: our own application id. A flavor-level applicationId
++            // replaces defaultConfig's "org.mozilla" entirely (build-type
++            // suffixes such as ".debug" still append). Mozilla trademarks
++            // ("Firefox", "Klar", the fox-flame art) are removed from this
++            // flavor's user-visible surface; see README-HTTPX.md.
++            applicationId "dev.ooguz.berrak"
+ 
+             // This is used when the user selects text in other third-party apps. See https://github.com/mozilla-mobile/focus-android/issues/6478
+             manifestPlaceholders = [textSelectionSearchAction: "@string/text_selection_search_action_klar"]
+diff --git a/mobile/android/focus-android/app/src/klarBeta/res/xml-v25/shortcuts.xml b/mobile/android/focus-android/app/src/klarBeta/res/xml-v25/shortcuts.xml
+index 1024f92407..689619ab51 100644
+--- a/mobile/android/focus-android/app/src/klarBeta/res/xml-v25/shortcuts.xml
++++ b/mobile/android/focus-android/app/src/klarBeta/res/xml-v25/shortcuts.xml
+@@ -11,7 +11,7 @@
+         android:shortcutLongLabel="@string/shortcut_erase_long_label">
+         <intent
+             android:action="erase"
+-            android:targetPackage="org.mozilla.klar.beta"
++            android:targetPackage="dev.ooguz.berrak.beta"
+             android:targetClass="org.mozilla.focus.activity.EraseShortcutActivity">
+                 <extra android:name="shortcut" android:value="true" />
+         </intent>
+@@ -23,7 +23,7 @@
+       android:shortcutShortLabel="@string/shortcut_erase_and_open_short_label">
+     <intent
+         android:action="erase"
+-        android:targetPackage="org.mozilla.klar.beta"
++        android:targetPackage="dev.ooguz.berrak.beta"
+         android:targetClass="org.mozilla.focus.activity.EraseAndOpenShortcutActivity">
+       <extra android:name="shortcut" android:value="true" />
+     </intent>
+diff --git a/mobile/android/focus-android/app/src/klarDebug/res/xml-v25/shortcuts.xml b/mobile/android/focus-android/app/src/klarDebug/res/xml-v25/shortcuts.xml
+index b18e391208..48443f68ea 100644
+--- a/mobile/android/focus-android/app/src/klarDebug/res/xml-v25/shortcuts.xml
++++ b/mobile/android/focus-android/app/src/klarDebug/res/xml-v25/shortcuts.xml
+@@ -11,7 +11,7 @@
+         android:shortcutLongLabel="@string/shortcut_erase_long_label">
+         <intent
+             android:action="erase"
+-            android:targetPackage="org.mozilla.klar.debug"
++            android:targetPackage="dev.ooguz.berrak.debug"
+             android:targetClass="org.mozilla.focus.activity.EraseShortcutActivity">
+                 <extra android:name="shortcut" android:value="true" />
+         </intent>
+@@ -23,7 +23,7 @@
+       android:shortcutShortLabel="@string/shortcut_erase_and_open_short_label">
+     <intent
+         android:action="erase"
+-        android:targetPackage="org.mozilla.klar.debug"
++        android:targetPackage="dev.ooguz.berrak.debug"
+         android:targetClass="org.mozilla.focus.activity.EraseAndOpenShortcutActivity">
+       <extra android:name="shortcut" android:value="true" />
+     </intent>
+diff --git a/mobile/android/focus-android/app/src/klarNightly/res/xml-v25/shortcuts.xml b/mobile/android/focus-android/app/src/klarNightly/res/xml-v25/shortcuts.xml
+index c35341d8c1..4e2cc2b9b0 100644
+--- a/mobile/android/focus-android/app/src/klarNightly/res/xml-v25/shortcuts.xml
++++ b/mobile/android/focus-android/app/src/klarNightly/res/xml-v25/shortcuts.xml
+@@ -11,7 +11,7 @@
+         android:shortcutLongLabel="@string/shortcut_erase_long_label">
+         <intent
+             android:action="erase"
+-            android:targetPackage="org.mozilla.klar"
++            android:targetPackage="dev.ooguz.berrak.nightly"
+             android:targetClass="org.mozilla.focus.activity.EraseShortcutActivity">
+                 <extra android:name="shortcut" android:value="true" />
+         </intent>
+@@ -23,7 +23,7 @@
+       android:shortcutShortLabel="@string/shortcut_erase_and_open_short_label">
+     <intent
+         android:action="erase"
+-        android:targetPackage="org.mozilla.klar"
++        android:targetPackage="dev.ooguz.berrak.nightly"
+         android:targetClass="org.mozilla.focus.activity.EraseAndOpenShortcutActivity">
+       <extra android:name="shortcut" android:value="true" />
+     </intent>
+diff --git a/mobile/android/focus-android/app/src/klarRelease/res/xml-v25/shortcuts.xml b/mobile/android/focus-android/app/src/klarRelease/res/xml-v25/shortcuts.xml
+index c35341d8c1..01f6696cf0 100644
+--- a/mobile/android/focus-android/app/src/klarRelease/res/xml-v25/shortcuts.xml
++++ b/mobile/android/focus-android/app/src/klarRelease/res/xml-v25/shortcuts.xml
+@@ -11,7 +11,7 @@
+         android:shortcutLongLabel="@string/shortcut_erase_long_label">
+         <intent
+             android:action="erase"
+-            android:targetPackage="org.mozilla.klar"
++            android:targetPackage="dev.ooguz.berrak"
+             android:targetClass="org.mozilla.focus.activity.EraseShortcutActivity">
+                 <extra android:name="shortcut" android:value="true" />
+         </intent>
+@@ -23,7 +23,7 @@
+       android:shortcutShortLabel="@string/shortcut_erase_and_open_short_label">
+     <intent
+         android:action="erase"
+-        android:targetPackage="org.mozilla.klar"
++        android:targetPackage="dev.ooguz.berrak"
+         android:targetClass="org.mozilla.focus.activity.EraseAndOpenShortcutActivity">
+       <extra android:name="shortcut" android:value="true" />
+     </intent>

@@ -1,0 +1,5 @@
+# The Mozilla tree the patches in port/patches apply to. Bump all three
+# together when rebasing (see PORTING.md, "Rebasing").
+UPSTREAM_REPO=https://github.com/mozilla-firefox/firefox.git
+UPSTREAM_COMMIT=ae0a60474a1610748ae5a57e21edaf82b36376d4
+UPSTREAM_VERSION=159.0.1

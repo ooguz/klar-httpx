@@ -101,3 +101,6 @@ DerivedData
 *.xcscmblueprint
 .build
 
+
+# Berrak port work tree (port/build.sh)
+/port/work/

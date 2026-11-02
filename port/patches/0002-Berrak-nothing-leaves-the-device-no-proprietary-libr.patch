@@ -1,0 +1,686 @@
+From 38c9251f2171aead6b87d6ea96b7383bedf9eaed Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
+Date: Mon, 2 Nov 2026 04:01:57 +0300
+Subject: [PATCH 2/5] Berrak: nothing leaves the device; no proprietary
+ libraries
+
+Ported from Berrak 0.x onto Focus 159, adjusted for what upstream changed:
+
+- Crash reporting: no Socorro or Sentry service, so no "send" prompt and the
+  crash screen's consent checkbox is hidden. lib-crash-sentry and the
+  Sentry SDK are not built in.
+- Telemetry: upstream now hard-codes general telemetry off. The new daily
+  usage ping (opt-in for Klar) still reports to Mozilla, so it is never
+  started and its settings switch is removed.
+- Nimbus gets no server. Upstream now fetches experiments from Mozilla's
+  remote settings under the Klar app name; only bundled experiments apply.
+- No Google Play Services: com.google.android.gms is excluded; GeckoView's
+  WebAuthn backend needs it, so security.webauth.webauthn is set false
+  through the GeckoRuntime config file. No Play Core: the in-app review
+  prompt becomes a no-op. AD_ID is stripped from the merged manifest.
+- Help, privacy notice, terms and manifesto links go to Berrak's docs (the
+  terms link to its MPL-2.0 licence); SupportUtilsTest pins them.
+
+Verified: klarDebug builds; its dex has no com.google.android.gms, io.sentry
+or com.google.android.play classes; SupportUtilsTest passes.
+
+Claude-Session: https://claude.ai/code/session_01Ec3g34YeceWefbDxePbgre
+---
+ mobile/android/focus-android/app/build.gradle |  24 +--
+ .../focus-android/app/proguard-rules.pro      |  10 ++
+ .../app/src/main/AndroidManifest.xml          |   5 +-
+ .../main/java/org/mozilla/focus/Components.kt |  58 ++-----
+ .../org/mozilla/focus/FocusApplication.kt     |   6 +-
+ .../mozilla/focus/appreview/AppReviewStep.kt  |  12 --
+ .../mozilla/focus/appreview/AppReviewUtils.kt | 159 ++----------------
+ .../focus/components/EngineProvider.kt        |  22 +++
+ .../focus/fragment/CrashReporterFragment.kt   |   7 +
+ .../org/mozilla/focus/utils/SupportUtils.kt   |  42 +++--
+ .../res/xml/privacy_security_settings.xml     |  14 +-
+ .../mozilla/focus/utils/SupportUtilsTest.kt   |  63 ++-----
+ 12 files changed, 128 insertions(+), 294 deletions(-)
+ delete mode 100644 mobile/android/focus-android/app/src/main/java/org/mozilla/focus/appreview/AppReviewStep.kt
+
+diff --git a/mobile/android/focus-android/app/build.gradle b/mobile/android/focus-android/app/build.gradle
+index b7baed7801..5f8e54cf96 100644
+--- a/mobile/android/focus-android/app/build.gradle
++++ b/mobile/android/focus-android/app/build.gradle
+@@ -261,6 +261,17 @@ nimbus {
+     ]
+ }
+ 
++
++// Berrak ships without Google Play Services, for free-software reasons.
++// GeckoView pulls com.google.android.gms:play-services-fido (non-free) for
++// WebAuthn; it is excluded here, and EngineProvider switches WebAuthn off in
++// Gecko so no page can reach the missing classes. Passkeys and hardware
++// security keys therefore do not work in Berrak (they never did: Play
++// Services serves the browser FIDO API only to allowlisted browsers).
++configurations.configureEach {
++    exclude group: 'com.google.android.gms'
++}
++
+ dependencies {
+     implementation project(':components:browser-domains')
+     implementation project(':components:browser-engine-gecko')
+@@ -295,7 +306,6 @@ dependencies {
+     implementation project(':components:feature-webcompat-reporter')
+     implementation project(':components:lib-auth')
+     implementation project(':components:lib-crash')
+-    implementation project(':components:lib-crash-sentry')
+     implementation project(':components:lib-publicsuffixlist')
+     implementation project(':components:lib-state')
+     implementation project(":components:service-glean")
+@@ -344,9 +354,6 @@ dependencies {
+     implementation libs.google.material
+     implementation libs.kotlinx.coroutines
+     implementation libs.mozilla.glean
+-    implementation libs.play.review
+-    implementation libs.play.review.ktx
+-    implementation libs.sentry
+ 
+     debugImplementation libs.leakcanary
+ 
+@@ -473,7 +480,7 @@ androidComponents {
+ }
+ 
+ // -------------------------------------------------------------------------------------------------
+-// MLS and Sentry: Read tokens from local files if they exist
++// MLS: Read the token from a local file if it exists (Berrak has no Sentry)
+ // -------------------------------------------------------------------------------------------------
+ 
+ android.defaultConfig.with {
+@@ -483,13 +490,6 @@ android.defaultConfig.with {
+     } catch (FileNotFoundException ignored) {
+         buildConfigField 'String', 'MLS_TOKEN', '""'
+     }
+-
+-    try {
+-        def token = new File("${rootDir}/.sentry_token").text.trim()
+-        buildConfigField 'String', 'SENTRY_TOKEN', '"' + token + '"'
+-    } catch (FileNotFoundException ignored) {
+-        buildConfigField 'String', 'SENTRY_TOKEN', '""'
+-    }
+ }
+ 
+ // -------------------------------------------------------------------------------------------------
+diff --git a/mobile/android/focus-android/app/proguard-rules.pro b/mobile/android/focus-android/app/proguard-rules.pro
+index 5407264b15..0f88750d5d 100644
+--- a/mobile/android/focus-android/app/proguard-rules.pro
++++ b/mobile/android/focus-android/app/proguard-rules.pro
+@@ -15,6 +15,16 @@
+ # For more details, see
+ #   http://developer.android.com/guide/developing/tools/proguard.html
+ 
++####################################################################################################
++# Google Play Services are excluded (see app/build.gradle); GeckoView's
++# WebAuthnTokenManager still references them and is never reached.
++####################################################################################################
++
++-dontwarn com.google.android.gms.**
++# Compile-time-only nullness annotations on GeckoView's bundled ExoPlayer;
++# they used to arrive transitively through play-services.
++-dontwarn org.checkerframework.checker.nullness.qual.**
++
+ ####################################################################################################
+ # Android architecture components
+ ####################################################################################################
+diff --git a/mobile/android/focus-android/app/src/main/AndroidManifest.xml b/mobile/android/focus-android/app/src/main/AndroidManifest.xml
+index 53cbaee12b..f2aa43bf13 100644
+--- a/mobile/android/focus-android/app/src/main/AndroidManifest.xml
++++ b/mobile/android/focus-android/app/src/main/AndroidManifest.xml
+@@ -13,7 +13,10 @@
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+         android:maxSdkVersion="28" />
+ 
+-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Used by sentry. -->
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++    <!-- Berrak ships no telemetry and no ads: strip the advertising-ID
++         permission even if a merged library manifest requests it. -->
++    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
+     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+     <!-- Needed to prompt the user to give permission for camera access -->
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/Components.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/Components.kt
+index 167246dd64..4bf4389d81 100644
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/Components.kt
++++ b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/Components.kt
+@@ -12,7 +12,6 @@ import android.os.Environment
+ import androidx.compose.runtime.Composable
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.core.app.NotificationManagerCompat
+-import java.util.Locale
+ import java.util.concurrent.TimeUnit
+ import kotlinx.coroutines.CoroutineScope
+ import mozilla.components.browser.engine.gecko.util.EngineDownloadDelegate
+@@ -56,10 +55,8 @@ import mozilla.components.feature.top.sites.TopSitesUseCases
+ import mozilla.components.feature.webcompat.WebCompatFeature
+ import mozilla.components.feature.webcompat.reporter.WebCompatReporterFeature
+ import mozilla.components.lib.crash.CrashReporter
+-import mozilla.components.lib.crash.sentry.SentryService
+ import mozilla.components.lib.crash.service.CrashReporterService
+ import mozilla.components.lib.crash.service.GleanCrashReporterService
+-import mozilla.components.lib.crash.service.MozillaSocorroService
+ import mozilla.components.lib.publicsuffixlist.PublicSuffixList
+ import mozilla.components.service.location.LocationService
+ import mozilla.components.service.location.MozillaLocationService
+@@ -67,7 +64,6 @@ import mozilla.components.service.nimbus.NimbusApi
+ import mozilla.components.support.base.android.NotificationsDelegate
+ import mozilla.components.support.base.worker.Frequency
+ import mozilla.components.support.ktx.android.content.appVersionName
+-import mozilla.components.support.locale.LocaleManager
+ import mozilla.components.support.remotesettings.DefaultRemoteSettingsSyncScheduler
+ import mozilla.components.support.remotesettings.RemoteSettingsServer
+ import mozilla.components.support.remotesettings.RemoteSettingsService
+@@ -291,7 +287,11 @@ class Components(
+     }
+ 
+     val experiments: NimbusApi by lazy {
+-        createNimbus(context, BuildConfig.NIMBUS_ENDPOINT, remoteSettingsService.remoteSettingsService)
++        // Berrak: Nimbus gets no server. Upstream fetches experiment
++        // definitions from Mozilla's remote settings under the Klar app
++        // name, so Mozilla's Klar experiments would run on Berrak users.
++        // Only the experiments bundled in R.raw.initial_experiments apply.
++        createNimbus(context, urlString = null, remoteSettingsService = null)
+     }
+ 
+     val adsTelemetry: AdsTelemetry by lazy { AdsTelemetry() }
+@@ -323,35 +323,12 @@ class Components(
+ private fun createCrashReporter(context: Context): CrashReporter {
+     val services = mutableListOf<CrashReporterService>()
+ 
+-    if (BuildConfig.SENTRY_TOKEN.isNotEmpty()) {
+-        val sentryService =
+-            SentryService(
+-                context,
+-                BuildConfig.SENTRY_TOKEN,
+-                tags =
+-                    mapOf(
+-                        "build_flavor" to BuildConfig.FLAVOR,
+-                        "build_type" to BuildConfig.BUILD_TYPE,
+-                        "locale_lang_tag" to getLocaleTag(context),
+-                    ),
+-                environment = BuildConfig.BUILD_TYPE,
+-                sendEventForNativeCrashes = false, // Do not send native crashes to Sentry
+-                sendCaughtExceptions = false, // Do not send diagnostic logs
+-            )
+-
+-        services.add(sentryService)
+-    }
+-
+-    val socorroService =
+-        MozillaSocorroService(
+-            context,
+-            appName = "Focus",
+-            version = org.mozilla.geckoview.BuildConfig.MOZ_APP_VERSION,
+-            buildId = org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID,
+-            vendor = org.mozilla.geckoview.BuildConfig.MOZ_APP_VENDOR,
+-            releaseChannel = org.mozilla.geckoview.BuildConfig.MOZ_UPDATE_CHANNEL,
+-        )
+-    services.add(socorroService)
++    // Berrak: no crash submit service. Upstream adds MozillaSocorroService,
++    // which offers every crash to Mozilla's Socorro under the "Focus" name,
++    // and a token-gated Sentry service; a fork must not feed Mozilla's
++    // pipeline, and the Sentry library is not compiled in (store scanners
++    // count it as a tracker). The Glean crash service below only records
++    // locally: upload is off (GleanMetricsService.isTelemetryEnabled).
+ 
+     val intent =
+         Intent(context, MainActivity::class.java).apply {
+@@ -390,21 +367,14 @@ private fun createCrashReporter(context: Context): CrashReporter {
+             ),
+         promptConfiguration =
+             CrashReporter.PromptConfiguration(appName = context.resources.getString(R.string.app_name)),
+-        shouldPrompt = CrashReporter.Prompt.ALWAYS,
++        // With no submit services the "send report?" prompt would send
++        // nothing, so it is never shown.
++        shouldPrompt = if (services.isEmpty()) CrashReporter.Prompt.NEVER else CrashReporter.Prompt.ALWAYS,
+         enabled = true,
+         nonFatalCrashIntent = pendingIntent,
+     )
+ }
+ 
+-private fun getLocaleTag(context: Context): String {
+-    val currentLocale = LocaleManager.getCurrentLocale(context)
+-    return if (currentLocale != null) {
+-        currentLocale.toLanguageTag()
+-    } else {
+-        Locale.getDefault().toLanguageTag()
+-    }
+-}
+-
+ /** Gets a [SearchEngineSelectorConfig] for the app and device. */
+ private fun getSearchEngineSelectorConfig(context: Context): SearchEngineSelectorConfig? {
+     if (!context.settings.useRemoteSearchConfiguration) {
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/FocusApplication.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/FocusApplication.kt
+index e44b2be0e4..cd69fd9a82 100644
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/FocusApplication.kt
++++ b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/FocusApplication.kt
+@@ -226,9 +226,9 @@ open class FocusApplication : Application(), Provider {
+     protected open fun initializeTelemetry() {
+         components.metrics.initialize(this)
+         FactsProcessor.initialize()
+-        if (components.settings.isDailyUsagePingEnabled) {
+-            components.usageReportingMetricsService.start()
+-        }
++        // Berrak: no daily usage ping. It reports to Mozilla's telemetry
++        // under the Klar app id; its settings switch is removed as well
++        // (privacy_security_settings.xml), so nothing can turn it on.
+     }
+ 
+     /**
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/appreview/AppReviewStep.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/appreview/AppReviewStep.kt
+deleted file mode 100644
+index 1d7113890e..0000000000
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/appreview/AppReviewStep.kt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-/* This Source Code Form is subject to the terms of the Mozilla Public
+- * License, v. 2.0. If a copy of the MPL was not distributed with this
+- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+-
+-package org.mozilla.focus.appreview
+-
+-/** Represents the current step in the app review flow. */
+-enum class AppReviewStep {
+-    Pending,
+-    ReviewNeeded,
+-    Reviewed,
+-}
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/appreview/AppReviewUtils.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/appreview/AppReviewUtils.kt
+index a09f4949b1..beb7444806 100644
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/appreview/AppReviewUtils.kt
++++ b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/appreview/AppReviewUtils.kt
+@@ -5,154 +5,21 @@
+ package org.mozilla.focus.appreview
+ 
+ import android.app.Activity
+-import android.content.ActivityNotFoundException
+ import android.content.Context
+-import android.content.Intent
+-import androidx.core.content.edit
+-import androidx.core.net.toUri
+-import androidx.preference.PreferenceManager
+-import com.google.android.gms.tasks.Task
+-import com.google.android.play.core.review.ReviewInfo
+-import com.google.android.play.core.review.ReviewManagerFactory
+-import java.util.concurrent.TimeUnit
+-import mozilla.components.browser.state.state.SessionState
+-import mozilla.components.support.utils.DefaultDateTimeProvider
+-import org.mozilla.focus.R
+-import org.mozilla.focus.ext.components
+-import org.mozilla.focus.state.AppAction
+-import org.mozilla.focus.utils.SupportUtils
+ 
+-/** Utility class for handling In-App Review. */
++/**
++ * Berrak: upstream asks for a Google Play in-app review after a few launches,
++ * through Google's proprietary Play Core library, and falls back to opening
++ * the store page. Berrak ships only free software, so the prompt is gone and
++ * the library with it. The two entry points stay so their callers need no
++ * change.
++ */
+ object AppReviewUtils {
+-    /** Number of app openings until In App Review is triggered. */
+-    private const val APP_OPENINGS_REVIEW_TRIGGER = 3
+-    private val APP_REVIEW_TIME_TRIGGER = TimeUnit.DAYS.toMillis(90)
++    /** No store review prompt in Berrak. */
++    @Suppress("UNUSED_PARAMETER")
++    fun showAppReview(activity: Activity) = Unit
+ 
+-    /**
+-     * Shows in app review or opens play store if Review Info task is not successful.
+-     *
+-     * @param activity where In App review is triggered
+-     */
+-    fun showAppReview(activity: Activity) {
+-        if (shouldShowInAppReview(activity)) {
+-            val manager = ReviewManagerFactory.create(activity)
+-            val request = manager.requestReviewFlow()
+-            request.addOnCompleteListener { task: Task<ReviewInfo?> ->
+-                if (task.isSuccessful) {
+-                    // We can get the ReviewInfo object
+-                    val reviewInfo = task.result ?: return@addOnCompleteListener
+-                    val flow = manager.launchReviewFlow(activity, reviewInfo)
+-                    flow.addOnCompleteListener {
+-                        // The flow has finished. The API does not indicate whether the user
+-                        // reviewed or not, or even whether the review dialog was shown. Thus, no
+-                        // matter the result, we continue our app flow.
+-                        setAppReviewed(activity)
+-                    }
+-                } else {
+-                    setAppReviewed(activity)
+-                    // There was some problem, open PlayStore
+-                    openPlayStore(activity = activity)
+-                }
+-            }
+-        }
+-    }
+-
+-    /**
+-     * Set the number of app openings and the flag when In App Review is needed.
+-     *
+-     * @param context needed for SharePref
+-     */
+-    fun addAppOpenings(context: Context) {
+-        val preferenceManage = PreferenceManager.getDefaultSharedPreferences(context)
+-        val currentOpeningsNumber =
+-            preferenceManage.getInt(
+-                context.getString(R.string.pref_in_app_review_openings),
+-                0,
+-            ) + 1
+-        val appReviewStep =
+-            preferenceManage.getString(
+-                context.getString(R.string.pref_in_app_review_step),
+-                AppReviewStep.Pending.name,
+-            )
+-
+-        preferenceManage.edit {
+-            putInt(
+-                context.getString(R.string.pref_in_app_review_openings),
+-                currentOpeningsNumber,
+-            )
+-        }
+-        if (currentOpeningsNumber == APP_OPENINGS_REVIEW_TRIGGER && appReviewStep == AppReviewStep.Pending.name) {
+-            setAppReviewStep(context, AppReviewStep.ReviewNeeded)
+-        }
+-    }
+-
+-    private fun shouldShowInAppReview(
+-        context: Context,
+-        currentTimeProvider: () -> Long = DefaultDateTimeProvider()::currentTimeMillis,
+-    ): Boolean {
+-        val inAppReviewStep =
+-            PreferenceManager.getDefaultSharedPreferences(context)
+-                .getString(
+-                    context.getString(R.string.pref_in_app_review_step),
+-                    AppReviewStep.Pending.name,
+-                )
+-        val lastReviewedTime =
+-            PreferenceManager.getDefaultSharedPreferences(context)
+-                .getLong(
+-                    context.getString(R.string.pref_in_app_review_time),
+-                    0L,
+-                )
+-
+-        return inAppReviewStep == AppReviewStep.ReviewNeeded.name ||
+-            (lastReviewedTime + APP_REVIEW_TIME_TRIGGER <= currentTimeProvider() &&
+-                inAppReviewStep == AppReviewStep.Reviewed.name)
+-    }
+-
+-    private fun openPlayStore(activity: Activity) {
+-        try {
+-            activity.startActivity(
+-                Intent(
+-                    Intent.ACTION_VIEW,
+-                    SupportUtils.RATE_APP_URL.toUri(),
+-                )
+-            )
+-        } catch (e: ActivityNotFoundException) {
+-            // Device without the play store installed.
+-            // Opening the play store website.
+-            val tabId =
+-                activity.components.tabsUseCases.addTab(
+-                    url = SupportUtils.FOCUS_PLAY_STORE_URL,
+-                    source = SessionState.Source.Internal.NewTab,
+-                    selectTab = true,
+-                    private = true,
+-                )
+-            activity.components.appStore.dispatch(AppAction.OpenTab(tabId))
+-        }
+-    }
+-
+-    private fun setAppReviewed(activity: Activity) {
+-        setAppReviewStep(activity, AppReviewStep.Reviewed)
+-        setLastReviewedTime(activity)
+-    }
+-
+-    private fun setAppReviewStep(context: Context, appReviewStep: AppReviewStep) {
+-        PreferenceManager.getDefaultSharedPreferences(context).edit {
+-            putString(
+-                context.getString(R.string.pref_in_app_review_step),
+-                appReviewStep.name,
+-            )
+-        }
+-    }
+-
+-    private fun setLastReviewedTime(
+-        context: Context,
+-        currentTimeProvider: () -> Long = DefaultDateTimeProvider()::currentTimeMillis,
+-    ) {
+-        PreferenceManager.getDefaultSharedPreferences(context).edit {
+-            putLong(
+-                context.getString(R.string.pref_in_app_review_time),
+-                currentTimeProvider(),
+-            )
+-        }
+-    }
++    /** Nothing to count without a review prompt. */
++    @Suppress("UNUSED_PARAMETER")
++    fun addAppOpenings(context: Context) = Unit
+ }
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/components/EngineProvider.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/components/EngineProvider.kt
+index 6394da19c8..e120bbc14b 100644
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/components/EngineProvider.kt
++++ b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/components/EngineProvider.kt
+@@ -22,6 +22,7 @@ import org.mozilla.focus.utils.AppConstants
+ import org.mozilla.focus.utils.Settings
+ import org.mozilla.geckoview.GeckoRuntime
+ import org.mozilla.geckoview.GeckoRuntimeSettings
++import java.io.File
+ 
+ /**
+  * Object responsible for providing and managing instances of the Gecko engine and related components.
+@@ -68,6 +69,7 @@ object EngineProvider {
+             val builder = GeckoRuntimeSettings.Builder()
+ 
+             builder.crashHandler(CrashHandlerService::class.java)
++            builder.configFilePath(writeGeckoConfig(context))
+             builder.aboutConfigEnabled(AppConstants.isDevOrNightlyBuild || AppConstants.isBetaBuild)
+ 
+             runtime = createRuntime(builder.build())
+@@ -76,6 +78,26 @@ object EngineProvider {
+         return runtime!!
+     }
+ 
++    /**
++     * Gecko prefs Berrak needs before the runtime starts. WebAuthn is off
++     * because its Android backend is Google's play-services-fido, which
++     * Berrak leaves out (see app/build.gradle); with the pref on, a page
++     * calling navigator.credentials would reach classes that are not there.
++     *
++     * An explicit config path also replaces GeckoView's debug-only
++     * /data/local/tmp/<package>-geckoview-config.yaml, so for local
++     * experiments edit this file rather than pushing one with adb.
++     */
++    private fun writeGeckoConfig(context: Context): String {
++        val file = File(context.filesDir, "berrak-geckoview-config.yaml")
++        if (!file.exists() || file.readText() != GECKO_CONFIG) file.writeText(GECKO_CONFIG)
++        return file.absolutePath
++    }
++
++    private const val GECKO_CONFIG = """prefs:
++  security.webauth.webauthn: false
++"""
++
+     /**
+      * Creates and returns a GeckoEngine instance.
+      *
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/fragment/CrashReporterFragment.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/fragment/CrashReporterFragment.kt
+index 75788f8186..076bb0b83d 100644
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/fragment/CrashReporterFragment.kt
++++ b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/fragment/CrashReporterFragment.kt
+@@ -23,6 +23,13 @@ class CrashReporterFragment : Fragment(R.layout.fragment_crash_reporter) {
+         binding.background.background =
+             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error_session_crashed)
+ 
++        // Berrak: there is no crash submit service at all (Socorro and Sentry
++        // are both removed), so "send crash report" would send nothing.
++        // Offering a dead consent checkbox misdescribes the app's data
++        // behavior, so it is always hidden and no report is ever claimed sent.
++        binding.sendCrashCheckbox.isChecked = false
++        binding.sendCrashCheckbox.visibility = View.GONE
++
+         CrashReporter.displayed.record(NoExtras())
+ 
+         binding.closeTabButton.setOnClickListener {
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/utils/SupportUtils.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/utils/SupportUtils.kt
+index 95bc565914..72e76e737b 100644
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/utils/SupportUtils.kt
++++ b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/utils/SupportUtils.kt
+@@ -27,32 +27,38 @@ import org.mozilla.focus.state.AppAction
+ 
+ /** Utility class for support-related URLs and operations. */
+ object SupportUtils {
+-    const val HELP_URL = "https://support.mozilla.org/kb/what-firefox-focus-android"
++    // Berrak: help, privacy and terms links point at this fork's own pages.
++    // Mozilla's SUMO articles and legal notices describe Firefox Focus/Klar,
++    // not this app, and a fork must not present Mozilla's privacy policy or
++    // terms as its own. (SumoTopic links below still reach Mozilla's public
++    // articles about the underlying, unchanged Focus features.)
++    const val BERRAK_REPO_URL = "https://github.com/ooguz/klar-httpx"
++    private const val BERRAK_DOCS_BASE = "$BERRAK_REPO_URL/blob/httpx"
++    const val BERRAK_DOCS_URL = "$BERRAK_DOCS_BASE/README-HTTPX.md"
++
++    const val HELP_URL = BERRAK_DOCS_URL
+     const val FOCUS_PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+     const val RATE_APP_URL = "market://details?id=" + BuildConfig.APPLICATION_ID
+-    const val DEFAULT_BROWSER_URL = "https://support.mozilla.org/kb/set-firefox-focus-default-browser-android"
+-    const val PRIVACY_NOTICE_URL = "https://www.mozilla.org/privacy/firefox-focus/"
+-    const val TERMS_OF_USE_URL = "https://www.mozilla.org/about/legal/terms/firefox-focus/"
++    const val DEFAULT_BROWSER_URL = BERRAK_DOCS_URL
++    const val PRIVACY_NOTICE_URL = "$BERRAK_DOCS_BASE/PRIVACY.md"
++
++    // Berrak has no terms of service of its own; using it is governed by its
++    // free-software licence.
++    const val TERMS_OF_USE_URL = "$BERRAK_DOCS_BASE/LICENSE"
+ 
+     const val OPEN_WITH_DEFAULT_BROWSER_URL = "https://www.mozilla.org/openGeneralSettings" // Fake URL
+     val manifestoURL: String
+-        get() {
+-            val langTag = Locales.getLanguageTag(Locale.getDefault())
+-            return "https://www.mozilla.org/$langTag/about/manifesto/"
+-        }
++        get() = BERRAK_DOCS_URL
+ 
+-    /** Paths for specific pages on the Mozilla website. */
+-    enum class MozillaPage(internal val path: String) {
+-        PRIVATE_NOTICE("privacy/firefox-focus/"),
+-        TERMS_OF_SERVICE("about/legal/terms/firefox-focus/"),
++    /** Berrak's counterparts of the Mozilla pages upstream links to. */
++    enum class MozillaPage(internal val url: String) {
++        PRIVATE_NOTICE(PRIVACY_NOTICE_URL),
++        TERMS_OF_SERVICE(TERMS_OF_USE_URL),
+     }
+ 
+-    /** Returns the localised URL for a given [page]. */
+-    fun getMozillaPageUrl(page: MozillaPage, locale: Locale = Locale.getDefault()): String {
+-        val path = page.path
+-        val langTag = Locales.getLanguageTag(locale)
+-        return "https://www.mozilla.org/$langTag/$path"
+-    }
++    /** Returns the URL for a given [page]; Berrak's pages are not localised. */
++    @Suppress("UNUSED_PARAMETER")
++    fun getMozillaPageUrl(page: MozillaPage, locale: Locale = Locale.getDefault()): String = page.url
+ 
+     /** Topics available on Mozilla Support (SUMO). */
+     enum class SumoTopic(
+diff --git a/mobile/android/focus-android/app/src/main/res/xml/privacy_security_settings.xml b/mobile/android/focus-android/app/src/main/res/xml/privacy_security_settings.xml
+index 75ef82885f..e9a63ef924 100644
+--- a/mobile/android/focus-android/app/src/main/res/xml/privacy_security_settings.xml
++++ b/mobile/android/focus-android/app/src/main/res/xml/privacy_security_settings.xml
+@@ -135,16 +135,8 @@
+             android:title="@string/preference_https_only_title" />
+     </androidx.preference.PreferenceCategory>
+ 
+-    <androidx.preference.PreferenceCategory
+-        android:layout="@layout/preference_section_header_layout"
+-        android:title="@string/preference_category_data_choices">
+-
+-        <org.mozilla.focus.widget.DailyUsageReportingSwitchPreference
+-            android:layout="@layout/focus_preference"
+-            android:key="@string/pref_key_daily_usage_ping"
+-            android:summary="@string/preference_daily_usage_ping_description"
+-            android:title="@string/preference_daily_usage_ping_title" />
+-
+-    </androidx.preference.PreferenceCategory>
++    <!-- Berrak: the Data Choices category (the daily usage ping switch) is
++         removed. The ping reports to Mozilla's telemetry, and Berrak sends
++         nothing to anyone; FocusApplication never starts it. -->
+ 
+ </androidx.preference.PreferenceScreen>
+diff --git a/mobile/android/focus-android/app/src/test/java/org/mozilla/focus/utils/SupportUtilsTest.kt b/mobile/android/focus-android/app/src/test/java/org/mozilla/focus/utils/SupportUtilsTest.kt
+index 1584498c19..5c3ea9b873 100644
+--- a/mobile/android/focus-android/app/src/test/java/org/mozilla/focus/utils/SupportUtilsTest.kt
++++ b/mobile/android/focus-android/app/src/test/java/org/mozilla/focus/utils/SupportUtilsTest.kt
+@@ -48,54 +48,23 @@ class SupportUtilsTest {
+         )
+     }
+ 
+-    /**
+-     * This is a pretty boring tests - it exists primarily to verify that we're actually setting a langtag in the
+-     * manfiesto URL.
+-     */
+-    @Test
+-    @Throws(Exception::class)
+-    fun getManifestoURL() {
+-        Locale.setDefault(Locale.UK)
+-        assertEquals(
+-            "https://www.mozilla.org/en-GB/about/manifesto/",
+-            SupportUtils.manifestoURL,
+-        )
+-
+-        Locale.setDefault(Locale.KOREA)
+-        assertEquals(
+-            "https://www.mozilla.org/ko-KR/about/manifesto/",
+-            SupportUtils.manifestoURL,
+-        )
+-    }
+-
+-    @Test
+-    fun `getMozillaPageUrl returns the correct URL for the terms of service`() {
+-        Locale.setDefault(Locale.UK)
+-        assertEquals(
+-            "https://www.mozilla.org/en-GB/about/legal/terms/firefox-focus/",
+-            SupportUtils.getMozillaPageUrl(SupportUtils.MozillaPage.TERMS_OF_SERVICE),
+-        )
+-
+-        Locale.setDefault(Locale.GERMAN)
+-        assertEquals(
+-            "https://www.mozilla.org/de/about/legal/terms/firefox-focus/",
+-            SupportUtils.getMozillaPageUrl(SupportUtils.MozillaPage.TERMS_OF_SERVICE),
+-        )
+-    }
+-
+     @Test
+-    fun `getMozillaPageUrl returns the correct URL for the privacy notice`() {
+-        Locale.setDefault(Locale.UK)
+-        assertEquals(
+-            "https://www.mozilla.org/en-GB/privacy/firefox-focus/",
+-            SupportUtils.getMozillaPageUrl(SupportUtils.MozillaPage.PRIVATE_NOTICE),
+-        )
+-
+-        Locale.setDefault(Locale.GERMAN)
+-        assertEquals(
+-            "https://www.mozilla.org/de/privacy/firefox-focus/",
+-            SupportUtils.getMozillaPageUrl(SupportUtils.MozillaPage.PRIVATE_NOTICE),
+-        )
++    fun `Berrak links point at the fork's own docs whatever the locale`() {
++        for (locale in listOf(Locale.UK, Locale.GERMAN, Locale.KOREA)) {
++            Locale.setDefault(locale)
++            assertEquals(
++                "https://github.com/ooguz/klar-httpx/blob/httpx/README-HTTPX.md",
++                SupportUtils.manifestoURL,
++            )
++            assertEquals(
++                "https://github.com/ooguz/klar-httpx/blob/httpx/LICENSE",
++                SupportUtils.getMozillaPageUrl(SupportUtils.MozillaPage.TERMS_OF_SERVICE),
++            )
++            assertEquals(
++                "https://github.com/ooguz/klar-httpx/blob/httpx/PRIVACY.md",
++                SupportUtils.getMozillaPageUrl(SupportUtils.MozillaPage.PRIVATE_NOTICE),
++            )
++        }
+     }
+ 
+     @Test
