@@ -6,6 +6,7 @@ package org.mozilla.focus.httpx
 
 import android.util.Log
 import mozilla.components.concept.engine.Engine
+import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineSession.LoadUrlFlags
 import mozilla.components.concept.engine.request.RequestInterceptor.InterceptionResponse
 
@@ -30,23 +31,55 @@ object HttpxExtension {
     // app's toolbar is the chrome (see the webext's embedded.ts).
     private const val PAGE = "browser.html?embedded=1"
 
+    private val lock = Any()
+
     /** moz-extension://<uuid>/ once the built-in install has completed. */
     @Volatile
     var baseUrl: String? = null
         private set
+
+    /**
+     * Loads that arrived before the install completed and must not load
+     * directly, the latest per session (see [intercept]). Guarded by [lock].
+     */
+    private val pending = LinkedHashMap<EngineSession, String>()
 
     fun install(engine: Engine) {
         engine.installBuiltInWebExtension(
             EXTENSION_ID,
             EXTENSION_URL,
             onSuccess = { extension ->
-                baseUrl = extension.getMetadata()?.baseUrl
-                Log.d(LOG_TAG, "httpx extension installed at $baseUrl")
+                val base = extension.getMetadata()?.baseUrl
+                Log.d(LOG_TAG, "httpx extension installed at $base")
+                if (base != null) {
+                    for ((session, uri) in installed(base)) {
+                        // Reloaded through the interceptor, which now routes it.
+                        runCatching { session.loadUrl(uri) }
+                            .onFailure { Log.w(LOG_TAG, "could not resume a held load", it) }
+                    }
+                }
             },
             onError = { throwable ->
+                // Held loads stay held: an httpx:// or exit-routed page never
+                // falls back to a direct load.
                 Log.e(LOG_TAG, "failed to install the httpx extension", throwable)
             },
         )
+    }
+
+    /** Records the extension's base URL and hands back the held loads. */
+    internal fun installed(base: String): List<Pair<EngineSession, String>> =
+        synchronized(lock) {
+            baseUrl = base
+            pending.toList().also { pending.clear() }
+        }
+
+    /** Back to the state before install (tests only). */
+    internal fun resetForTest() {
+        synchronized(lock) {
+            baseUrl = null
+            pending.clear()
+        }
     }
 
     private fun isHttpxUrl(uri: String): Boolean =
@@ -65,19 +98,36 @@ object HttpxExtension {
      * fragment, which is what the page reads back and what [toDisplayUrl] shows.
      */
     internal fun pageUrlFor(uri: String, routeWebThroughExit: Boolean, base: String): String? {
-        if (!isHttpxUrl(uri) && !(routeWebThroughExit && isWebUrl(uri))) return null
+        if (!handles(uri, routeWebThroughExit)) return null
         return "$base$PAGE#$uri"
     }
 
+    private fun handles(uri: String, routeWebThroughExit: Boolean): Boolean =
+        isHttpxUrl(uri) || (routeWebThroughExit && isWebUrl(uri))
+
     /**
      * An [InterceptionResponse.Url] sending this navigation to the extension
-     * page, or null when the page does not handle [uri] (see [pageUrlFor]) — or
-     * when the extension has not finished installing, in which case the
-     * navigation falls through: an httpx:// URL to the unknown-protocol error
-     * page, a web URL to a direct load.
+     * page, or null when the page does not handle [uri] (see [pageUrlFor]).
+     *
+     * Before the extension has finished installing (a link from another app
+     * can cold-start the browser faster than that), a navigation the page
+     * must handle is denied and held, and [install] loads it again once the
+     * page exists. Letting it through instead would load a web URL directly
+     * while the user has asked for every page to go through the exit.
      */
-    fun intercept(uri: String, routeWebThroughExit: Boolean = false): InterceptionResponse? {
-        val base = baseUrl ?: return null
+    fun intercept(
+        session: EngineSession,
+        uri: String,
+        routeWebThroughExit: Boolean = false,
+    ): InterceptionResponse? {
+        val base = synchronized(lock) {
+            baseUrl ?: run {
+                if (!handles(uri, routeWebThroughExit)) return null
+                pending[session] = uri
+                Log.d(LOG_TAG, "holding a load until the httpx extension is installed")
+                return InterceptionResponse.Deny
+            }
+        }
         val target = pageUrlFor(uri, routeWebThroughExit, base) ?: return null
         // The default flags include EXTERNAL, which makes Gecko load the URL
         // with a null triggering principal — and a null principal may not link

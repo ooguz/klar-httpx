@@ -34,6 +34,7 @@ class AppContentInterceptor(
     ): RequestInterceptor.InterceptionResponse? {
         if (!isSubframeRequest) {
             HttpxExtension.intercept(
+                engineSession,
                 uri,
                 routeWebThroughExit = context.settings.shouldRouteWebThroughHttpxExit(),
             )?.let { return it }
