@@ -1,7 +1,7 @@
 From fa27034b98e296f1485a8b5fc7d1ee8fb575e445 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
 Date: Mon, 2 Nov 2026 03:57:14 +0300
-Subject: [PATCH 1/5] Berrak: own application id and release signing
+Subject: [PATCH 1/6] Berrak: own application id and release signing
 
 The klar flavour becomes dev.ooguz.berrak (build-type suffixes still
 append) and the erase shortcuts target it, including klarNightly, whose

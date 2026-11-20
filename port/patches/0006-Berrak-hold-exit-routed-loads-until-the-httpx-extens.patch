@@ -1,0 +1,216 @@
+From dc152c390f70ec07d86bd146e6b14cc0751ff8af Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
+Date: Fri, 20 Nov 2026 23:40:22 +0300
+Subject: [PATCH 6/6] Berrak: hold exit-routed loads until the httpx extension
+ is installed
+
+A link from another app can cold-start the browser before the bundled
+extension has finished installing (reliably so on the first start after
+an update). The interceptor then had no extension page to send the load
+to and let it through, so with "Browse the web through the httpx exit"
+on, that first page was fetched directly from the device. Seen on the
+Pixel_10 emulator after upgrading the release build.
+
+Such a load is now denied and held, the latest per session, and loaded
+again once the install completes; if the install fails it stays held.
+Loads the extension does not handle still go through untouched.
+
+Claude-Session: https://claude.ai/code/session_01Ec3g34YeceWefbDxePbgre
+---
+ .../focus/engine/AppContentInterceptor.kt     |  1 +
+ .../org/mozilla/focus/httpx/HttpxExtension.kt | 68 ++++++++++++++++---
+ .../mozilla/focus/httpx/HttpxExtensionTest.kt | 44 ++++++++++++
+ 3 files changed, 104 insertions(+), 9 deletions(-)
+
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/engine/AppContentInterceptor.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/engine/AppContentInterceptor.kt
+index a7703585a9..b53425e71c 100644
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/engine/AppContentInterceptor.kt
++++ b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/engine/AppContentInterceptor.kt
+@@ -36,6 +36,7 @@ class AppContentInterceptor(private val context: Context) : RequestInterceptor {
+     ): RequestInterceptor.InterceptionResponse? {
+         if (!isSubframeRequest) {
+             HttpxExtension.intercept(
++                engineSession,
+                 uri,
+                 routeWebThroughExit = context.settings.shouldRouteWebThroughHttpxExit(),
+             )?.let { return it }
+diff --git a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/httpx/HttpxExtension.kt b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/httpx/HttpxExtension.kt
+index 98644c6eab..fe8baccdd2 100644
+--- a/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/httpx/HttpxExtension.kt
++++ b/mobile/android/focus-android/app/src/main/java/org/mozilla/focus/httpx/HttpxExtension.kt
+@@ -6,6 +6,7 @@ package org.mozilla.focus.httpx
+ 
+ import android.util.Log
+ import mozilla.components.concept.engine.Engine
++import mozilla.components.concept.engine.EngineSession
+ import mozilla.components.concept.engine.EngineSession.LoadUrlFlags
+ import mozilla.components.concept.engine.request.RequestInterceptor.InterceptionResponse
+ 
+@@ -30,25 +31,57 @@ object HttpxExtension {
+     // app's toolbar is the chrome (see the webext's embedded.ts).
+     private const val PAGE = "browser.html?embedded=1"
+ 
++    private val lock = Any()
++
+     /** moz-extension://<uuid>/ once the built-in install has completed. */
+     @Volatile
+     var baseUrl: String? = null
+         private set
+ 
++    /**
++     * Loads that arrived before the install completed and must not load
++     * directly, the latest per session (see [intercept]). Guarded by [lock].
++     */
++    private val pending = LinkedHashMap<EngineSession, String>()
++
+     fun install(engine: Engine) {
+         engine.installBuiltInWebExtension(
+             EXTENSION_ID,
+             EXTENSION_URL,
+             onSuccess = { extension ->
+-                baseUrl = extension.getMetadata()?.baseUrl
+-                Log.d(LOG_TAG, "httpx extension installed at $baseUrl")
++                val base = extension.getMetadata()?.baseUrl
++                Log.d(LOG_TAG, "httpx extension installed at $base")
++                if (base != null) {
++                    for ((session, uri) in installed(base)) {
++                        // Reloaded through the interceptor, which now routes it.
++                        runCatching { session.loadUrl(uri) }
++                            .onFailure { Log.w(LOG_TAG, "could not resume a held load", it) }
++                    }
++                }
+             },
+             onError = { throwable ->
++                // Held loads stay held: an httpx:// or exit-routed page never
++                // falls back to a direct load.
+                 Log.e(LOG_TAG, "failed to install the httpx extension", throwable)
+             },
+         )
+     }
+ 
++    /** Records the extension's base URL and hands back the held loads. */
++    internal fun installed(base: String): List<Pair<EngineSession, String>> =
++        synchronized(lock) {
++            baseUrl = base
++            pending.toList().also { pending.clear() }
++        }
++
++    /** Back to the state before install (tests only). */
++    internal fun resetForTest() {
++        synchronized(lock) {
++            baseUrl = null
++            pending.clear()
++        }
++    }
++
+     private fun isHttpxUrl(uri: String): Boolean =
+         uri.startsWith("httpx://") || uri.startsWith("ext+httpx://")
+ 
+@@ -65,19 +98,36 @@ object HttpxExtension {
+      * fragment, which is what the page reads back and what [toDisplayUrl] shows.
+      */
+     internal fun pageUrlFor(uri: String, routeWebThroughExit: Boolean, base: String): String? {
+-        if (!isHttpxUrl(uri) && !(routeWebThroughExit && isWebUrl(uri))) return null
++        if (!handles(uri, routeWebThroughExit)) return null
+         return "$base$PAGE#$uri"
+     }
+ 
++    private fun handles(uri: String, routeWebThroughExit: Boolean): Boolean =
++        isHttpxUrl(uri) || (routeWebThroughExit && isWebUrl(uri))
++
+     /**
+      * An [InterceptionResponse.Url] sending this navigation to the extension
+-     * page, or null when the page does not handle [uri] (see [pageUrlFor]) — or
+-     * when the extension has not finished installing, in which case the
+-     * navigation falls through: an httpx:// URL to the unknown-protocol error
+-     * page, a web URL to a direct load.
++     * page, or null when the page does not handle [uri] (see [pageUrlFor]).
++     *
++     * Before the extension has finished installing (a link from another app
++     * can cold-start the browser faster than that), a navigation the page
++     * must handle is denied and held, and [install] loads it again once the
++     * page exists. Letting it through instead would load a web URL directly
++     * while the user has asked for every page to go through the exit.
+      */
+-    fun intercept(uri: String, routeWebThroughExit: Boolean = false): InterceptionResponse? {
+-        val base = baseUrl ?: return null
++    fun intercept(
++        session: EngineSession,
++        uri: String,
++        routeWebThroughExit: Boolean = false,
++    ): InterceptionResponse? {
++        val base = synchronized(lock) {
++            baseUrl ?: run {
++                if (!handles(uri, routeWebThroughExit)) return null
++                pending[session] = uri
++                Log.d(LOG_TAG, "holding a load until the httpx extension is installed")
++                return InterceptionResponse.Deny
++            }
++        }
+         val target = pageUrlFor(uri, routeWebThroughExit, base) ?: return null
+         // The default flags include EXTERNAL, which makes Gecko load the URL
+         // with a null triggering principal — and a null principal may not link
+diff --git a/mobile/android/focus-android/app/src/test/java/org/mozilla/focus/httpx/HttpxExtensionTest.kt b/mobile/android/focus-android/app/src/test/java/org/mozilla/focus/httpx/HttpxExtensionTest.kt
+index 5b0a7c2b8f..b1a426bcb2 100644
+--- a/mobile/android/focus-android/app/src/test/java/org/mozilla/focus/httpx/HttpxExtensionTest.kt
++++ b/mobile/android/focus-android/app/src/test/java/org/mozilla/focus/httpx/HttpxExtensionTest.kt
+@@ -4,10 +4,19 @@
+ 
+ package org.mozilla.focus.httpx
+ 
++import mozilla.components.concept.engine.EngineSession
++import mozilla.components.concept.engine.request.RequestInterceptor.InterceptionResponse
++import mozilla.components.support.test.mock
++import org.junit.After
+ import org.junit.Assert.assertEquals
+ import org.junit.Assert.assertNull
++import org.junit.Assert.assertSame
++import org.junit.Assert.assertTrue
+ import org.junit.Test
++import org.junit.runner.RunWith
++import org.robolectric.RobolectricTestRunner
+ 
++@RunWith(RobolectricTestRunner::class)
+ class HttpxExtensionTest {
+     private val base = "moz-extension://0123/"
+     private val page = "${base}browser.html?embedded=1#"
+@@ -43,4 +52,39 @@ class HttpxExtensionTest {
+             assertNull(uri, HttpxExtension.pageUrlFor(uri, true, base))
+         }
+     }
++
++    @After
++    fun reset() = HttpxExtension.resetForTest()
++
++    @Test
++    fun `before the install, a routed web load is held, not loaded directly`() {
++        val session = mock<EngineSession>()
++        assertSame(
++            InterceptionResponse.Deny,
++            HttpxExtension.intercept(session, "https://example.org/", routeWebThroughExit = true),
++        )
++        assertSame(
++            InterceptionResponse.Deny,
++            HttpxExtension.intercept(session, "httpx://server@example.org/", routeWebThroughExit = false),
++        )
++        // The latest load per session is the one resumed.
++        assertEquals(listOf(session to "httpx://server@example.org/"), HttpxExtension.installed(base))
++        assertTrue(HttpxExtension.installed(base).isEmpty())
++    }
++
++    @Test
++    fun `before the install, loads the page does not handle go through`() {
++        val session = mock<EngineSession>()
++        assertNull(HttpxExtension.intercept(session, "https://example.org/", routeWebThroughExit = false))
++        assertNull(HttpxExtension.intercept(session, "about:blank", routeWebThroughExit = true))
++        assertTrue(HttpxExtension.installed(base).isEmpty())
++    }
++
++    @Test
++    fun `after the install, handled loads go to the extension page`() {
++        HttpxExtension.installed(base)
++        val response = HttpxExtension.intercept(mock(), "https://example.org/", routeWebThroughExit = true)
++        assertEquals("${page}https://example.org/", (response as InterceptionResponse.Url).url)
++        assertNull(HttpxExtension.intercept(mock(), "https://example.org/", routeWebThroughExit = false))
++    }
+ }

@@ -87,7 +87,7 @@ IzzyOnDroid.
 
 - `port/UPSTREAM`: the mozilla-firefox/firefox commit and Firefox version the
   patches apply to (now `release` at 159.0.1, `ae0a6047`).
-- `port/patches/`: five patches, in order:
+- `port/patches/`: six patches, in order:
   1. own application id (`dev.ooguz.berrak`) and release signing;
   2. nothing leaves the device, no proprietary libraries: no Socorro or
      Sentry, no daily usage ping, Nimbus without a server, no Google Play
@@ -98,13 +98,43 @@ IzzyOnDroid.
      that claim Mozilla authorship, terms or data collection and deletes
      their translations;
   4. httpx:// through the bundled xmpp-httpx WebExtension, plus proxy mode;
-  5. the bundled extension at 0.2.6.
+  5. the bundled extension at 0.2.6;
+  6. proxy mode never loads a page directly while the extension is still
+     installing (see Status).
 - `port/build.sh`: fetches the pinned commit (shallow), applies the patches
   and builds in artifact mode with the memory limits above. It resets only
   a work tree it created itself (`port/work/` by default, git-ignored).
+  By default it builds every Play ABI at once (next section) and writes the
+  signed per-ABI APKs and the App Bundle; `BERRAK_ABI=x86_64` builds one
+  ABI, faster, for the emulator.
 
 The applied patches reproduce the development tree exactly (same git tree
-hash, `39705d02`).
+hash, `cafeeb22`).
+
+## One build for every ABI (the App Bundle)
+
+An artifact build normally holds the Gecko of its one `--target` ABI. Set
+`MOZ_ANDROID_FAT_AAR_ARCHITECTURES` in the mozconfig and `./mach build`
+also fetches GeckoView for each listed ABI from Mozilla's CI (the same
+release build: all three came from 159.0.20261031152827) and merges their
+native libraries into one "fat" GeckoView, which is what Mozilla's own
+`build-fat-aar` task does:
+
+```
+ac_add_options --enable-project=mobile/android
+ac_add_options --enable-artifact-builds
+ac_add_options --target=aarch64-linux-android
+mk_add_options MOZ_OBJDIR=./objdir-all
+export MOZ_ANDROID_FAT_AAR_ARCHITECTURES=armeabi-v7a,arm64-v8a,x86_64
+```
+
+From that objdir, `:app:assembleKlarRelease` writes a working APK per ABI
+(each with its own `libxul.so`) and `:app:bundleKlarRelease` the App Bundle
+with all three. Run them as separate Gradle invocations: with a bundle task
+in the same run, the APK comes out as one 600 MB universal APK. The AAB is
+284 MB; bundletool puts the per-device download at about 105 MB (Play
+allows 200 MB). `armeabi-v7a`'s `libxul.so` is 4 KB-aligned, which is
+fine: Play's 16 KB rule is for 64-bit libraries.
 
 ## Rebasing onto a new Firefox release
 
@@ -122,9 +152,9 @@ clone with the `berrak` branch):
 4. `git format-patch --binary --no-signature -o port/patches <new>..berrak`
    (delete the old patches first) and update all of `port/UPSTREAM`.
 
-## Status (2026-11-02)
+## Status
 
-Verified on the `Pixel_10` emulator (Android 17, 16 KB pages), klarDebug:
+2026-11-02, on the `Pixel_10` emulator (Android 17, 16 KB pages), klarDebug:
 Berrak's onboarding, icon and wording; the demo gateway flow from
 README-HTTPX.md (connection dialog, start page with its image, a relative
 link, back, a POST form); a WebAuthn probe page sees no
@@ -137,15 +167,49 @@ The extension rendered pages through `srcdoc`, so every page stayed blank.
 Fixed in xmpp-httpx 7d97822 (pages are written into the frame); the bundled
 0.2.6 has the fix.
 
+Release build (2026-11-20), `klarRelease` x86_64 with R8, signed with the
+Berrak key (certificate SHA-256 `3b8a8920…f0f2`, the same as 0.x): R8 needs
+no rules beyond the gms/checker-qual `-dontwarn`s; `targetSdkVersion 37`,
+`zipalign -c -P 16` passes; the dex defines no `com.google.android.gms`,
+`io.sentry` or `com.google.android.play` class (GeckoView's WebAuthn code
+still names the FIDO types, but that code never runs with WebAuthn off).
+On the `Pixel_10` emulator the release build passed onboarding and **proxy
+mode** against an n146 exit (n146-proxy's e2e Prosody, `exit.localhost`):
+with "Browse the web through the httpx exit" on, `https://example.com/`
+shows the connection dialog, then loads through the exit; an IANA page
+loads with its images and stylesheet, a link and back work; with the exit
+stopped, the same load fails with `remote-server-timeout: Component
+unavailable`, so nothing went direct.
+
+Found there: a link from another app that cold-starts the browser can
+arrive before the bundled extension has finished installing (it did on
+the first start after an update). The interceptor then had nowhere to send
+it and let it load **directly**, outside the exit. Patch 6 holds such a
+load and loads it again once the extension is in place; it never falls
+back to a direct load. After the fix, the same upgrade-then-link sequence
+went through the exit. 0.x had the same code and has the same fix.
+
+The App Bundle from the fat objdir, signed with the Berrak key
+(`jarsigner -verify`), installed through bundletool as an upgrade over the
+x86_64 build (same key, higher versionCode) and browsed through the exit.
+
+Still known: with proxy mode on, search suggestions (off unless the user
+turns them on when asked) are still fetched directly from the search
+engine. Proxy mode covers page loads.
+
+Pass `-PversionName` to release builds (build.sh does); without it the
+versionName is `null`. A single-ABI objdir also writes split APKs for the
+other ABIs, without `libxul.so`; they do not work.
+
 Still to do, in order:
 
-1. A signed `klarRelease` build (R8) for each ABI, and a check that R8 needs
-   no rules beyond the gms/checker-qual `-dontwarn`s.
-2. Proxy mode on the device against an n146 exit.
-3. CI: `port/build.sh` on GitHub Actions, caching `~/.mozbuild`; release
-   APKs per ABI on tags. Play wants an App Bundle; with artifact builds that
-   means one objdir per ABI merged into one bundle, which is not solved yet.
-4. Store listing assets (screenshots from the new build).
-5. Release as Berrak 1.0, signed with the same key: its versionCodes
+1. CI: `port/build.sh` on GitHub Actions, caching `~/.mozbuild`; per-ABI
+   APKs and the AAB on tags.
+2. Store listing assets (screenshots from the new build).
+3. Play Console: when creating the app, choose to upload Berrak's own
+   signing key (Play App Signing, "use your own key") so that Play's
+   installs and the GitHub/IzzyOnDroid APKs share one certificate and can
+   update each other.
+4. Release as Berrak 1.0, signed with the same key: its versionCodes
    (`40DDDHHmm`, upstream's 2026 scheme) are above 0.x's, so it upgrades in
    place.

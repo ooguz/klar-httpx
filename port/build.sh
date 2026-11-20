@@ -5,14 +5,19 @@
 # 6 GB checked out), applies port/patches, and builds the klar flavour in mach
 # artifact mode: Gecko comes prebuilt from Mozilla's CI, the app is built here.
 #
-#   port/build.sh                       # klarRelease for x86_64
-#   BERRAK_ABI=arm64-v8a port/build.sh  # one ABI per objdir
-#   port/build.sh :app:assembleKlarDebug
+#   port/build.sh                       # release APKs per ABI + App Bundle
+#   BERRAK_ABI=x86_64 port/build.sh :app:assembleKlarDebug   # one ABI only
+#
+# By default the objdir is a "fat" one: mach fetches the GeckoView of each
+# Play ABI (arm64-v8a, armeabi-v7a, x86_64) from Mozilla's CI and merges them
+# (MOZ_ANDROID_FAT_AAR_ARCHITECTURES), so one Gradle run writes a working
+# APK per ABI and a second one the App Bundle with all three.
 #
 # Environment:
 #   BERRAK_FF_DIR   work tree (default: port/work, git-ignored). The script
 #                   only resets a tree it created itself (marker .berrak-port).
-#   BERRAK_ABI      x86_64 (default), arm64-v8a, armeabi-v7a or x86
+#   BERRAK_ABI      all (default), x86_64, arm64-v8a, armeabi-v7a or x86;
+#                   a single ABI builds faster but only its own APK works
 #   BERRAK_VERSION  versionName for release builds (default: from git describe)
 #   BERRAK_KEYSTORE_PROPERTIES  release signing (see app/build.gradle)
 #   BERRAK_GRADLE_MEMORY  cgroup cap for the Gradle step (default 10G)
@@ -22,11 +27,10 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=UPSTREAM
 . "$HERE/UPSTREAM"
 WORK="${BERRAK_FF_DIR:-$HERE/work}"
-ABI="${BERRAK_ABI:-x86_64}"
-TASKS=("$@")
-[ ${#TASKS[@]} -gt 0 ] || TASKS=(:app:assembleKlarRelease)
-
+ABI="${BERRAK_ABI:-all}"
+FAT=""
 case "$ABI" in
+  all) TARGET=aarch64-linux-android; FAT=armeabi-v7a,arm64-v8a,x86_64 ;;
   x86_64) TARGET=x86_64-linux-android ;;
   arm64-v8a) TARGET=aarch64-linux-android ;;
   armeabi-v7a) TARGET=arm-linux-androideabi ;;
@@ -62,6 +66,9 @@ ac_add_options --enable-artifact-builds
 ac_add_options --target=$TARGET
 mk_add_options MOZ_OBJDIR=./objdir-$ABI
 MOZ
+if [ -n "$FAT" ]; then
+  echo "export MOZ_ANDROID_FAT_AAR_ARCHITECTURES=$FAT" >> mozconfig
+fi
 # Not --no-system-changes: that also skips the Android SDK.
 ./mach --no-interactive bootstrap --application-choice mobile_android_artifact_mode
 ./mach build
@@ -69,17 +76,26 @@ MOZ
 # 3. The app. Upstream's Gradle settings (7 GB heap, a worker per core, a
 # separate Kotlin daemon) can exhaust a laptop; cap and slow it down.
 VERSION="${BERRAK_VERSION:-$(git -C "$HERE" describe --tags --always 2>/dev/null | sed 's/^v//')}"
-GRADLE=(./mach gradle -p mobile/android/focus-android
-  --max-workers=3 -Dorg.gradle.parallel=false
-  "-Dorg.gradle.jvmargs=-Xmx5g -XX:MaxMetaspaceSize=1536m -XX:+UseParallelGC"
-  -Pkotlin.compiler.execution.strategy=in-process
-  -PversionName="$VERSION" "${TASKS[@]}")
-if command -v systemd-run >/dev/null && systemd-run --user --scope --quiet true 2>/dev/null; then
-  systemd-run --user --scope --quiet -p MemoryMax="${BERRAK_GRADLE_MEMORY:-10G}" \
-    -p MemorySwapMax=2G nice -n 10 "${GRADLE[@]}"
+gradle() {
+  local cmd=(./mach gradle -p mobile/android/focus-android
+    --max-workers=3 -Dorg.gradle.parallel=false
+    "-Dorg.gradle.jvmargs=-Xmx5g -XX:MaxMetaspaceSize=1536m -XX:+UseParallelGC"
+    -Pkotlin.compiler.execution.strategy=in-process
+    -PversionName="$VERSION" "$@")
+  if command -v systemd-run >/dev/null && systemd-run --user --scope --quiet true 2>/dev/null; then
+    systemd-run --user --scope --quiet -p MemoryMax="${BERRAK_GRADLE_MEMORY:-10G}" \
+      -p MemorySwapMax=2G nice -n 10 "${cmd[@]}"
+  else
+    nice -n 10 "${cmd[@]}"
+  fi
+}
+if [ $# -gt 0 ]; then
+  gradle "$@"
 else
-  nice -n 10 "${GRADLE[@]}"
+  # Two runs: with a bundle task in the same run, the APK comes out universal.
+  gradle :app:assembleKlarRelease
+  gradle :app:bundleKlarRelease
 fi
 ./mach gradle -p mobile/android/focus-android --stop >/dev/null 2>&1 || true
 
-echo "APKs: $WORK/objdir-$ABI/gradle/build/mobile/android/focus-android/app/outputs/apk/"
+echo "Outputs: $WORK/objdir-$ABI/gradle/build/mobile/android/focus-android/app/outputs/"
