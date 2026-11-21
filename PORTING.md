@@ -216,7 +216,11 @@ other ABIs, without `libxul.so`; they do not work.
 
 Still to do, in order:
 
-1. Store listing assets (screenshots from the new build).
+1. Store listing assets. Phone screenshots from the port build are in
+   `fastlane/metadata/android/en-US/images/phoneScreenshots/` (1080×2160,
+   Play's 2:1 limit: welcome, an httpx:// page, a web page through the
+   exit, the proxy-mode setting). Still needed: the 512×512 icon and the
+   1024×500 feature graphic.
 2. Play Console: when creating the app, choose to upload Berrak's own
    signing key (Play App Signing, "use your own key") so that Play's
    installs and the GitHub/IzzyOnDroid APKs share one certificate and can
