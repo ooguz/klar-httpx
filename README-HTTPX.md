@@ -168,9 +168,12 @@ or flip `network.websocket.allowInsecureFromHTTPS` via a GeckoView
   v0.2.0: "Rejecting browser request from dev.ooguz.berrak because the hash
   of the certificate … is not recognised").
 
-- **Extension install races a cold-start VIEW intent**: if an httpx URL arrives
-  before the built-in finishes installing, the navigation falls through to the
-  unknown-protocol error page; reload once the app is up.
+- **A link can arrive before the extension is installed** (a cold start from
+  another app, typically the first start after an update). Since 0.2.1 such
+  an httpx URL, or any web URL while proxy mode is on, is held and loaded
+  once the extension is in place. Before 0.2.1 an httpx URL fell through to
+  the unknown-protocol error page and, in proxy mode, a web URL loaded
+  directly, outside the exit.
 - **Focus's erase does not wipe the XMPP credentials**: the extension stores
   them in `storage.local`, which is profile-backed and survives "erase"
   (Focus's erase only closes private tabs). Wiping means reinstalling or
