@@ -1,6 +1,6 @@
 # Berrak CI — build the httpx-speaking Focus fork.
 #
-# Every push/PR builds klarDebug as a smoke check. A v* tag (or a manual
+# Every push/PR builds klarDebug as a smoke check. A v0.x tag (or a manual
 # dispatch with a versionName) builds klarRelease, signed when the two
 # signing secrets are configured:
 #   BERRAK_KEYSTORE_B64       base64 of the release .jks
@@ -18,7 +18,7 @@ name: berrak
 on:
   push:
     branches: [httpx]
-    tags: ["v*"]
+    tags: ["v0.*"]
   pull_request:
     branches: [httpx]
   workflow_dispatch:

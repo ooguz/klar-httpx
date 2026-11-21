@@ -111,6 +111,15 @@ IzzyOnDroid.
 The applied patches reproduce the development tree exactly (same git tree
 hash, `cafeeb22`).
 
+On GitHub, `.github/workflows/berrak-port.yml` runs `port/build.sh`: on a
+push that touches `port/` (outputs kept a week as workflow artifacts), on a
+manual dispatch, and on a `v1.x` or later tag, which must be signed and gets
+the per-ABI APKs and the AAB attached to its release. `v0.x` tags stay with
+`berrak.yml` (the Focus 125 line). The job frees the runner's unused
+toolchains, puts the work tree on the larger disk and caches `~/.mozbuild`
+without the emulator; the checks after the build are `targetSdkVersion`,
+16 KB alignment, a `libxul.so` in every APK and the Berrak signature.
+
 ## One build for every ABI (the App Bundle)
 
 An artifact build normally holds the Gecko of its one `--target` ABI. Set
@@ -189,6 +198,10 @@ load and loads it again once the extension is in place; it never falls
 back to a direct load. After the fix, the same upgrade-then-link sequence
 went through the exit. 0.x had the same code and has the same fix.
 
+`port/build.sh` itself, run from scratch on 2026-11-21 (new work tree,
+fetch, patches, bootstrap, the fat build and both Gradle runs): three
+signed per-ABI APKs, each with its own `libxul.so`, and the AAB.
+
 The App Bundle from the fat objdir, signed with the Berrak key
 (`jarsigner -verify`), installed through bundletool as an upgrade over the
 x86_64 build (same key, higher versionCode) and browsed through the exit.
@@ -203,13 +216,11 @@ other ABIs, without `libxul.so`; they do not work.
 
 Still to do, in order:
 
-1. CI: `port/build.sh` on GitHub Actions, caching `~/.mozbuild`; per-ABI
-   APKs and the AAB on tags.
-2. Store listing assets (screenshots from the new build).
-3. Play Console: when creating the app, choose to upload Berrak's own
+1. Store listing assets (screenshots from the new build).
+2. Play Console: when creating the app, choose to upload Berrak's own
    signing key (Play App Signing, "use your own key") so that Play's
    installs and the GitHub/IzzyOnDroid APKs share one certificate and can
    update each other.
-4. Release as Berrak 1.0, signed with the same key: its versionCodes
+3. Release as Berrak 1.0, signed with the same key: its versionCodes
    (`40DDDHHmm`, upstream's 2026 scheme) are above 0.x's, so it upgrades in
    place.

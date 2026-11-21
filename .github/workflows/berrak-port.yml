@@ -1,0 +1,176 @@
+# Berrak on current Firefox Focus (the Google Play line): port/build.sh.
+#
+# port/build.sh fetches Mozilla's tree at port/UPSTREAM, applies
+# port/patches and builds in mach artifact mode with one "fat" objdir, so a
+# single job writes a release APK per ABI and the App Bundle (PORTING.md).
+#
+#  - a push that touches port/ builds it and keeps the outputs for a week
+#    as workflow artifacts;
+#  - a v1.x (or later) tag builds the release and attaches the APKs and the
+#    AAB to the GitHub release; it refuses to run unsigned;
+#  - a manual dispatch builds with the versionName given.
+#
+# v0.x tags are the Focus 125 line, built by berrak.yml.
+#
+# Signing uses the same secrets as berrak.yml:
+#   BERRAK_KEYSTORE_B64       base64 of the release .jks
+#   BERRAK_KEYSTORE_PASSWORD  store+key password (key alias is "berrak")
+
+name: berrak-port
+
+on:
+  push:
+    branches: [httpx]
+    paths:
+      - "port/**"
+      - ".github/workflows/berrak-port.yml"
+    tags: ["v[1-9]*"]
+  workflow_dispatch:
+    inputs:
+      versionName:
+        description: "versionName (e.g. 1.0.0-rc1); empty: 0.0.0-ci.<sha>"
+        required: false
+
+concurrency:
+  group: berrak-port-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: write # attach the outputs to the GitHub release on tags
+    env:
+      KEYSTORE_B64: ${{ secrets.BERRAK_KEYSTORE_B64 }}
+      KEYSTORE_PASSWORD: ${{ secrets.BERRAK_KEYSTORE_PASSWORD }}
+      # Mozilla's tree (~7 GB) plus the objdir (~15 GB) do not fit beside
+      # the preinstalled toolchains; see "Make room".
+      BERRAK_FF_DIR: /mnt/berrak-work
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Make room
+        run: |
+          df -h / /mnt
+          # Toolchains this build does not use (mach brings its own Android
+          # SDK and JDK into ~/.mozbuild).
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc \
+            /usr/local/.ghcup /opt/hostedtoolcache/CodeQL /usr/share/swift \
+            /usr/local/share/boost /usr/local/share/powershell
+          sudo docker image prune --all --force >/dev/null || true
+          # The work tree goes on the larger disk when there is one.
+          avail_mnt=$(df --output=avail -BG /mnt 2>/dev/null | tail -1 | tr -dc 0-9)
+          avail_root=$(df --output=avail -BG / | tail -1 | tr -dc 0-9)
+          if [ "${avail_mnt:-0}" -gt "$avail_root" ]; then
+            sudo mkdir -p "$BERRAK_FF_DIR"
+            sudo chown "$USER:" "$BERRAK_FF_DIR"
+          else
+            echo "BERRAK_FF_DIR=$RUNNER_TEMP/berrak-work" >> "$GITHUB_ENV"
+          fi
+          df -h / /mnt
+
+      - name: Restore ~/.mozbuild
+        uses: actions/cache@v6
+        with:
+          # Mach's toolchains, Android SDK, JDK and artifact cache. Not the
+          # emulator, its system image or its AVD: nothing runs here.
+          path: |
+            ~/.mozbuild
+            !~/.mozbuild/android-device
+            !~/.mozbuild/android-sdk-linux/system-images
+            !~/.mozbuild/android-sdk-linux/emulator
+          key: mozbuild-${{ hashFiles('port/UPSTREAM') }}
+          restore-keys: mozbuild-
+
+      - name: Resolve versionName
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.versionName }}
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            name="${GITHUB_REF#refs/tags/v}"
+          elif [[ -n "$INPUT_VERSION" ]]; then
+            name="$INPUT_VERSION"
+          else
+            name="0.0.0-ci.${GITHUB_SHA::8}"
+          fi
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "BERRAK_VERSION=$name" >> "$GITHUB_ENV"
+
+      - name: Require signing secrets on tag releases
+        if: startsWith(github.ref, 'refs/tags/v') && env.KEYSTORE_B64 == ''
+        run: |
+          echo "A tag release must be signed: set BERRAK_KEYSTORE_B64 and" \
+               "BERRAK_KEYSTORE_PASSWORD. Refusing to publish unsigned builds." >&2
+          exit 1
+
+      - name: Materialize the signing keystore
+        if: env.KEYSTORE_B64 != ''
+        run: |
+          printf '%s' "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/berrak.jks"
+          {
+            echo "storeFile=$RUNNER_TEMP/berrak.jks"
+            echo "storePassword=$KEYSTORE_PASSWORD"
+            echo "keyAlias=berrak"
+            echo "keyPassword=$KEYSTORE_PASSWORD"
+          } > "$RUNNER_TEMP/berrak-keystore.properties"
+          echo "BERRAK_KEYSTORE_PROPERTIES=$RUNNER_TEMP/berrak-keystore.properties" >> "$GITHUB_ENV"
+
+      - name: Build (port/build.sh)
+        run: port/build.sh
+
+      - name: Collect the outputs
+        run: |
+          out="$BERRAK_FF_DIR/objdir-all/gradle/build/mobile/android/focus-android/app/outputs"
+          mkdir -p dist
+          v="${{ steps.version.outputs.name }}"
+          for apk in "$out"/apk/klar/release/app-klar-*-release.apk; do
+            abi=$(basename "$apk" | sed 's/^app-klar-//; s/-release\.apk$//')
+            cp "$apk" "dist/berrak-$v-$abi.apk"
+          done
+          cp "$out"/bundle/klarRelease/app-klar-release.aab "dist/berrak-$v.aab"
+          ls -l dist
+          df -h / "$BERRAK_FF_DIR"
+
+      - name: Check the outputs
+        run: |
+          set -o pipefail
+          sdk="$HOME/.mozbuild/android-sdk-linux"
+          bt="$(ls -d "$sdk"/build-tools/* | sort -V | tail -1)"
+          for apk in dist/*.apk; do
+            echo "== $apk"
+            "$bt/aapt2" dump badging "$apk" | grep -E "^package:|targetSdkVersion|native-code"
+            "$bt/zipalign" -c -P 16 4 "$apk"
+            # Each per-ABI APK must carry its own Gecko. (No grep -q or
+            # head here: an early exit is a SIGPIPE, which pipefail fails.)
+            unzip -Z1 "$apk" | grep "^lib/.*/libxul\.so$"
+            if [ -n "${BERRAK_KEYSTORE_PROPERTIES:-}" ]; then
+              "$bt/apksigner" verify --print-certs "$apk" | sed -n 1,3p
+            fi
+          done
+          if [ -n "${BERRAK_KEYSTORE_PROPERTIES:-}" ]; then
+            jarsigner="$(ls "$HOME"/.mozbuild/jdk/*/bin/jarsigner | sed -n 1p)"
+            # "jar verified." is the signed case; it warns about the
+            # self-signed certificate, which is expected.
+            "$jarsigner" -verify dist/*.aab | grep "^jar verified\.$"
+          fi
+
+      - name: Upload the outputs
+        uses: actions/upload-artifact@v7
+        with:
+          name: berrak-${{ steps.version.outputs.name }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: ${{ startsWith(github.ref, 'refs/tags/') && 90 || 7 }}
+          compression-level: 0 # APKs and the AAB are zips already
+
+      - name: Attach to the GitHub release
+        if: startsWith(github.ref, 'refs/tags/v') && env.BERRAK_KEYSTORE_PROPERTIES != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 ||
+            gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --generate-notes
+          gh release upload "$TAG" --repo "$GITHUB_REPOSITORY" --clobber dist/*
