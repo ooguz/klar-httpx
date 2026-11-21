@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Berrak store feature graphic (1024x500). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0E3A52"/>
+      <stop offset="1" stop-color="#0A2B3D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="500" fill="url(#bg)"/>
+  <!-- The launcher droplet, 108-unit viewport scaled by 4. -->
+  <g transform="translate(96 34) scale(4)">
+    <path d="M54 26 C48 38 34 52 34 66 A20 20 0 1 0 74 66 C74 52 60 38 54 26 Z" fill="#FFFFFF"/>
+  </g>
+  <g font-family="Noto Sans" fill="#FFFFFF">
+    <text x="440" y="236" font-size="104" font-weight="700">Berrak</text>
+    <text x="444" y="300" font-size="32" fill="#BBD4E1">Private browser for the web</text>
+    <text x="444" y="344" font-size="32" fill="#BBD4E1">and httpx:// pages over XMPP</text>
+  </g>
+</svg>

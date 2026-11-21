@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Berrak store icon (512x512, full bleed; Play applies its own mask).
+     The launcher's adaptive icon (klar/res/drawable/ic_launcher_*) scaled up. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 108 108">
+  <rect width="108" height="108" fill="#0E3A52"/>
+  <path d="M54 26 C48 38 34 52 34 66 A20 20 0 1 0 74 66 C74 52 60 38 54 26 Z" fill="#FFFFFF"/>
+</svg>

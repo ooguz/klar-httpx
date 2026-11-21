@@ -219,8 +219,10 @@ Still to do, in order:
 1. Store listing assets. Phone screenshots from the port build are in
    `fastlane/metadata/android/en-US/images/phoneScreenshots/` (1080×2160,
    Play's 2:1 limit: welcome, an httpx:// page, a web page through the
-   exit, the proxy-mode setting). Still needed: the 512×512 icon and the
-   1024×500 feature graphic.
+   exit, the proxy-mode setting); beside them `icon.png` (512×512) and
+   `featureGraphic.png` (1024×500), rendered with Inkscape from
+   `fastlane/art/*.svg` (text in Noto Sans). Done unless the screenshots
+   are redone with a nicer httpx:// page than the demo fixture.
 2. Play Console: when creating the app, choose to upload Berrak's own
    signing key (Play App Signing, "use your own key") so that Play's
    installs and the GitHub/IzzyOnDroid APKs share one certificate and can
