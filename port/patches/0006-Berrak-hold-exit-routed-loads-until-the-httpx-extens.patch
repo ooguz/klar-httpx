@@ -1,7 +1,7 @@
 From dc152c390f70ec07d86bd146e6b14cc0751ff8af Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
 Date: Fri, 20 Nov 2026 23:40:22 +0300
-Subject: [PATCH 6/6] Berrak: hold exit-routed loads until the httpx extension
+Subject: [PATCH 6/7] Berrak: hold exit-routed loads until the httpx extension
  is installed
 
 A link from another app can cold-start the browser before the bundled

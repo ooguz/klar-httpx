@@ -87,7 +87,7 @@ IzzyOnDroid.
 
 - `port/UPSTREAM`: the mozilla-firefox/firefox commit and Firefox version the
   patches apply to (now `release` at 159.0.1, `ae0a6047`).
-- `port/patches/`: six patches, in order:
+- `port/patches/`: seven patches, in order:
   1. own application id (`dev.ooguz.berrak`) and release signing;
   2. nothing leaves the device, no proprietary libraries: no Socorro or
      Sentry, no daily usage ping, Nimbus without a server, no Google Play
@@ -100,7 +100,8 @@ IzzyOnDroid.
   4. httpx:// through the bundled xmpp-httpx WebExtension, plus proxy mode;
   5. the bundled extension at 0.2.6;
   6. proxy mode never loads a page directly while the extension is still
-     installing (see Status).
+     installing (see Status);
+  7. the bundled extension at 0.2.7: linked stylesheets apply (see Status).
 - `port/build.sh`: fetches the pinned commit (shallow), applies the patches
   and builds in artifact mode with the memory limits above. It resets only
   a work tree it created itself (`port/work/` by default, git-ignored).
@@ -109,7 +110,7 @@ IzzyOnDroid.
   ABI, faster, for the emulator.
 
 The applied patches reproduce the development tree exactly (same git tree
-hash, `cafeeb22`).
+hash, `619165f1`).
 
 On GitHub, `.github/workflows/berrak-port.yml` runs `port/build.sh`: on a
 push that touches `port/` (outputs kept a week as workflow artifacts), on a
@@ -197,6 +198,20 @@ it and let it load **directly**, outside the exit. Patch 6 holds such a
 load and loads it again once the extension is in place; it never falls
 back to a direct load. After the fix, the same upgrade-then-link sequence
 went through the exit. 0.x had the same code and has the same fix.
+
+Also found in proxy mode: xmpp.org came out unstyled. The extension
+stripped `<link>`, so only a page's inline `<style>` applied, and most of
+the web styles itself from linked sheets (the IANA page above happens not
+to). xmpp-httpx 68edae6 fetches each linked sheet the way it fetches the
+page's images (through the exit in proxy mode), sanitizes it like an inline
+`<style>` and puts it in the link's place. On the emulator that first
+failed the whole page: Gecko refuses `setProperty` on an `@font-face`
+rule's declarations, which the sanitizer used to rewrite a font's
+`url()` (an inline `<style>` with a web font failed the same way before).
+xmpp-httpx 629bd45 rebuilds font-face rules instead. Patch 7 bundles both
+as 0.2.7; on the `Pixel_10` emulator, klarRelease in proxy mode through
+the same exit, xmpp.org now loads with its stylesheets, web font and icon
+font.
 
 `port/build.sh` itself, run from scratch on 2026-11-21 (new work tree,
 fetch, patches, bootstrap, the fat build and both Gradle runs): three

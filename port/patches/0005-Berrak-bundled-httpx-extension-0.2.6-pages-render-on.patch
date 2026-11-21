@@ -1,7 +1,7 @@
 From b55bb9a8d46ad76a379b5d1878b358cd76d98388 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
 Date: Mon, 2 Nov 2026 04:18:37 +0300
-Subject: [PATCH 5/6] Berrak: bundled httpx extension 0.2.6 (pages render on
+Subject: [PATCH 5/7] Berrak: bundled httpx extension 0.2.6 (pages render on
  Gecko 159)
 
 Rebuilt from xmpp-httpx 7d97822, which writes pages into the view frame

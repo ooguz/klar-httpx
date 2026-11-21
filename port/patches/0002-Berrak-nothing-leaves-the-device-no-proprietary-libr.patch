@@ -1,7 +1,7 @@
 From 38c9251f2171aead6b87d6ea96b7383bedf9eaed Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
 Date: Mon, 2 Nov 2026 04:01:57 +0300
-Subject: [PATCH 2/6] Berrak: nothing leaves the device; no proprietary
+Subject: [PATCH 2/7] Berrak: nothing leaves the device; no proprietary
  libraries
 
 Ported from Berrak 0.x onto Focus 159, adjusted for what upstream changed:
