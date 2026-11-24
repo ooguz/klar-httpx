@@ -1,7 +1,7 @@
 From d15c48109ab855637245697cc3928ec9c0fb11b8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
 Date: Mon, 2 Nov 2026 04:03:49 +0300
-Subject: [PATCH 3/7] Berrak: name, art and wording in place of Mozilla's marks
+Subject: [PATCH 3/8] Berrak: name, art and wording in place of Mozilla's marks
 
 - klar flavour: app name "Berrak"; Berrak's launcher (adaptive-icon
   drawables, which is all minSdk 26 uses), notification, splash, onboarding,

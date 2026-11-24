@@ -87,7 +87,7 @@ IzzyOnDroid.
 
 - `port/UPSTREAM`: the mozilla-firefox/firefox commit and Firefox version the
   patches apply to (now `release` at 159.0.1, `ae0a6047`).
-- `port/patches/`: seven patches, in order:
+- `port/patches/`: eight patches, in order:
   1. own application id (`dev.ooguz.berrak`) and release signing;
   2. nothing leaves the device, no proprietary libraries: no Socorro or
      Sentry, no daily usage ping, Nimbus without a server, no Google Play
@@ -101,7 +101,9 @@ IzzyOnDroid.
   5. the bundled extension at 0.2.6;
   6. proxy mode never loads a page directly while the extension is still
      installing (see Status);
-  7. the bundled extension at 0.2.7: linked stylesheets apply (see Status).
+  7. the bundled extension at 0.2.7: linked stylesheets apply (see Status);
+  8. the bundled extension at 0.2.8: a page with its own stylesheet keeps
+     its layout (see Status). Berrak 0.x bundles the same 0.2.8.
 - `port/build.sh`: fetches the pinned commit (shallow), applies the patches
   and builds in artifact mode with the memory limits above. It resets only
   a work tree it created itself (`port/work/` by default, git-ignored).
@@ -110,7 +112,7 @@ IzzyOnDroid.
   ABI, faster, for the emulator.
 
 The applied patches reproduce the development tree exactly (same git tree
-hash, `619165f1`).
+hash, `36a43031`).
 
 On GitHub, `.github/workflows/berrak-port.yml` runs `port/build.sh`: on a
 push that touches `port/` (outputs kept a week as workflow artifacts), on a
@@ -212,6 +214,15 @@ xmpp-httpx 629bd45 rebuilds font-face rules instead. Patch 7 bundles both
 as 0.2.7; on the `Pixel_10` emulator, klarRelease in proxy mode through
 the same exit, xmpp.org now loads with its stylesheets, web font and icon
 font.
+
+It still loaded inside the extension's reading style, a centred 46rem
+column meant for unstyled httpx pages. xmpp-httpx e2e6627 applies that
+style only to pages that bring no stylesheet of their own; patch 8 bundles
+it as 0.2.8. Berrak 0.x got the same files as 0.2.8 too (one version, one
+code), checked on GeckoView 125 (`Pixel_6_API_34`, proxy mode): xmpp.org
+full width, with its fonts. The port's 0.2.8 was not rebuilt for a device
+check; the change is page-side JavaScript, covered by xmpp-httpx's Chromium
+and Firefox tests.
 
 `port/build.sh` itself, run from scratch on 2026-11-21 (new work tree,
 fetch, patches, bootstrap, the fat build and both Gradle runs): three

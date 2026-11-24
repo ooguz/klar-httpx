@@ -1,7 +1,7 @@
 From 2cf7828f10d2696a7fc7a454448bb78e17e04bec Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
 Date: Sat, 21 Nov 2026 19:23:58 +0300
-Subject: [PATCH 7/7] Berrak: bundled httpx extension 0.2.7 (linked stylesheets
+Subject: [PATCH 7/8] Berrak: bundled httpx extension 0.2.7 (linked stylesheets
  apply)
 
 Rebuilt from xmpp-httpx 629bd45. 68edae6 fetches a page's linked

@@ -1,7 +1,7 @@
 From 91c5bb62d17130e4fd022cd88c0e3ef9413e4e33 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C3=96zcan=20O=C4=9Fuz?= <ozcan@oyd.org.tr>
 Date: Mon, 2 Nov 2026 04:13:19 +0300
-Subject: [PATCH 4/7] Berrak: httpx:// through the bundled xmpp-httpx
+Subject: [PATCH 4/8] Berrak: httpx:// through the bundled xmpp-httpx
  WebExtension
 
 Ported from Berrak 0.x; the integration points are unchanged upstream:
